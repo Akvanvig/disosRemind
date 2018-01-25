@@ -73,7 +73,8 @@ function isInteger(num) {
 class Reminder {
     //Takes in time for alarm, userID that requested reminder, channelID it was requested in and text requested
     constructor(time, uid, chid, text) {
-        this.time = (time * 60 * 1000) + Date.getTime();
+        var d = new Date();
+        this.time = (time * 60 * 1000) + d.getTime();
         this.uid = uid;
         this.chid = chid;
         this.text = text;
@@ -83,8 +84,8 @@ class Reminder {
         return this.time;
     }
 
-    sendReminder() {
-        bot.sendMessage({ to: this.chid, message: '<@!' + this.uid + '> ' + this.text });
+    get Reminder() {
+        return "{ to: this.chid, message: '<@!' + this.uid + '> ' + this.text }"
     }
 
     static compare(tidA, tidB) {
