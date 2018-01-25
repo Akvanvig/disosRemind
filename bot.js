@@ -43,11 +43,11 @@ bot.on('message', function (user, userID, channelID, message, evt) {
                         bot.sendMessage({ to: channelID, message: 'Du vil få en påminnelse om ' + args[0] + ' minutter' });
                         reminders.push(new Reminder(args[0], userID, channelID, text));
                         reminders.sort(reminders.compare);
-                        bot.sendMessage({to: channelID, message: reminders})
+                        bot.sendMessage({ to: channelID, message: reminders });
                         
                     }
                     else {
-                        bot.sendMessage({ to: channelID, message: 'Bare positive heltall :)))'})
+                        bot.sendMessage({ to: channelID, message: 'Bare positive heltall :)))' });
                     }
                 }
                 else {
@@ -73,13 +73,13 @@ function isInteger(num) {
 class Reminder {
     //Takes in time for alarm, userID that requested reminder, channelID it was requested in and text requested
     constructor(time, uid, chid, text) {
-        this.time = time;
+        this.time = (time * 60 * 1000) + Date.getTime();
         this.uid = uid;
         this.chid = chid;
         this.text = text;
     }
 
-    getTime() {
+    get Time() {
         return this.time;
     }
 
