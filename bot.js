@@ -37,13 +37,16 @@ bot.on('message', function (user, userID, channelID, message, evt) {
                     }
                 }
 
-                //funksjoner.RemindMe(userID, args[0], channelID, text, bot)
                 if (isInteger(args[0])) {
                     if (args[0] > 0 && args[0] % 1 == 0) {
                         bot.sendMessage({ to: channelID, message: 'Du vil f\u00e5 en p\u00e5minnelse om ' + args[0] + ' minutt(er)' });
                         reminders.push(new Reminder(args[0], userID, channelID, text));
-                        reminders.sort(reminders.compare);
-                        bot.sendMessage({ to: channelID, message: reminders[0].time });
+                        //Sorterer fohåpentligvis arrayen
+                        reminders.sort(reminders.compareNumbers);
+                        //Skriver ut alle unix-epoch timestamps gitt til nå
+                        for (var j = 0; j < reminders.length; j++) {
+                            bot.sendMessage({ to: channelID, message: reminders[j].time });
+                        }
                         
                     }
                     else {
@@ -74,21 +77,21 @@ class Reminder {
     //Takes in time for alarm, userID that requested reminder, channelID it was requested in and text requested
     constructor(time, uid, chid, text) {
         var d = new Date();
-        this.time = (time * 60 * 1000) + d.getTime();
+        this.time = ((time * 60 * 1000) + (d.getTime()));
         this.uid = uid;
         this.chid = chid;
         this.text = text;
     }
 
-    get Time() {
+    get time() {
         return this.time;
     }
 
-    get Reminder() {
-        return "{ to: this.chid, message: '<@!' + this.uid + '> ' + this.text }"
+    get reminder() {
+        return "{ to: this.chid, message: '<@!' + this.uid + '> ' + this.text }";
     }
 
-    static compare(tidA, tidB) {
-        return tidA.Time() - tidB.Time();
+    static compareNumbers(tidA, tidB) {
+        return tidB.Time() - tidA.Time();
     }
 };
