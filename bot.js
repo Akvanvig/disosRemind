@@ -38,7 +38,7 @@ bot.on('message', function (user, userID, channelID, message, evt) {
                 }
 
                 //funksjoner.RemindMe(userID, args[0], channelID, text, bot)
-                if (isNumeric(args[0])) {
+                if (isInteger(args[0])) {
                     if (args[0] > 0 && args[0] % 1 == 0) {
                         bot.sendMessage({ to: channelID, message: 'Du vil få en påminnelse om ' + args[0] + ' minutter' });
                         reminders.push(new Reminder(args[0], userID, channelID, text));
