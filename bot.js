@@ -1,6 +1,7 @@
 var Discord = require('discord.io');
 var logger = require('winston');
 var auth = require('./auth.json');
+var funksjoner = require('./funksjoner.js');
 //configure loggersettings
 logger.remove(logger.transports.Console);
 logger.add(logger.transports.Console, { colorize: true });
@@ -29,12 +30,7 @@ bot.on('message', function (user, userID, channelID, message, evt) {
                 //bot.sendMessage({to: channelID, message: 'Kan ikke love noe xdd'});
                 //bot.sendMessage({to: channelID, message: remindMe(args[0], userID)});
 
-                if (isNumeric(args[0])) {
-                    bot.sendMessage({ to: channelID, message: 'Du vil få en påminnelse om ' + args[0] + ' minutter' });
-                }
-                else {
-                    bot.sendMessage({ to: channelID, message: 'err0r not a number' });
-                }
+
                 break;
 
             case 'tag':
@@ -46,8 +42,3 @@ bot.on('message', function (user, userID, channelID, message, evt) {
         }
     }
 });
-
-
-function isNumeric(n) {
-    return !isNaN(parseInt(n)) && isFinite(n);
-}
