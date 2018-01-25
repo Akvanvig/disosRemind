@@ -1,7 +1,8 @@
 var Discord = require('discord.io');
 var logger = require('winston');
 var auth = require('./auth.json');
-var funksjoner = require('./funksjoner.js');
+var reminders = [];
+
 //configure loggersettings
 logger.remove(logger.transports.Console);
 logger.add(logger.transports.Console, { colorize: true });
@@ -29,8 +30,29 @@ bot.on('message', function (user, userID, channelID, message, evt) {
             case 'RemindMe':
                 //bot.sendMessage({to: channelID, message: 'Kan ikke love noe xdd'});
                 //bot.sendMessage({to: channelID, message: remindMe(args[0], userID)});
+                var text = '';
+                if (args.length > 1) {
+                    for (var i = 1; i < args.length; i++) {
+                        text += args[i];
+                    }
+                }
 
-
+                //funksjoner.RemindMe(userID, args[0], channelID, text, bot)
+                if (funksjoner.isNumeric(args[0])) {
+                    if (args[0] > 0 && args[0] % 1 == 0) {
+                        bot.sendMessage({ to: channelID, message: 'Du vil få en påminnelse om ' + args[0] + ' minutter' });
+                        reminders.push(new Reminder(args[0], userID, channelID, text));
+                        reminders.sort(reminders.compare);
+                        bot.sendMessage({to: channelID, message: reminders})
+                        
+                    }
+                    else {
+                        bot.sendMessage({ to: channelID, message: 'Bare positive heltall :)))'})
+                    }
+                }
+                else {
+                    bot.sendMessage({ to: channelID, message: 'err0r not a number' });
+                }
                 break;
 
             case 'tag':
@@ -42,3 +64,30 @@ bot.on('message', function (user, userID, channelID, message, evt) {
         }
     }
 });
+
+function isInteger(num) {
+    return !isNaN(parseInt(num)) && isFinite(num);
+}
+
+//Mangler metode for å sortere så neste alarm havner nederst (kan da bruke pop på array for å fjerne siste element)
+class Reminder {
+    //Takes in time for alarm, userID that requested reminder, channelID it was requested in and text requested
+    constructor(time, uid, chid, text) {
+        this.time = time;
+        this.uid = uid;
+        this.chid = chid;
+        this.text = text;
+    }
+
+    getTime() {
+        return this.time;
+    }
+
+    sendReminder() {
+        bot.sendMessage({ to: this.chid, message: '<@!' + this.uid + '> ' + this.text });
+    }
+
+    static compare(tidA, tidB) {
+        return tidA.getTime() - tidB.getTime();
+    }
+};
