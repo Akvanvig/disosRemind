@@ -45,7 +45,7 @@ bot.on('message', function (user, userID, channelID, message, evt) {
                         reminders.sort(reminders.compareNumbers);
                         //Skriver ut alle unix-epoch timestamps gitt til nå
                         for (var j = 0; j < reminders.length; j++) {
-                            bot.sendMessage({ to: channelID, message: reminders[j].time });
+                            bot.sendMessage({ to: channelID, message: reminders[j].finishTime });
                         }
                         
                     }
@@ -83,7 +83,7 @@ class Reminder {
         this.text = text;
     }
 
-    get time() {
+    get finishTime() {
         return this.time;
     }
 
@@ -92,6 +92,6 @@ class Reminder {
     }
 
     static compareNumbers(tidA, tidB) {
-        return tidB.Time() - tidA.Time();
+        return tidB.finishTime() - tidA.finishTime();
     }
 };
