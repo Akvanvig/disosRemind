@@ -44,18 +44,20 @@ bot.on('message', function (user, userID, channelID, message, evt) {
                         //Sorterer fohåpentligvis arrayen
                         reminders.sort(function compareNumbers(a, b) { return a.finishTime - b.finishTime;});
                         //Skriver ut alle unix-epoch timestamps gitt til nå
-                        setTimeout(donothing(), 5000);
-                        for (var j = 0; j < reminders.length; j++) {
-                            bot.sendMessage({ to: channelID, message: reminders[j].finishTime });
-                        }
-                        
+                        setTimeout(function () {
+                            for (var j = 0; j < reminders.length; j++) {
+                                bot.sendMessage({ to: channelID, message: reminders[j].finishTime });
+                            }
+                        }, 500);
                     }
+                    //Hvis tallet er mindre enn 0, eller ikke delbart med 1
                     else {
                         bot.sendMessage({ to: channelID, message: 'Bare positive heltall :)))' });
                     }
                 }
+                //Hvis det ikke blir skrevet et tall etter ?RemindMe
                 else {
-                    bot.sendMessage({ to: channelID, message: 'err0r not a number' });
+                    bot.sendMessage({ to: channelID, message: 'Brukes slik:\n\t\t?RemindMe [positiv integer antall minutt] [Eventuell tekst du ønsker å motta]' });
                 }
                 break;
 
