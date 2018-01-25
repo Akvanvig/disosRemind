@@ -44,6 +44,7 @@ bot.on('message', function (user, userID, channelID, message, evt) {
                         //Sorterer fohåpentligvis arrayen
                         reminders.sort(function compareNumbers(a, b) { return a.finishTime - b.finishTime;});
                         //Skriver ut alle unix-epoch timestamps gitt til nå
+                        setTimeout(donothing(), 5000);
                         for (var j = 0; j < reminders.length; j++) {
                             bot.sendMessage({ to: channelID, message: reminders[j].finishTime });
                         }
