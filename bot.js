@@ -42,7 +42,7 @@ bot.on('message', function (user, userID, channelID, message, evt) {
                         bot.sendMessage({ to: channelID, message: 'Du vil f\u00e5 en p\u00e5minnelse om ' + args[0] + ' minutt(er)' });
                         reminders.push(new Reminder(args[0], userID, channelID, text));
                         //Sorterer fohåpentligvis arrayen
-                        reminders.sort(reminders.compareNumbers);
+                        reminders.sort(function compareNumbers(a, b) { return b.finishTime - a.finishTime;});
                         //Skriver ut alle unix-epoch timestamps gitt til nå
                         for (var j = 0; j < reminders.length; j++) {
                             bot.sendMessage({ to: channelID, message: reminders[j].finishTime });
