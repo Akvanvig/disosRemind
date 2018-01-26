@@ -44,11 +44,13 @@ bot.on('message', function (user, userID, channelID, message, evt) {
                         //Sorterer fohåpentligvis arrayen
                         reminders.sort(function compareNumbers(a, b) { return a.finishTime - b.finishTime;});
                         //Skriver ut alle unix-epoch timestamps gitt til nå
+                        var tekst = ''
                         setTimeout(function () {
                             for (var j = 0; j < reminders.length; j++) {
-                                setTimeout(function () { bot.sendMessage({ to: channelID, message: reminders[j].finishTime }); }, j * 500);
+                                tekst += reminders[j].finishTime;
                             }
                         }, 500);
+                        bot.sendMessage({ to: channelID, message: tekst });
                     }
                     //Hvis tallet er mindre enn 0, eller ikke delbart med 1
                     else {
