@@ -62,7 +62,7 @@ bot.on('message', function (user, userID, channelID, message, evt) {
             case 'reminders':
                 var tekst = '\t User ID: \t\t Remaining time\n'
                 for (var i = 0; i < reminders.length; i++) {
-                    tekst += ' ' + reminders.userID + ' \t ' + reminders.remainingTime + ' \t ' + reminders.reqText;
+                    tekst += ' ' + reminders[i].userID + ' \t ' + reminders[i].remainingTime + ' \t ' + reminders[i].reqText;
                 }
                 bot.sendMessage({ to:channelID, message: tekst})
                 break;
