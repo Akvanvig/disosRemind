@@ -103,7 +103,11 @@ class Reminder {
     }
 };
 
+//Sjekkes hvert sekund pga. timer satt opp øverst
 function checkLastReminder() {
     var lengde = reminders.length;
-    return ;
+    if (lengde > 0 && reminders[lengde].finishTime <= new Date().getTime()) {
+        bot.sendMessage(reminders[lengde].reminder);
+        reminders.pop()
+    }
 }
