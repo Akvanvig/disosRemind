@@ -46,7 +46,7 @@ bot.on('message', function (user, userID, channelID, message, evt) {
                         //Skriver ut alle unix-epoch timestamps gitt til nå
                         setTimeout(function () {
                             for (var j = 0; j < reminders.length; j++) {
-                                bot.sendMessage({ to: channelID, message: reminders[j].finishTime });
+                                setTimeout(function () { bot.sendMessage({ to: channelID, message: reminders[j].finishTime }); }, j * 500);
                             }
                         }, 500);
                     }
