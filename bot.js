@@ -49,8 +49,9 @@ bot.on('message', function (user, userID, channelID, message, evt) {
                             for (var j = 0; j < reminders.length; j++) {
                                 tekst += reminders[j].finishTime;
                             }
+                            bot.sendMessage({ to: channelID, message: tekst });
                         }, 500);
-                        bot.sendMessage({ to: channelID, message: tekst });
+                        
                     }
                     //Hvis tallet er mindre enn 0, eller ikke delbart med 1
                     else {
