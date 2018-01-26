@@ -47,7 +47,7 @@ bot.on('message', function (user, userID, channelID, message, evt) {
                         var tekst = ''
                         setTimeout(function () {
                             for (var j = 0; j < reminders.length; j++) {
-                                tekst += reminders[j].finishTime;
+                                tekst += ' ' + reminders[j].finishTime.toString(2) + '\n';
                             }
                             bot.sendMessage({ to: channelID, message: tekst });
                         }, 500);
