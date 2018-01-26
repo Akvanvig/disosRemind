@@ -67,8 +67,8 @@ bot.on('message', function (user, userID, channelID, message, evt) {
                 break;
 
             case 'grandis':
-                reminders.push(new Reminder(args[0], userID, channelID, 'Grandis'));
-                bot.sendMessage({to: channelID, message: 'du vil varslet om 10 min'})
+                reminders.push(new Reminder(10, userID, channelID, 'Grandis'));
+                bot.sendMessage({to: channelID, message: 'du vil bli varslet om 10 min'})
 
             case 'tag':
                 bot.sendMessage({ to: channelID, message: '<@!' + userID + '>' });
