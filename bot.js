@@ -2,16 +2,13 @@ var Discord = require('discord.io');
 var logger = require('winston');
 var auth = require('./auth.json');
 var reminders = [];
-
+var checkReminders = setInterval(checkLastReminder,1000);
 //configure loggersettings
 logger.remove(logger.transports.Console);
 logger.add(logger.transports.Console, { colorize: true });
 logger.level = 'debug';
 //initialize Discord bot
-var bot = new Discord.Client({ token: auth.token, autorun: true })
-while (true) {
-    reminders = setTimeout(checkLastReminder(reminders), 1000);
-}
+var bot = new Discord.Client({ token: auth.token, autorun: true });
 
 bot.on('ready', function (evt) {
     logger.info('Connected');
@@ -45,9 +42,9 @@ bot.on('message', function (user, userID, channelID, message, evt) {
                     if (args[0] > 0 && args[0] % 1 == 0) {
                         bot.sendMessage({ to: channelID, message: 'Du vil f\u00e5 en p\u00e5minnelse om ' + args[0] + ' minutt(er)' });
                         reminders.push(new Reminder(args[0], userID, channelID, text));
-                        //Sorterer fohåpentligvis arrayen
+                        //Sorterer fohï¿½pentligvis arrayen
                         reminders.sort(function compareNumbers(a, b) { return b.finishTime - a.finishTime;});
-                        //Skriver ut alle unix-epoch timestamps gitt til nå
+                        //Skriver ut alle unix-epoch timestamps gitt til nï¿½
                         var tekst = ''
                         setTimeout(function () {
                             for (var j = 0; j < reminders.length; j++) {
@@ -55,7 +52,7 @@ bot.on('message', function (user, userID, channelID, message, evt) {
                             }
                             bot.sendMessage({ to: channelID, message: tekst });
                         }, 500);
-                        
+
                     }
                     //Hvis tallet er mindre enn 0, eller ikke delbart med 1
                     else {
@@ -64,7 +61,7 @@ bot.on('message', function (user, userID, channelID, message, evt) {
                 }
                 //Hvis det ikke blir skrevet et tall etter ?RemindMe
                 else {
-                    bot.sendMessage({ to: channelID, message: 'Brukes slik:\n\t\t?RemindMe [positiv integer antall minutt] [Eventuell tekst du ønsker å motta]' });
+                    bot.sendMessage({ to: channelID, message: 'Brukes slik:\n\t\t?RemindMe [positiv integer antall minutt] [Eventuell tekst du ï¿½nsker ï¿½ motta]' });
                 }
                 break;
 
@@ -82,7 +79,7 @@ function isInteger(num) {
     return !isNaN(parseInt(num)) && isFinite(num);
 }
 
-//Mangler metode for å sortere så neste alarm havner nederst (kan da bruke pop på array for å fjerne siste element)
+//Mangler metode for ï¿½ sortere sï¿½ neste alarm havner nederst (kan da bruke pop pï¿½ array for ï¿½ fjerne siste element)
 class Reminder {
     //Takes in time for alarm, userID that requested reminder, channelID it was requested in and text requested
     constructor(time, uid, chid, text) {
@@ -97,16 +94,16 @@ class Reminder {
         return this.time;
     }
 
+    get channelID() {
+      return this.chid;
+    }
+
     get reminder() {
         return "{ to: this.chid, message: '<@!' + this.uid + '> ' + this.text }";
     }
 };
 
-function checkLastReminder(reminders) {
-    var lengde = reminders.length();
-    if (reminders[lengde].finishTime <= (new Date().getTime())) {
-        bot.sendMessage(reminders[lengde].reminder());
-        reminders.pop();
-    }
-    return reminders;
+function checkLastReminder() {
+    var lengde = reminders.length;
+    return ;
 }
