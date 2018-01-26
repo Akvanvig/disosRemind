@@ -34,7 +34,7 @@ bot.on('message', function (user, userID, channelID, message, evt) {
                 var text = '';
                 if (args.length > 1) {
                     for (var i = 1; i < args.length; i++) {
-                        text += args[i];
+                        text += args[i] + ' ';
                     }
                 }
 
@@ -45,6 +45,7 @@ bot.on('message', function (user, userID, channelID, message, evt) {
                         //Sorterer foh�pentligvis arrayen
                         reminders.sort(function compareNumbers(a, b) { return b.finishTime - a.finishTime;});
                         //Skriver ut alle unix-epoch timestamps gitt til n�
+                        /*
                         var tekst = ''
                         setTimeout(function () {
                             for (var j = 0; j < reminders.length; j++) {
@@ -52,7 +53,7 @@ bot.on('message', function (user, userID, channelID, message, evt) {
                             }
                             bot.sendMessage({ to: channelID, message: tekst });
                         }, 500);
-
+                        */
                     }
                     //Hvis tallet er mindre enn 0, eller ikke delbart med 1
                     else {
@@ -61,9 +62,13 @@ bot.on('message', function (user, userID, channelID, message, evt) {
                 }
                 //Hvis det ikke blir skrevet et tall etter ?RemindMe
                 else {
-                    bot.sendMessage({ to: channelID, message: 'Brukes slik:\n\t\t?RemindMe [positiv integer antall minutt] [Eventuell tekst du �nsker � motta]' });
+                    bot.sendMessage({ to: channelID, message: 'Brukes slik:\n\t\t?RemindMe [positiv integer antall minutt] [Eventuell tekst du \u00f8nsker \u00e5 motta]' });
                 }
                 break;
+
+            case 'grandis':
+                reminders.push(new Reminder(args[0], userID, channelID, 'Grandis'));
+                bot.sendMessage({to: channelID, message: 'du vil varslet om 10 min'})
 
             case 'tag':
                 bot.sendMessage({ to: channelID, message: '<@!' + userID + '>' });
