@@ -88,7 +88,7 @@ class Reminder {
         this.uid = uid;
         this.chid = chid;
         this.text = text;
-        logger.info('Påminnelse oopprettet');
+        logger.info('Påminnelse opprettet');
     }
 
     get finishTime() {
@@ -99,8 +99,12 @@ class Reminder {
       return this.chid;
     }
 
-    get reminder() {
-        return "{ to: this.chid, message: '<@!' + this.uid + '> ' + this.text }";
+    get userID() {
+        return this.uid;
+    }
+
+    get reqText() {
+      return this.text;
     }
 };
 
@@ -108,8 +112,8 @@ class Reminder {
 function checkLastReminder() {
     var lengde = reminders.length;
     if (lengde > 0 && reminders[lengde - 1].finishTime <= new Date().getTime()) {
-        bot.sendMessage(reminders[lengde - 1].reminder);
+        bot.sendMessage({to: reminders[lengde - 1].channelID , message: '<@!' + reminders[lengde - 1].userID + '> ' + reminders[lengde - 1].reqText});
         reminders.pop();
-        logger.info('reminder sent');
+        logger.info('Påminnelse sendt');
     }
 }
