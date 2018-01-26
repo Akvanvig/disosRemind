@@ -75,7 +75,7 @@ bot.on('message', function (user, userID, channelID, message, evt) {
                 break;
 
             default:
-                bot.sendMessage({ to: channelID, message: 'Commands: \n\n ping: \n\t\tpong? \n\n RemindMe: \n\t\tIkke implementert' });
+                bot.sendMessage({ to: channelID, message: 'Commands: \n\n ping: \n\t\tpong? \n\n RemindMe: \n\t\t?RemindMe [positiv integer antall minutt] [Eventuell tekst du \u00f8nsker \u00e5 motta]\n\n?grandis\n\t\tGir deg varsel om ti minutt' });
         }
     }
 });
