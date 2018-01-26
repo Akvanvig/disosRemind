@@ -88,6 +88,7 @@ class Reminder {
         this.uid = uid;
         this.chid = chid;
         this.text = text;
+        logger.info('Påminnelse oopprettet');
     }
 
     get finishTime() {
@@ -106,8 +107,9 @@ class Reminder {
 //Sjekkes hvert sekund pga. timer satt opp øverst
 function checkLastReminder() {
     var lengde = reminders.length;
-    if (lengde > 0 && reminders[lengde].finishTime <= new Date().getTime()) {
-        bot.sendMessage(reminders[lengde].reminder);
-        reminders.pop()
+    if (lengde > 0 && reminders[lengde - 1].finishTime <= new Date().getTime()) {
+        bot.sendMessage(reminders[lengde - 1].reminder);
+        reminders.pop();
+        logger.info('reminder sent');
     }
 }
