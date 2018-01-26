@@ -29,8 +29,6 @@ bot.on('message', function (user, userID, channelID, message, evt) {
                 break;
 
             case 'RemindMe':
-                //bot.sendMessage({to: channelID, message: 'Kan ikke love noe xdd'});
-                //bot.sendMessage({to: channelID, message: remindMe(args[0], userID)});
                 var text = '';
                 if (args.length > 1) {
                     for (var i = 1; i < args.length; i++) {
@@ -42,18 +40,8 @@ bot.on('message', function (user, userID, channelID, message, evt) {
                     if (args[0] > 0 && args[0] % 1 == 0) {
                         bot.sendMessage({ to: channelID, message: 'Du vil f\u00e5 en p\u00e5minnelse om ' + args[0] + ' minutt(er)' });
                         reminders.push(new Reminder(args[0], userID, channelID, text));
-                        //Sorterer foh�pentligvis arrayen
+                        //Sorterer fohåpentligvis arrayen
                         reminders.sort(function compareNumbers(a, b) { return b.finishTime - a.finishTime;});
-                        //Skriver ut alle unix-epoch timestamps gitt til n�
-                        /*
-                        var tekst = ''
-                        setTimeout(function () {
-                            for (var j = 0; j < reminders.length; j++) {
-                                tekst += ' ' + reminders[j].finishTime.toString(2) + '\n ';
-                            }
-                            bot.sendMessage({ to: channelID, message: tekst });
-                        }, 500);
-                        */
                     }
                     //Hvis tallet er mindre enn 0, eller ikke delbart med 1
                     else {
@@ -68,14 +56,23 @@ bot.on('message', function (user, userID, channelID, message, evt) {
 
             case 'grandis':
                 reminders.push(new Reminder(10, userID, channelID, 'Grandis'));
-                bot.sendMessage({to: channelID, message: 'du vil bli varslet om 10 min'})
+                bot.sendMessage({ to: channelID, message: 'du vil bli varslet om 10 min' })
+                break;
+
+            case 'reminders':
+                var tekst = '\t User ID: \t\t Remaining time\n'
+                for (var i = 0; i < reminders.length; i++) {
+                    tekst += ' ' + reminders.userID + ' \t ' + reminders.remainingTime + ' \t ' + reminders.reqText;
+                }
+                bot.sendMessage({ to:channelID, message: tekst})
+                break;
 
             case 'tag':
                 bot.sendMessage({ to: channelID, message: '<@!' + userID + '>' });
                 break;
 
             default:
-                bot.sendMessage({ to: channelID, message: 'Commands: \n\n ping: \n\t\tpong? \n\n RemindMe: \n\t\t?RemindMe [positiv integer antall minutt] [Eventuell tekst du \u00f8nsker \u00e5 motta]\n\n?grandis\n\t\tGir deg varsel om ti minutt' });
+                bot.sendMessage({ to: channelID, message: 'Commands: \n\n ping: \n\t\tpong? \n\n RemindMe: \n\t\t?RemindMe [positiv integer antall minutt] [Eventuell tekst du \u00f8nsker \u00e5 motta]\n\ngrandis\n\t\tGir deg varsel om ti minutt \n\n reminders\n\t\tLar deg se alle p\u00e5minnelser' });
         }
     }
 });
@@ -84,7 +81,7 @@ function isInteger(num) {
     return !isNaN(parseInt(num)) && isFinite(num);
 }
 
-//Mangler metode for � sortere s� neste alarm havner nederst (kan da bruke pop p� array for � fjerne siste element)
+
 class Reminder {
     //Takes in time for alarm, userID that requested reminder, channelID it was requested in and text requested
     constructor(time, uid, chid, text) {
@@ -98,6 +95,18 @@ class Reminder {
 
     get finishTime() {
         return this.time;
+    }
+
+    get remainingTime() {
+        var result = this.time - new Date().getTime();
+        result = result / 1000 / 60 / 60;
+
+        var hr  = Math.floor(result);
+        var min = (result % 1) * 60;
+        var sek = Math.floor((min % 1) * 60);
+        min = Math.floor(min);
+
+        return hr + ' hours, ' + min + ' minutes, ' + sek + ' seconds';
     }
 
     get channelID() {
@@ -118,6 +127,7 @@ function checkLastReminder() {
     var lengde = reminders.length;
     if (lengde > 0 && reminders[lengde - 1].finishTime <= new Date().getTime()) {
         bot.sendMessage({to: reminders[lengde - 1].channelID , message: '<@!' + reminders[lengde - 1].userID + '> ' + reminders[lengde - 1].reqText});
+        //fjerner reminder
         reminders.pop();
         logger.info('Påminnelse sendt');
     }
