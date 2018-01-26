@@ -9,6 +9,10 @@ logger.add(logger.transports.Console, { colorize: true });
 logger.level = 'debug';
 //initialize Discord bot
 var bot = new Discord.Client({ token: auth.token, autorun: true })
+while (true) {
+    reminders = setTimeout(checkLastReminder(reminders), 1000);
+}
+
 bot.on('ready', function (evt) {
     logger.info('Connected');
     logger.info('Logged in as: ')
@@ -42,12 +46,12 @@ bot.on('message', function (user, userID, channelID, message, evt) {
                         bot.sendMessage({ to: channelID, message: 'Du vil f\u00e5 en p\u00e5minnelse om ' + args[0] + ' minutt(er)' });
                         reminders.push(new Reminder(args[0], userID, channelID, text));
                         //Sorterer fohåpentligvis arrayen
-                        reminders.sort(function compareNumbers(a, b) { return a.finishTime - b.finishTime;});
+                        reminders.sort(function compareNumbers(a, b) { return b.finishTime - a.finishTime;});
                         //Skriver ut alle unix-epoch timestamps gitt til nå
                         var tekst = ''
                         setTimeout(function () {
                             for (var j = 0; j < reminders.length; j++) {
-                                tekst += ' ' + reminders[j].finishTime.toString(2) + '\n';
+                                tekst += ' ' + reminders[j].finishTime.toString(2) + '\n ';
                             }
                             bot.sendMessage({ to: channelID, message: tekst });
                         }, 500);
@@ -97,3 +101,12 @@ class Reminder {
         return "{ to: this.chid, message: '<@!' + this.uid + '> ' + this.text }";
     }
 };
+
+function checkLastReminder(reminders) {
+    var lengde = reminders.length();
+    if (reminders[lengde].finishTime <= (new Date().getTime())) {
+        bot.sendMessage(reminders[lengde].reminder());
+        reminders.pop();
+    }
+    return reminders;
+}
