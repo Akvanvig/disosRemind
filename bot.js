@@ -60,7 +60,7 @@ bot.on('message', function (user, userID, channelID, message, evt) {
                 break;
 
             case 'reminders':
-                var tekst = '\t User ID: \t\t\t\t\t Remaining time:\n'
+                var tekst = '\t User ID: \t\t\t\t\t\t\t\t Remaining time:\n'
                 for (var i = 0; i < reminders.length; i++) {
                     tekst += ' ' + reminders[i].userID + ' \t ' + reminders[i].remainingTime + ' \t ' + reminders[i].reqText + '\n';
                 }
@@ -106,7 +106,7 @@ class Reminder {
         var sek = Math.floor((min % 1) * 60);
         min = Math.floor(min);
 
-        return hr + ' hours, ' + min + ' minutes, ' + sek + ' seconds';
+        return hr + ' hour(s), ' + min + ' minute(s), ' + sek + ' second(s)';
     }
 
     get channelID() {
