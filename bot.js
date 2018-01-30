@@ -2,7 +2,8 @@ var Discord = require('discord.io');
 var logger = require('winston');
 var auth = require('./auth.json');
 var reminders = [];
-var checkReminders = setInterval(checkLastReminder,1000);
+var checkReminders = setInterval(checkLastReminder, 1000);
+var checkActive = setInterval(checkActive, 1800000) //Hver halvtime skrives det til logg om bot er aktiv
 //configure loggersettings
 logger.remove(logger.transports.Console);
 logger.add(logger.transports.Console, { colorize: true });
@@ -35,6 +36,9 @@ bot.on('message', function (user, userID, channelID, message, evt) {
                         text += args[i] + ' ';
                     }
                 }
+
+                //Forhindrer misbruk av tagging på discord
+                text.replace('@','Alfakr\u00f8ll')
 
                 if (isInteger(args[0])) {
                     if (args[0] > 0 && args[0] % 1 == 0) {
@@ -86,7 +90,19 @@ bot.on('message', function (user, userID, channelID, message, evt) {
                 break;
 
             default:
-                bot.sendMessage({ to: channelID, message: 'Commands: \n\n Ping: \n\t\tPong? \n\n RemindMe: \n\t\t?RemindMe [positiv integer antall minutt] [Eventuell tekst du \u00f8nsker \u00e5 motta]\n\nGrandis\n\t\tGir deg varsel om ti minutt \n\nReminders\n\t\tLar deg se alle p\u00e5minnelser\n\nKonverteringer\n\t\tLar deg se implementerte konverteringer' });
+                var tekst = 'Commands: ';
+                tekst += '\n\nPing:';
+                tekst += '\n\t\tPong?';
+                tekst += '\n\nRemindMe:';
+                tekst += '\n\t\t?RemindMe [positiv integer antall minutt] [Eventuell tekst du \u00f8nsker \u00e5 motta]';
+                tekst += '\n\nGrandis:';
+                tekst += '\n\t\tGir deg varsel om ti minutt';
+                tekst += '\n\nReminders:';
+                tekst += '\n\t\tLar deg se alle p\u00e5minnelser';
+                tekst += '\n\nKonverteringer:';
+                tekst += '\n\t\tLar deg se implementerte konverteringer';
+
+                bot.sendMessage({ to: channelID, message: tekst });
         }
     }
 
@@ -95,45 +111,58 @@ bot.on('message', function (user, userID, channelID, message, evt) {
     for (var i = 0; i < (args.length - 1); i++) {
         //Blir et tall funnet, sjekker den ordet etter for enhetstype
         if (isNumeric(args[i])) {
+            var respons = '';
+            var c = false; //changed?
             var unit = args[i + 1];
             switch (unit.toLowerCase()) {
                 case 'pounds':
-                    convert(args[i], 0.45359237, 'lbs', 'kg', channelID);
+                    respons = convert(args[i], 0.45359237, 'lbs', 'kg', channelID);
+                    c = true;
                     break;
 
                 case 'lbs':
-                    convert(args[i], 0.45359237, 'lbs', 'kg', channelID);
+                    respons = convert(args[i], 0.45359237, 'lbs', 'kg', channelID);
+                    c = true;
                     break;
 
                 case 'miles':
-                    convert(args[i], 1.609344, 'miles', 'km', channelID);
+                    respons = convert(args[i], 1.609344, 'miles', 'km', channelID);
+                    c = true;
                     break;
 
                 case 'mi':
-                    convert(args[i], 1.609344, 'miles', 'km', channelID);
+                    respons = convert(args[i], 1.609344, 'miles', 'km', channelID);
+                    c = true;
                     break;
 
                 case 'foot':
-                    convert(args[i], 0.3048, 'foot', 'meters', channelID);
+                    respons = convert(args[i], 0.3048, 'foot', 'meters', channelID);
+                    c = true;
                     break;
 
                 case 'feet':
-                    convert(args[i], 0.3048, 'feet', 'meters', channelID);
+                    respons = convert(args[i], 0.3048, 'feet', 'meters', channelID);
+                    c = true;
                     break;
 
                 case 'mph':
-                    convert(args[i], 1.609344, 'mph', 'km/h', channelID);
+                    respons = convert(args[i], 1.609344, 'mph', 'km/h', channelID);
+                    c = true;
                     break;
 
                 case 'fahrenheit':
-                    var celsius = Math.round((args[i] - 32) * 5 / 9 * 100) / 100;
-                    bot.sendMessage({ to: channelID, message: args[i] + ' fahrenheit = ' + celsius + ' Celsius' });
+                    respons = convert((args[i] - 32), (5 / 9), 'Fahrenheit', 'Celsius', channelID);
+                    c = true;
                     break;
 
                 case '°f':
-                    var celsius = Math.round((args[i] - 32) * 5 / 9 * 100) / 100;
-                    bot.sendMessage({ to: channelID, message: args[i] + ' °F = ' + celsius + ' °C' });
+                    respons = convert((args[i] - 32), (5 / 9), '°F', '°C', channelID);
+                    c = true;
                     break;
+            }
+
+            if (c) {
+                bot.sendMessage({ to: channelID, message: respons });
             }
         }
     }
@@ -150,7 +179,8 @@ function isNumeric(num) {
 
 function convert(value, multiple, unit1Name, unit2Name, channelID) {
     var unit = (Math.round(value * multiple * 100) / 100);
-    bot.sendMessage({ to: channelID, message: value + ' ' + unit1Name + ' = ' + unit + ' ' + unit2Name });
+    //bot.sendMessage({ to: channelID, message: value + ' ' + unit1Name + ' = ' + unit + ' ' + unit2Name });
+    return value + ' ' + unit1Name + ' = ' + unit + ' ' + unit2Name;
 }
 
 
@@ -203,4 +233,8 @@ function checkLastReminder() {
         reminders.pop();
         logger.info('Påminnelse sendt');
     }
+}
+
+function checkActive() {
+    logger.info('Mr.Roboto aktiv - ' + Date());
 }
