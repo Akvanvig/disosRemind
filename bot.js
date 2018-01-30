@@ -76,8 +76,17 @@ bot.on('message', function (user, userID, channelID, message, evt) {
 
                 break;
 
+            case 'konverteringer':
+                var tekst = 'pounds / lbs';
+                tekst += '\nmiles / mi';
+                tekst += '\nfeet';
+                tekst += '\nmph';
+                tekst += '\nfahrenheit / °F';
+                bot.sendMessage({ to: channelID, message: tekst });
+                break;
+
             default:
-                bot.sendMessage({ to: channelID, message: 'Commands: \n\n Ping: \n\t\tPong? \n\n RemindMe: \n\t\t?RemindMe [positiv integer antall minutt] [Eventuell tekst du \u00f8nsker \u00e5 motta]\n\nGrandis\n\t\tGir deg varsel om ti minutt \n\nReminders\n\t\tLar deg se alle p\u00e5minnelser' });
+                bot.sendMessage({ to: channelID, message: 'Commands: \n\n Ping: \n\t\tPong? \n\n RemindMe: \n\t\t?RemindMe [positiv integer antall minutt] [Eventuell tekst du \u00f8nsker \u00e5 motta]\n\nGrandis\n\t\tGir deg varsel om ti minutt \n\nReminders\n\t\tLar deg se alle p\u00e5minnelser\n\nKonverteringer\n\t\tLar deg se implementerte konverteringer' });
         }
     }
 
