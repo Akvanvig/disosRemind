@@ -105,68 +105,68 @@ bot.on('message', function (user, userID, channelID, message, evt) {
                 bot.sendMessage({ to: channelID, message: tekst });
         }
     }
+    if (userID != bot.id) {
+        var args = message.split(' ');
+        //Går gjennom teksten på jakt etter tall
+        for (var i = 0; i < (args.length - 1); i++) {
+            //Blir et tall funnet, sjekker den ordet etter for enhetstype
+            if (isNumeric(args[i])) {
+                var respons = '';
+                var c = false; //changed?
+                var unit = args[i + 1];
+                switch (unit.toLowerCase()) {
+                    case 'pounds':
+                        respons = convert(args[i], 0.45359237, 'lbs', 'kg');
+                        c = true;
+                        break;
 
-    var args = message.split(' ');
-    //Går gjennom teksten på jakt etter tall
-    for (var i = 0; i < (args.length - 1); i++) {
-        //Blir et tall funnet, sjekker den ordet etter for enhetstype
-        if (isNumeric(args[i])) {
-            var respons = '';
-            var c = false; //changed?
-            var unit = args[i + 1];
-            switch (unit.toLowerCase()) {
-                case 'pounds':
-                    respons = convert(args[i], 0.45359237, 'lbs', 'kg', channelID);
-                    c = true;
-                    break;
+                    case 'lbs':
+                        respons = convert(args[i], 0.45359237, 'lbs', 'kg');
+                        c = true;
+                        break;
 
-                case 'lbs':
-                    respons = convert(args[i], 0.45359237, 'lbs', 'kg', channelID);
-                    c = true;
-                    break;
+                    case 'miles':
+                        respons = convert(args[i], 1.609344, 'miles', 'km');
+                        c = true;
+                        break;
 
-                case 'miles':
-                    respons = convert(args[i], 1.609344, 'miles', 'km', channelID);
-                    c = true;
-                    break;
+                    case 'mi':
+                        respons = convert(args[i], 1.609344, 'miles', 'km');
+                        c = true;
+                        break;
 
-                case 'mi':
-                    respons = convert(args[i], 1.609344, 'miles', 'km', channelID);
-                    c = true;
-                    break;
+                    case 'foot':
+                        respons = convert(args[i], 0.3048, 'foot', 'meters');
+                        c = true;
+                        break;
 
-                case 'foot':
-                    respons = convert(args[i], 0.3048, 'foot', 'meters', channelID);
-                    c = true;
-                    break;
+                    case 'feet':
+                        respons = convert(args[i], 0.3048, 'feet', 'meters');
+                        c = true;
+                        break;
 
-                case 'feet':
-                    respons = convert(args[i], 0.3048, 'feet', 'meters', channelID);
-                    c = true;
-                    break;
+                    case 'mph':
+                        respons = convert(args[i], 1.609344, 'mph', 'km/h');
+                        c = true;
+                        break;
 
-                case 'mph':
-                    respons = convert(args[i], 1.609344, 'mph', 'km/h', channelID);
-                    c = true;
-                    break;
+                    case 'fahrenheit':
+                        respons = convert((args[i] - 32), (5 / 9), 'Fahrenheit', 'Celsius');
+                        c = true;
+                        break;
 
-                case 'fahrenheit':
-                    respons = convert((args[i] - 32), (5 / 9), 'Fahrenheit', 'Celsius', channelID);
-                    c = true;
-                    break;
+                    case '°f':
+                        respons = convert((args[i] - 32), (5 / 9), '°F', '°C');
+                        c = true;
+                        break;
+                }
 
-                case '°f':
-                    respons = convert((args[i] - 32), (5 / 9), '°F', '°C', channelID);
-                    c = true;
-                    break;
-            }
-
-            if (c) {
-                bot.sendMessage({ to: channelID, message: respons });
+                if (c) {
+                    bot.sendMessage({ to: channelID, message: respons });
+                }
             }
         }
     }
-    
 });
 
 function isInteger(num) {
@@ -177,7 +177,7 @@ function isNumeric(num) {
     return !isNaN(parseFloat(num)) && isFinite(num);
 }
 
-function convert(value, multiple, unit1Name, unit2Name, channelID) {
+function convert(value, multiple, unit1Name, unit2Name) {
     var unit = (Math.round(value * multiple * 100) / 100);
     //bot.sendMessage({ to: channelID, message: value + ' ' + unit1Name + ' = ' + unit + ' ' + unit2Name });
     return value + ' ' + unit1Name + ' = ' + unit + ' ' + unit2Name;
