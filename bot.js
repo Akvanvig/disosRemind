@@ -98,40 +98,40 @@ bot.on('message', function (user, userID, channelID, message, evt) {
             var unit = args[i + 1];
             switch (unit.toLowerCase()) {
                 case 'pounds':
-                    convert(args[i], 0.45359237, 'lbs', 'kg');
+                    convert(args[i], 0.45359237, 'lbs', 'kg', channelID);
                     break;
 
                 case 'lbs':
-                    convert(args[i], 0.45359237, 'lbs', 'kg');
+                    convert(args[i], 0.45359237, 'lbs', 'kg', channelID);
                     break;
 
                 case 'miles':
-                    convert(args[i], 1.609344, 'miles', 'km');
+                    convert(args[i], 1.609344, 'miles', 'km', channelID);
                     break;
 
                 case 'mi':
-                    convert(args[i], 1.609344, 'miles', 'km');
+                    convert(args[i], 1.609344, 'miles', 'km', channelID);
                     break;
 
                 case 'foot':
-                    convert(args[i], 0.3048, 'foot', 'meters');
+                    convert(args[i], 0.3048, 'foot', 'meters', channelID);
                     break;
 
                 case 'feet':
-                    convert(args[i], 0.3048, 'feet', 'meters');
+                    convert(args[i], 0.3048, 'feet', 'meters', channelID);
                     break;
 
                 case 'mph':
-                    convert(args[i], 1.609344, 'mph', 'km/h');
+                    convert(args[i], 1.609344, 'mph', 'km/h', channelID);
                     break;
 
                 case 'fahrenheit':
-                    var celsius = (args[i] - 32) * 5 / 9;
+                    var celsius = Math.round((args[i] - 32) * 5 / 9 * 100) / 100;
                     bot.sendMessage({ to: channelID, message: args[i] + ' fahrenheit = ' + celsius + ' Celsius' });
                     break;
 
                 case '°f':
-                    var celsius = (args[i] - 32) * 5 / 9;
+                    var celsius = Math.round((args[i] - 32) * 5 / 9 * 100) / 100;
                     bot.sendMessage({ to: channelID, message: args[i] + ' °F = ' + celsius + ' °C' });
                     break;
             }
@@ -148,7 +148,7 @@ function isNumeric(num) {
     return !isNaN(parseFloat(num)) && isFinite(num);
 }
 
-function convert(value, multiple, unit1Name, unit2Name) {
+function convert(value, multiple, unit1Name, unit2Name, channelID) {
     var unit = (Math.round(value * multiple * 100) / 100);
     bot.sendMessage({ to: channelID, message: value + ' ' + unit1Name + ' = ' + unit + ' ' + unit2Name });
 }
