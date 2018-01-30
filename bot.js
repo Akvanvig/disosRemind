@@ -23,7 +23,7 @@ bot.on('message', function (user, userID, channelID, message, evt) {
         var cmd = args[0];
         args = args.splice(1);
         switch (cmd.toLowerCase()) {
-            //?ping
+
             case 'ping':
                 bot.sendMessage({ to: channelID, message: 'Pong?' });
                 break;
@@ -84,7 +84,7 @@ bot.on('message', function (user, userID, channelID, message, evt) {
                 break;
 
             default:
-                bot.sendMessage({ to: channelID, message: 'Commands: \n\n ping: \n\t\tpong? \n\n RemindMe: \n\t\t?RemindMe [positiv integer antall minutt] [Eventuell tekst du \u00f8nsker \u00e5 motta]\n\ngrandis\n\t\tGir deg varsel om ti minutt \n\n reminders\n\t\tLar deg se alle p\u00e5minnelser' });
+                bot.sendMessage({ to: channelID, message: 'Commands: \n\n Ping: \n\t\tPong? \n\n RemindMe: \n\t\t?RemindMe [positiv integer antall minutt] [Eventuell tekst du \u00f8nsker \u00e5 motta]\n\nGrandis\n\t\tGir deg varsel om ti minutt \n\nReminders\n\t\tLar deg se alle p\u00e5minnelser' });
         }
     }
 
@@ -93,15 +93,16 @@ bot.on('message', function (user, userID, channelID, message, evt) {
     for (var i = 0; i < (args.length - 1); i++) {
         //Blir et tall funnet, sjekker den ordet etter for enhetstype
         if (isNumeric(args[i])) {
-            cmd = args[i + 1]
-            switch (cmd.toLowerCase()) {
+            var unit = args[i + 1];
+            switch (unit.toLowerCase()) {
                 case 'lbs':
-                    kg = Math.round((args[i] * 0.45359237 * 100) / 100, -1);
+                    kg = Math.round((args[i] * 0.45359237 * 100) / 100);
                     bot.sendMessage({ to: channelID, message: args[i] + ' lbs = ' + kg + ' kg'});
                     break;
                 case 'miles':
-                    km = Math.round((args[i] * 1.609344 * 100) / 100, -1);
+                    km = Math.round((args[i] * 1.609344 * 100) / 100);
                     bot.sendMessage({ to: channelID, message: args[i] + ' miles = ' + km + ' km' });
+                    break;
             }
         }
     }
