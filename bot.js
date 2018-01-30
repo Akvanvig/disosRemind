@@ -22,13 +22,13 @@ bot.on('message', function (user, userID, channelID, message, evt) {
         var args = message.substring(1).split(' ');
         var cmd = args[0];
         args = args.splice(1);
-        switch (cmd) {
+        switch (cmd.toLowerCase()) {
             //?ping
             case 'ping':
                 bot.sendMessage({ to: channelID, message: 'Pong?' });
                 break;
 
-            case 'RemindMe':
+            case 'remindme':
                 var text = '';
                 if (args.length > 1) {
                     for (var i = 1; i < args.length; i++) {
@@ -70,15 +70,50 @@ bot.on('message', function (user, userID, channelID, message, evt) {
             case 'tag':
                 bot.sendMessage({ to: channelID, message: '<@!' + userID + '>' });
                 break;
+            /* fiks plz
+            case 'Jodel':
+                bot.getVoiceSession()
+                bot.joinVoiceChannel();
+                bot.playFile('.\media\Jodel.mp3');
+                setTimeout(function () { bot.destroy() }, 35000);
+                break;
+            */
+            //Legg inn overgang fra metrisk til US customary units
+            case 'freedomunits':
+
+                break;
 
             default:
                 bot.sendMessage({ to: channelID, message: 'Commands: \n\n ping: \n\t\tpong? \n\n RemindMe: \n\t\t?RemindMe [positiv integer antall minutt] [Eventuell tekst du \u00f8nsker \u00e5 motta]\n\ngrandis\n\t\tGir deg varsel om ti minutt \n\n reminders\n\t\tLar deg se alle p\u00e5minnelser' });
         }
     }
+
+    var args = message.split(' ');
+    //Går gjennom teksten på jakt etter tall
+    for (var i = 0; i < (args.length - 1); i++) {
+        //Blir et tall funnet, sjekker den ordet etter for enhetstype
+        if (isNumeric(args[i])) {
+            cmd = args[i + 1]
+            switch (cmd.toLowerCase()) {
+                case 'lbs':
+                    kg = Math.round10((args[i] * 0.45359237), -1);
+                    bot.sendMessage({ to: channelID, message: args[i] + ' lbs = ' + kg + ' kg'});
+                    break;
+                case 'miles':
+                    km = Math.round10((args[i] * 1.609344), -1);
+                    bot.sendMessage({ to: channelID, message: args[i] + ' miles = ' + km + ' km' });
+            }
+        }
+    }
+    
 });
 
 function isInteger(num) {
     return !isNaN(parseInt(num)) && isFinite(num);
+}
+
+function isNumeric(num) {
+    return !isNaN(parseFloat(num)) && isFinite(num);
 }
 
 
