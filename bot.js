@@ -81,11 +81,12 @@ bot.on('message', function (user, userID, channelID, message, evt) {
                 break;
 
             case 'konverteringer':
-                var tekst = 'pounds / lbs';
-                tekst += '\nmiles / mi';
-                tekst += '\nfeet';
-                tekst += '\nmph';
-                tekst += '\nfahrenheit / °F';
+                var tekst = 'Pounds / lbs';
+                tekst += '\nMiles / mi';
+                tekst += '\nFeet';
+                tekst += '\nMPH';
+                tekst += '\nFahrenheit / °F';
+                tekst += '\nKelvin / K';
                 bot.sendMessage({ to: channelID, message: tekst });
                 break;
 
@@ -116,47 +117,57 @@ bot.on('message', function (user, userID, channelID, message, evt) {
                 var unit = args[i + 1];
                 switch (unit.toLowerCase()) {
                     case 'pounds':
-                        respons = convert(args[i], 0.45359237, 'lbs', 'kg');
+                        respons = convert(args[i], 0, 0.45359237, 'lbs', 'kg');
                         c = true;
                         break;
 
                     case 'lbs':
-                        respons = convert(args[i], 0.45359237, 'lbs', 'kg');
+                        respons = convert(args[i], 0, 0.45359237, 'lbs', 'kg');
                         c = true;
                         break;
 
                     case 'miles':
-                        respons = convert(args[i], 1.609344, 'miles', 'km');
+                        respons = convert(args[i], 0, 1.609344, 'miles', 'km');
                         c = true;
                         break;
 
                     case 'mi':
-                        respons = convert(args[i], 1.609344, 'miles', 'km');
+                        respons = convert(args[i], 0, 1.609344, 'miles', 'km');
                         c = true;
                         break;
 
                     case 'foot':
-                        respons = convert(args[i], 0.3048, 'foot', 'meters');
+                        respons = convert(args[i], 0, 0.3048, 'foot', 'meters');
                         c = true;
                         break;
 
                     case 'feet':
-                        respons = convert(args[i], 0.3048, 'feet', 'meters');
+                        respons = convert(args[i], 0, 0.3048, 'feet', 'meters');
                         c = true;
                         break;
 
                     case 'mph':
-                        respons = convert(args[i], 1.609344, 'mph', 'km/h');
+                        respons = convert(args[i], 0, 1.609344, 'mph', 'km/h');
                         c = true;
                         break;
 
                     case 'fahrenheit':
-                        respons = convert((args[i] - 32), (5 / 9), 'Fahrenheit', 'Celsius');
+                        respons = convert(args[i], -32, (5 / 9), 'Fahrenheit', 'Celsius');
                         c = true;
                         break;
 
                     case '°f':
-                        respons = convert((args[i] - 32), (5 / 9), '°F', '°C');
+                        respons = convert(args[i], -32, (5 / 9), '°F', '°C');
+                        c = true;
+                        break;
+
+                    case 'kelvin':
+                        respons = convert(args[i], -272.15, 1, 'Kelvin', 'Celsius');
+                        c = true;
+                        break;
+
+                    case 'k':
+                        respons = convert(args[i], -272.15, 1, 'K', '°C');
                         c = true;
                         break;
                 }
@@ -177,9 +188,8 @@ function isNumeric(num) {
     return !isNaN(parseFloat(num)) && isFinite(num);
 }
 
-function convert(value, multiple, unit1Name, unit2Name) {
-    var unit = (Math.round(value * multiple * 100) / 100);
-    //bot.sendMessage({ to: channelID, message: value + ' ' + unit1Name + ' = ' + unit + ' ' + unit2Name });
+function convert(value, add, multiple, unit1Name, unit2Name) {
+    var unit = (Math.round((value + add) * multiple * 100) / 100);
     return value + ' ' + unit1Name + ' = ' + unit + ' ' + unit2Name;
 }
 
