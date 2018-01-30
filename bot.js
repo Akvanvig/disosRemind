@@ -70,14 +70,7 @@ bot.on('message', function (user, userID, channelID, message, evt) {
             case 'tag':
                 bot.sendMessage({ to: channelID, message: '<@!' + userID + '>' });
                 break;
-            /* fiks plz
-            case 'Jodel':
-                bot.getVoiceSession()
-                bot.joinVoiceChannel();
-                bot.playFile('.\media\Jodel.mp3');
-                setTimeout(function () { bot.destroy() }, 35000);
-                break;
-            */
+
             //Legg inn overgang fra metrisk til US customary units
             case 'freedomunits':
 
@@ -95,13 +88,42 @@ bot.on('message', function (user, userID, channelID, message, evt) {
         if (isNumeric(args[i])) {
             var unit = args[i + 1];
             switch (unit.toLowerCase()) {
-                case 'lbs':
-                    kg = Math.round((args[i] * 0.45359237 * 100) / 100);
-                    bot.sendMessage({ to: channelID, message: args[i] + ' lbs = ' + kg + ' kg'});
+                case 'pounds':
+                    convert(args[i], 0.45359237, 'lbs', 'kg');
                     break;
+
+                case 'lbs':
+                    convert(args[i], 0.45359237, 'lbs', 'kg');
+                    break;
+
                 case 'miles':
-                    km = Math.round((args[i] * 1.609344 * 100) / 100);
-                    bot.sendMessage({ to: channelID, message: args[i] + ' miles = ' + km + ' km' });
+                    convert(args[i], 1.609344, 'miles', 'km');
+                    break;
+
+                case 'mi':
+                    convert(args[i], 1.609344, 'miles', 'km');
+                    break;
+
+                case 'foot':
+                    convert(args[i], 0.3048, 'foot', 'meters');
+                    break;
+
+                case 'feet':
+                    convert(args[i], 0.3048, 'feet', 'meters');
+                    break;
+
+                case 'mph':
+                    convert(args[i], 1.609344, 'mph', 'km/h');
+                    break;
+
+                case 'fahrenheit':
+                    var celsius = (args[i] - 32) * 5 / 9;
+                    bot.sendMessage({ to: channelID, message: args[i] + ' fahrenheit = ' + celsius + ' Celsius' });
+                    break;
+
+                case '°f':
+                    var celsius = (args[i] - 32) * 5 / 9;
+                    bot.sendMessage({ to: channelID, message: args[i] + ' °F = ' + celsius + ' °C' });
                     break;
             }
         }
@@ -115,6 +137,11 @@ function isInteger(num) {
 
 function isNumeric(num) {
     return !isNaN(parseFloat(num)) && isFinite(num);
+}
+
+function convert(value, multiple, unit1Name, unit2Name) {
+    var unit = (Math.round(value * multiple * 100) / 100);
+    bot.sendMessage({ to: channelID, message: value + ' ' + unit1Name + ' = ' + unit + ' ' + unit2Name });
 }
 
 
