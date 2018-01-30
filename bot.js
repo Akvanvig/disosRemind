@@ -96,11 +96,11 @@ bot.on('message', function (user, userID, channelID, message, evt) {
             cmd = args[i + 1]
             switch (cmd.toLowerCase()) {
                 case 'lbs':
-                    kg = Math.round10((args[i] * 0.45359237), -1);
+                    kg = Math.round((args[i] * 0.45359237 * 100) / 100, -1);
                     bot.sendMessage({ to: channelID, message: args[i] + ' lbs = ' + kg + ' kg'});
                     break;
                 case 'miles':
-                    km = Math.round10((args[i] * 1.609344), -1);
+                    km = Math.round((args[i] * 1.609344 * 100) / 100, -1);
                     bot.sendMessage({ to: channelID, message: args[i] + ' miles = ' + km + ' km' });
             }
         }
