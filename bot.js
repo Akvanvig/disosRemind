@@ -4,7 +4,7 @@ var auth = require('./auth.json');
 var reminders = [];
 var checkReminders = setInterval(checkLastReminder, 1000);
 var checkActive = setInterval(checkActive, 1800000) //Hver halvtime skrives det til logg om bot er aktiv
-var startupTime = new Date.getTime()
+var startupTime = new Date().getTime()
 //configure loggersettings
 logger.remove(logger.transports.Console);
 logger.add(logger.transports.Console, { colorize: true });
