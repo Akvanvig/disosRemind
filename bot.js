@@ -82,7 +82,7 @@ bot.on('message', function (user, userID, channelID, message, evt) {
 
                 if (isNumeric(args[0])) {
                     respons = '';
-                    switch (args[1]) {
+                    switch (args[1].toLowerCase()) {
                         case 'kw':
                             respons = convert(args[0], 0, 1.36, 'kW', 'hk');
                             break;
@@ -121,7 +121,7 @@ bot.on('message', function (user, userID, channelID, message, evt) {
                 tekst += '\n\nKonverteringer:';
                 tekst += '\n\t\tLar deg se implementerte konverteringer';
                 tekst += '\n\nFreedomunits:';
-                tekst += '\n\t\t'
+                tekst += '\n\t\tOmgjør fra metrisk til imperial';
 
                 bot.sendMessage({ to: channelID, message: tekst });
         }
