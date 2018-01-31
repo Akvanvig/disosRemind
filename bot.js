@@ -77,7 +77,24 @@ bot.on('message', function (user, userID, channelID, message, evt) {
 
             //Legg inn overgang fra metrisk til US customary units
             case 'freedomunits':
+                var tekst = 'Enheter lagt inn:';
+                tekst += '\n\t\tkW (Til hk)';
 
+                if (isNumeric(args[0])) {
+                    respons = '';
+                    switch (args[1]) {
+                        case 'kw':
+                            respons = convert(args[0], 0, 1.36, 'kW', 'hk');
+                            break;
+
+                        default:
+                            respons = tekst;
+                    }
+                    bot.sendMessage({ to: channelID, message: tekst });
+                }
+                else {
+                    bot.sendMessage({to: channelID, message: 'Brukes slik:\n\t\t?Freedomunits [antall metrisk enhet] [Enhet du vil gjøre om]\n\n' + tekst})
+                }
                 break;
 
             case 'konverteringer':
@@ -87,6 +104,7 @@ bot.on('message', function (user, userID, channelID, message, evt) {
                 tekst += '\nMPH';
                 tekst += '\nFahrenheit / °F';
                 tekst += '\nKelvin / K';
+                tekst += '\nBHP / HK'
                 bot.sendMessage({ to: channelID, message: tekst });
                 break;
 
@@ -102,6 +120,8 @@ bot.on('message', function (user, userID, channelID, message, evt) {
                 tekst += '\n\t\tLar deg se alle p\u00e5minnelser';
                 tekst += '\n\nKonverteringer:';
                 tekst += '\n\t\tLar deg se implementerte konverteringer';
+                tekst += '\n\nFreedomunits:';
+                tekst += '\n\t\t'
 
                 bot.sendMessage({ to: channelID, message: tekst });
         }
@@ -168,6 +188,16 @@ bot.on('message', function (user, userID, channelID, message, evt) {
 
                     case 'k':
                         respons = convert(args[i], -272.15, 1, 'K', '°C');
+                        c = true;
+                        break;
+
+                    case 'bhp':
+                        respons = convert(args[i], 0, 0.73549875, 'bhp', 'kW');
+                        c = true;
+                        break;
+
+                    case 'hk':
+                        respons = convert(args[i], 0, 0.73549875, 'hk', 'kW');
                         c = true;
                         break;
                 }
