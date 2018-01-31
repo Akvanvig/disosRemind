@@ -4,6 +4,7 @@ var auth = require('./auth.json');
 var reminders = [];
 var checkReminders = setInterval(checkLastReminder, 1000);
 var checkActive = setInterval(checkActive, 1800000) //Hver halvtime skrives det til logg om bot er aktiv
+var startupTime = new Date.getTime()
 //configure loggersettings
 logger.remove(logger.transports.Console);
 logger.add(logger.transports.Console, { colorize: true });
@@ -90,7 +91,7 @@ bot.on('message', function (user, userID, channelID, message, evt) {
                         default:
                             respons = tekst;
                     }
-                    bot.sendMessage({ to: channelID, message: tekst });
+                    bot.sendMessage({ to: channelID, message: respons });
                 }
                 else {
                     bot.sendMessage({to: channelID, message: 'Brukes slik:\n\t\t?Freedomunits [antall metrisk enhet] [Enhet du vil gjøre om]\n\n' + tekst})
@@ -108,6 +109,35 @@ bot.on('message', function (user, userID, channelID, message, evt) {
                 bot.sendMessage({ to: channelID, message: tekst });
                 break;
 
+            case 'Oppetid':
+                var uptime = new Date.getTime() - startupTime
+                var respons = bot.username + ' har kjørt i '
+                var s, m, h, d = 0
+                if (uptime > 1000) {
+                    s = (uptime - (uptime % 1000)) / 1000;
+                    if (s > 60) {
+                        m = (s - (s % 60)) / 60;
+                        s = s - (60 * m);
+                        if (m > 60) {
+                            h = (m - (m % 60)) / 60;
+                            m = m - (60 * h);
+                            if (h > 24) {
+                                d = (h - (h % 24)) / 24;
+                                h = h - (24 * d);
+                            }
+                        }
+                    }
+                }
+                if (d > 0) { respons += d + ' dager,' }
+                if (h > 0) { respons += h + ' timer,' }
+                if (m > 0) { respons += m + ' minutter,' }
+                if (s > 0) { respons += s + ' sekunder.' }
+
+
+                var tekst = bot.username + ' Har kjørt i '
+                bot.sendMessage({ to: channelID, message: tekst });
+                break;
+
             default:
                 var tekst = 'Commands: ';
                 tekst += '\n\nPing:';
@@ -122,6 +152,8 @@ bot.on('message', function (user, userID, channelID, message, evt) {
                 tekst += '\n\t\tLar deg se implementerte konverteringer';
                 tekst += '\n\nFreedomunits:';
                 tekst += '\n\t\tOmgjør fra metrisk til imperial';
+                tekst += '\n\nOppetid';
+                tekst += '\n\t\tSier hvor lenge boten har kjørt'
 
                 bot.sendMessage({ to: channelID, message: tekst });
         }
@@ -219,7 +251,7 @@ function isNumeric(num) {
 }
 
 function convert(value, add, multiple, unit1Name, unit2Name) {
-    var unit = Math.round((value + add) * multiple * 100) / 100;
+    var unit = Math.round((+value + add) * multiple * 100) / 100;
     return value + ' ' + unit1Name + ' = ' + unit + ' ' + unit2Name;
 }
 
