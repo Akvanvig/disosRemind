@@ -38,7 +38,7 @@ bot.on('message', function (user, userID, channelID, message, evt) {
                 }
 
                 //Forhindrer misbruk av tagging på discord
-                text.replace('@','Alfakr\u00f8ll')
+                text = text.replace('@','Alfakr\u00f8ll')
 
                 if (isInteger(args[0])) {
                     if (args[0] > 0 && args[0] % 1 == 0) {
@@ -247,4 +247,5 @@ function checkLastReminder() {
 
 function checkActive() {
     logger.info('Mr.Roboto aktiv - ' + Date());
+    bot = new Discord.Client({ token: auth.token, autorun: true });
 }
