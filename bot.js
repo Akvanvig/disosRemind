@@ -110,9 +110,9 @@ bot.on('message', function (user, userID, channelID, message, evt) {
                 break;
 
             case 'oppetid':
-                var uptime = new Date().getTime() - startupTime
-                var respons = bot.username + ' har kjørt i '
-                var s, m, h, d = 0
+                var uptime = new Date().getTime() - startupTime;
+                var respons = bot.username + ' har kjørt i ';
+                var s = 0, m = 0, h = 0, d = 0;
                 if (uptime > 1000) {
                     s = (uptime - (uptime % 1000)) / 1000;
                     if (s > 60) {
@@ -128,14 +128,12 @@ bot.on('message', function (user, userID, channelID, message, evt) {
                         }
                     }
                 }
-                if (d > 0) { respons += d + ' dager,' }
-                if (h > 0) { respons += h + ' timer,' }
-                if (m > 0) { respons += m + ' minutter,' }
-                if (s > 0) { respons += s + ' sekunder.' }
+                if (d > 0) { respons += d + ' dager, '; }
+                if (h > 0) { respons += h + ' timer, '; }
+                if (m > 0) { respons += m + ' minutter, '; }
+                respons += s + ' sekunder.'
 
-
-                var tekst = bot.username + ' Har kjørt i '
-                bot.sendMessage({ to: channelID, message: tekst });
+                bot.sendMessage({ to: channelID, message: respons });
                 break;
 
             default:
