@@ -110,7 +110,7 @@ bot.on('message', function (user, userID, channelID, message, evt) {
                 break;
 
             case 'oppetid':
-                var uptime = new Date.getTime() - startupTime
+                var uptime = new Date().getTime() - startupTime
                 var respons = bot.username + ' har kjørt i '
                 var s, m, h, d = 0
                 if (uptime > 1000) {
