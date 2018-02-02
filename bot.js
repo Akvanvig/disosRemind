@@ -136,8 +136,8 @@ bot.on('message', function (user, userID, channelID, message, evt) {
                 bot.sendMessage({ to: channelID, message: respons });
                 break;
 
-            case 'kys':
-                var respons = '\u2620 R.I.P \u2620'
+            case 'kys': //xdd easteregg lol
+                var respons = '\u2620 R.I.P ' + bot.username + ' \u2620';
                 bot.sendMessage({ to: channelID, message: respons });
                 break;
 
@@ -314,4 +314,5 @@ function checkLastReminder() {
 function checkActive() {
     logger.info('Mr.Roboto aktiv - ' + Date());
     bot = new Discord.Client({ token: auth.token, autorun: true });
+    bot.sendMessage({ to: 408674766631862283, message: Date() });
 }
