@@ -136,6 +136,11 @@ bot.on('message', function (user, userID, channelID, message, evt) {
                 bot.sendMessage({ to: channelID, message: respons });
                 break;
 
+            case 'kys':
+                var respons = '\u2620 R.I.P \u2620'
+                bot.sendMessage({ to: channelID, message: respons });
+                break;
+
             default:
                 var tekst = 'Commands: ';
                 tekst += '\n\nPing:';
@@ -156,6 +161,7 @@ bot.on('message', function (user, userID, channelID, message, evt) {
                 bot.sendMessage({ to: channelID, message: tekst });
         }
     }
+    
     if (userID != bot.id) {
         var args = message.split(' ');
         //Går gjennom teksten på jakt etter tall
