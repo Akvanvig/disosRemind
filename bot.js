@@ -145,8 +145,7 @@ bot.on('message', function (user, userID, channelID, message, evt) {
                     respons = '\u2620 R.I.P ' + bot.username + ' \u2620';
                 }
                 else {
-                    respons = fs.readFileSync("./kys.txt").toString('utf-8');
-                    bot.simulateTyping(channelID);
+                    readTextFile("file:///C:/Users/Botman/Desktop/Discordbot filer/kys.txt");
                 }
                 
                 bot.sendMessage({ to: channelID, message: respons });
@@ -334,7 +333,7 @@ function readTextFile(file) {
         if (rawFile.readyState === 4) {
             if (rawFile.status === 200 || rawFile.status == 0) {
                 var allText = rawFile.responseText;
-                alert(allText);
+                return allText;
             }
         }
     }
