@@ -27,7 +27,9 @@ bot.on('message', function (user, userID, channelID, message, evt) {
         switch (cmd.toLowerCase()) {
 
             case 'ping':
-                bot.sendMessage({ to: channelID, message: 'Pong?' });
+                var timeSent = message.createdAt;
+                var timePassed = Date() - timeSent;
+                bot.sendMessage({ to: channelID, message: 'Pong? ping: ' + timePassed + ' ms' });
                 break;
 
             case 'remindme':
@@ -137,7 +139,16 @@ bot.on('message', function (user, userID, channelID, message, evt) {
                 break;
 
             case 'kys': //xdd easteregg lol
-                var respons = '\u2620 R.I.P ' + bot.username + ' \u2620';
+                var tall = Math.random();
+                var respons = '';
+                if (tall > 0.1) {
+                    respons = '\u2620 R.I.P ' + bot.username + ' \u2620';
+                }
+                else {
+                    respons = readTextFile('./kys.txt');
+                    bot.simulateTyping(channelID);
+                }
+                
                 bot.sendMessage({ to: channelID, message: respons });
                 break;
 
@@ -246,6 +257,11 @@ bot.on('message', function (user, userID, channelID, message, evt) {
     }
 });
 
+//Hvis bot-en disconnectes, vil den prøve å reconnecte 
+client.on('disconnect', function (errMsg, code) {
+    bot.connect();
+});
+
 function isInteger(num) {
     return !isNaN(parseInt(num)) && isFinite(num);
 }
@@ -311,8 +327,21 @@ function checkLastReminder() {
     }
 }
 
+function readTextFile(file) {
+    var rawFile = new XMLHttpRequest();
+    rawFile.open("GET", file, false);
+    rawFile.onreadystatechange = function () {
+        if (rawFile.readyState === 4) {
+            if (rawFile.status === 200 || rawFile.status == 0) {
+                var allText = rawFile.responseText;
+                alert(allText);
+            }
+        }
+    }
+    rawFile.send(null);
+}
+
 function checkActive() {
     logger.info('Mr.Roboto aktiv - ' + Date());
-    bot = new Discord.Client({ token: auth.token, autorun: true });
-    bot.sendMessage({ to: 408674766631862283, message: Date() });
+    //bot.sendMessage({ to: 408674766631862283, message: Date() });
 }
