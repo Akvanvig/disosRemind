@@ -42,14 +42,14 @@ bot.on('message', function (user, userID, channelID, message, evt) {
                 }
 
                 //Forhindrer misbruk av tagging på discord
-                text = text.replace('@','Alfakr\u00f8ll')
+                text = text.replace('@', 'Alfakr\u00f8ll')
 
                 if (isInteger(args[0])) {
                     if (args[0] > 0 && args[0] % 1 == 0) {
                         bot.sendMessage({ to: channelID, message: 'Du vil f\u00e5 en p\u00e5minnelse om ' + args[0] + ' minutt(er)' });
                         reminders.push(new Reminder(args[0], userID, channelID, text));
                         //Sorterer fohåpentligvis arrayen
-                        reminders.sort(function compareNumbers(a, b) { return b.finishTime - a.finishTime;});
+                        reminders.sort(function compareNumbers(a, b) { return b.finishTime - a.finishTime; });
                     }
                     //Hvis tallet er mindre enn 0, eller ikke delbart med 1
                     else {
@@ -72,7 +72,7 @@ bot.on('message', function (user, userID, channelID, message, evt) {
                 for (var i = 0; i < reminders.length; i++) {
                     tekst += ' ' + reminders[i].userID + ' \t ' + reminders[i].remainingTime + ' \t ' + reminders[i].reqText + '\n';
                 }
-                bot.sendMessage({ to:channelID, message: tekst})
+                bot.sendMessage({ to: channelID, message: tekst })
                 break;
 
             case 'tag':
@@ -97,7 +97,7 @@ bot.on('message', function (user, userID, channelID, message, evt) {
                     bot.sendMessage({ to: channelID, message: respons });
                 }
                 else {
-                    bot.sendMessage({to: channelID, message: 'Brukes slik:\n\t\t?Freedomunits [antall metrisk enhet] [Enhet du vil gjøre om]\n\n' + tekst})
+                    bot.sendMessage({ to: channelID, message: 'Brukes slik:\n\t\t?Freedomunits [antall metrisk enhet] [Enhet du vil gjøre om]\n\n' + tekst })
                 }
                 break;
 
@@ -148,9 +148,23 @@ bot.on('message', function (user, userID, channelID, message, evt) {
                 else {
                     respons = funk.kys()
                 }
-                
+
                 bot.sendMessage({ to: channelID, message: respons });
                 break;
+
+            case 'jodel':
+                var channel = message.member.voicechannel;
+                channel.join()
+                    .then(connection =>
+                        logger.info('Connected!'))
+                    .catch(console.error);
+
+                const dispatcher = connection.playFile('./media/jodel.mp3');
+                dispatcher.on("end", end => {
+                    logger.info('Disconnected');
+                    voicechannel.leave();
+                });
+
 
             default:
                 var tekst = 'Commands: ';
