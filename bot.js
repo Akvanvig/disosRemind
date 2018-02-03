@@ -145,7 +145,7 @@ bot.on('message', function (user, userID, channelID, message, evt) {
                     respons = '\u2620 R.I.P ' + bot.username + ' \u2620';
                 }
                 else {
-                    respons = readTextFile('./kys.txt');
+                    respons = fs.readFileSync("./kys.txt").toString('utf-8');
                     bot.simulateTyping(channelID);
                 }
                 
@@ -258,7 +258,7 @@ bot.on('message', function (user, userID, channelID, message, evt) {
 });
 
 //Hvis bot-en disconnectes, vil den prøve å reconnecte 
-client.on('disconnect', function (errMsg, code) {
+bot.on('disconnect', function (errMsg, code) {
     bot.connect();
 });
 
