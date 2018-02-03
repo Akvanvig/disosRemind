@@ -1,6 +1,7 @@
 var Discord = require('discord.io');
 var logger = require('winston');
 var auth = require('./auth.json');
+var funk = require('./funksjoner.js');
 var reminders = [];
 var checkReminders = setInterval(checkLastReminder, 1000);
 var checkActive = setInterval(checkActive, 1800000) //Hver halvtime skrives det til logg om bot er aktiv
@@ -145,7 +146,7 @@ bot.on('message', function (user, userID, channelID, message, evt) {
                     respons = '\u2620 R.I.P ' + bot.username + ' \u2620';
                 }
                 else {
-                    readTextFile("file:///C:/Users/Botman/Desktop/Discordbot filer/kys.txt");
+                    respons = funk.kys()
                 }
                 
                 bot.sendMessage({ to: channelID, message: respons });
@@ -324,20 +325,6 @@ function checkLastReminder() {
         reminders.pop();
         logger.info('Påminnelse sendt');
     }
-}
-
-function readTextFile(file) {
-    var rawFile = new XMLHttpRequest();
-    rawFile.open("GET", file, false);
-    rawFile.onreadystatechange = function () {
-        if (rawFile.readyState === 4) {
-            if (rawFile.status === 200 || rawFile.status == 0) {
-                var allText = rawFile.responseText;
-                return allText;
-            }
-        }
-    }
-    rawFile.send(null);
 }
 
 function checkActive() {
