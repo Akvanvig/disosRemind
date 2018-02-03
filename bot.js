@@ -153,6 +153,9 @@ bot.on('message', function (user, userID, channelID, message, evt) {
                 break;
 
             case 'jodel':
+                var channels = bot.channels;
+                logger.info(channels);
+                /*
                 var channel = message.member.voicechannel;
                 channel.join()
                     .then(connection =>
@@ -164,7 +167,9 @@ bot.on('message', function (user, userID, channelID, message, evt) {
                     logger.info('Disconnected');
                     voicechannel.leave();
                 });
+                */
 
+            
 
             default:
                 var tekst = 'Commands: ';
