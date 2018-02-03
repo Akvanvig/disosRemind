@@ -153,8 +153,10 @@ bot.on('message', function (user, userID, channelID, message, evt) {
                 break;
 
             case 'jodel':
-                var channels = bot.channels;
-                logger.info(channels);
+                var serverID = bot.channels[channelID].guild_id;
+                var vcID = bot.servers[serverID].voice_channel_id;
+                logger.info(vcID);
+
                 /*
                 var channel = message.member.voicechannel;
                 channel.join()
@@ -168,7 +170,7 @@ bot.on('message', function (user, userID, channelID, message, evt) {
                     voicechannel.leave();
                 });
                 */
-
+                break;
             
 
             default:
