@@ -156,11 +156,23 @@ bot.on('message', function (user, userID, channelID, message, evt) {
 
             case 'jodel':
                 var vcID = bot.servers[serverID].members[userID].voice_channel_id;
-                if (vcID.lengde > 10) {
+                try {
                     playAudio(vcID, './media/jodel.mp3');
                 }
+                catch (err) {
+                    bot.sendMessage({ to: channelID, message: '...' });
+                }
                 break;
-            
+
+            case 'kristian':
+                var vcID = bot.servers[serverID].members[userID].voice_channel_id;
+                try {
+                    playAudio(vcID, './media/kristian.mp3');
+                }
+                catch (err) {
+                    bot.sendMessage({ to: channelID, message: '...' });
+                }
+                break;
 
             default:
                 var tekst = 'Commands: ';
@@ -179,6 +191,8 @@ bot.on('message', function (user, userID, channelID, message, evt) {
                 tekst += '\n\nOppetid:';
                 tekst += '\n\t\tSier hvor lenge boten har kjørt';
                 tekst += '\n\nJodel:';
+                tekst += '\n\t\tSlå på lyden';
+                tekst += '\n\nKristian:';
                 tekst += '\n\t\tSlå på lyden';
                 bot.sendMessage({ to: channelID, message: tekst });
         }
