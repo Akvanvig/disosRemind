@@ -156,7 +156,9 @@ bot.on('message', function (user, userID, channelID, message, evt) {
 
             case 'jodel':
                 var vcID = bot.servers[serverID].members[userID].voice_channel_id;
-                playAudio(vcID, './media/jodel.mp3');
+                if (vcID.lengde > 10) {
+                    playAudio(vcID, './media/jodel.mp3');
+                }
                 break;
             
 
@@ -174,9 +176,10 @@ bot.on('message', function (user, userID, channelID, message, evt) {
                 tekst += '\n\t\tLar deg se implementerte konverteringer';
                 tekst += '\n\nFreedomunits:';
                 tekst += '\n\t\tOmgjør fra metrisk til imperial';
-                tekst += '\n\nOppetid';
-                tekst += '\n\t\tSier hvor lenge boten har kjørt'
-
+                tekst += '\n\nOppetid:';
+                tekst += '\n\t\tSier hvor lenge boten har kjørt';
+                tekst += '\n\nJodel:';
+                tekst += '\n\t\tSlå på lyden';
                 bot.sendMessage({ to: channelID, message: tekst });
         }
     }
@@ -352,7 +355,7 @@ function playAudio(voiceChannelID, relativeFilepath ) {
 
             //The stream fires `done` when it's got nothing else to send to Discord.
             stream.on('done', function () {
-                //Handle
+                bot.leaveVoiceChannel(voiceChannelID);
             });
         });
     });
