@@ -194,14 +194,13 @@ bot.on('message', function (user, userID, channelID, message, evt) {
                 break;
 
             case 't2':
-                switch (args[0].toLowerCase()) {
-                    case 'full':
-                        playAudio(vcID, './media/t2-long.mp3');
-                        break;
-
-                    default:
-                        playAudio(vcID, './media/t2-short.mp3');
+                if (args[0] == full) {
+                    playAudio(vcID, './media/t2-long.mp3');
                 }
+                else {
+                    playAudio(vcID, './media/t2-short.mp3');
+                }
+                
             case 'prank':
                 playAudio(vcID, './media/prank.mp3');
                 break;
