@@ -200,7 +200,26 @@ bot.on('message', function (user, userID, channelID, message, evt) {
                 catch (err) {
                     bot.sendMessage({ to: channelID, message: '...' });
                 }
-                
+
+            case 't2-lang':
+                var vcID = bot.servers[serverID].members[userID].voice_channel_id;
+                try {
+                    playAudio(vcID, './media/t2-long.mp3');
+                    break;
+                }
+                catch (err) {
+                    bot.sendMessage({ to: channelID, message: '...' });
+                }
+
+            case 't2-short':
+                var vcID = bot.servers[serverID].members[userID].voice_channel_id;
+                try {
+                    playAudio(vcID, './media/t2-short.mp3');
+                    break;
+                }
+                catch (err) {
+                    bot.sendMessage({ to: channelID, message: '...' });
+                }
             
             default:
                 var tekst = 'Lyder lagt inn:'
