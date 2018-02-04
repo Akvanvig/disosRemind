@@ -19,6 +19,7 @@ bot.on('ready', function (evt) {
     logger.info(bot.username + ' - (' + bot.id + ')');
 });
 bot.on('message', function (user, userID, channelID, message, evt) {
+    var serverID = bot.channels[channelID].guild_id;
     // Our bot needs to know if it will execute a command
     // It will listen for messages that will start with '?'
     if (message.substring(0, 1) == '?') {
@@ -153,9 +154,8 @@ bot.on('message', function (user, userID, channelID, message, evt) {
                 break;
 
             case 'jodel':
-                var serverID = bot.channels[channelID].guild_id;
-                var vcID = bot.servers[serverID].voice_channel_id;
-                logger.info(vcID);
+                var vcID = bot.servers[serverID].members[userID].voice_channel_id;
+                bot.joinVoiceChannel(vcID);
 
                 /*
                 var channel = message.member.voicechannel;
