@@ -193,14 +193,15 @@ bot.on('message', function (user, userID, channelID, message, evt) {
                 playAudio(vcID, './media/kristian.mp3');
                 break;
 
-            case 't2-lang':
-                playAudio(vcID, './media/t2-long.mp3');
-                break;
+            case 't2':
+                switch (args[0].toLowerCase()) {
+                    case 'full':
+                        playAudio(vcID, './media/t2-long.mp3');
+                        break;
 
-            case 't2-kort':
-                playAudio(vcID, './media/t2-short.mp3');
-                break;
-
+                    default:
+                        playAudio(vcID, './media/t2-short.mp3');
+                }
             case 'prank':
                 playAudio(vcID, './media/prank.mp3');
                 break;
@@ -210,13 +211,13 @@ bot.on('message', function (user, userID, channelID, message, evt) {
                 break;
             
             default:
-                var tekst = 'Lyder lagt inn:'
-                tekst += '\n\nLeave:';
+                var tekst = 'Leave:';
                 tekst += '\n\t\tTvinger bot-en til å forlate kanalen';
-                tekst += '\n\nJodel';
+                tekst = '\n\n Lyder lagt inn:';
+                tekst += '\nJodel';
                 tekst += '\nKristian';
-                tekst += '\nT2-lang';
-                tekst += '\nT2-kort';
+                tekst += '\nT2:';
+                tekst += '\n\t\t"+T2" for kort versjon, "+T2 full" for full versjon';
                 tekst += '\nPrank';
                 tekst += '\nVibrator';
                 bot.sendMessage({ to: channelID, message: tekst });
