@@ -211,7 +211,7 @@ bot.on('message', function (user, userID, channelID, message, evt) {
                     bot.sendMessage({ to: channelID, message: '...' });
                 }
 
-            case 't2-short':
+            case 't2-kort':
                 var vcID = bot.servers[serverID].members[userID].voice_channel_id;
                 try {
                     playAudio(vcID, './media/t2-short.mp3');
@@ -225,6 +225,8 @@ bot.on('message', function (user, userID, channelID, message, evt) {
                 var tekst = 'Lyder lagt inn:'
                 tekst += '\n\nJodel';
                 tekst += '\nKristian';
+                tekst += '\nT2-lang';
+                tekst += '\nT2-kort';
                 bot.sendMessage({ to: channelID, message: tekst });
         }
     }
