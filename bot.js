@@ -204,6 +204,10 @@ bot.on('message', function (user, userID, channelID, message, evt) {
             case 'prank':
                 playAudio(vcID, './media/prank.mp3');
                 break;
+
+            case 'vibrator':
+                playAudio(vcID, './media/vibrator.mp3');
+                break;
             
             default:
                 var tekst = 'Lyder lagt inn:'
@@ -214,6 +218,7 @@ bot.on('message', function (user, userID, channelID, message, evt) {
                 tekst += '\nT2-lang';
                 tekst += '\nT2-kort';
                 tekst += '\nPrank';
+                tekst += '\nVibrator';
                 bot.sendMessage({ to: channelID, message: tekst });
         }
     }
