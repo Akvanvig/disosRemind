@@ -2,6 +2,7 @@ var Discord = require('discord.io');
 var logger = require('winston');
 var auth = require('./auth.json');
 var funk = require('./funksjoner.js');
+var fs = require('fs');
 var reminders = [];
 var checkReminders = setInterval(checkLastReminder, 1000);
 var checkActive = setInterval(checkActive, 1800000) //Hver halvtime skrives det til logg om bot er aktiv
@@ -155,21 +156,7 @@ bot.on('message', function (user, userID, channelID, message, evt) {
 
             case 'jodel':
                 var vcID = bot.servers[serverID].members[userID].voice_channel_id;
-                bot.joinVoiceChannel(vcID);
-
-                /*
-                var channel = message.member.voicechannel;
-                channel.join()
-                    .then(connection =>
-                        logger.info('Connected!'))
-                    .catch(console.error);
-
-                const dispatcher = connection.playFile('./media/jodel.mp3');
-                dispatcher.on("end", end => {
-                    logger.info('Disconnected');
-                    voicechannel.leave();
-                });
-                */
+                playAudio(vcID, './media/jodel.mp3');
                 break;
             
 
@@ -346,6 +333,29 @@ function checkLastReminder() {
         reminders.pop();
         logger.info('Påminnelse sendt');
     }
+}
+
+function playAudio(voiceChannelID, relativeFilepath ) {
+    //Let's join the voice channel, the ID is whatever your voice channel's ID is.
+    bot.joinVoiceChannel(voiceChannelID, function (error, events) {
+        //Check to see if any errors happen while joining.
+        if (error) return console.error(error);
+
+        //Then get the audio context
+        bot.getAudioContext(voiceChannelID, function (error, stream) {
+            //Once again, check to see if any errors exist
+            if (error) return console.error(error);
+
+            //Create a stream to your file and pipe it to the stream
+            //Without {end: false}, it would close up the stream, so make sure to include that.
+            fs.createReadStream(relativeFilepath).pipe(stream, { end: false });
+
+            //The stream fires `done` when it's got nothing else to send to Discord.
+            stream.on('done', function () {
+                //Handle
+            });
+        });
+    });
 }
 
 function checkActive() {
