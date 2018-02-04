@@ -154,26 +154,6 @@ bot.on('message', function (user, userID, channelID, message, evt) {
                 bot.sendMessage({ to: channelID, message: respons });
                 break;
 
-            case 'jodel':
-                var vcID = bot.servers[serverID].members[userID].voice_channel_id;
-                try {
-                    playAudio(vcID, './media/jodel.mp3');
-                }
-                catch (err) {
-                    bot.sendMessage({ to: channelID, message: '...' });
-                }
-                break;
-
-            case 'kristian':
-                var vcID = bot.servers[serverID].members[userID].voice_channel_id;
-                try {
-                    playAudio(vcID, './media/kristian.mp3');
-                }
-                catch (err) {
-                    bot.sendMessage({ to: channelID, message: '...' });
-                }
-                break;
-
             default:
                 var tekst = 'Commands: ';
                 tekst += '\n\nPing:';
@@ -190,14 +170,48 @@ bot.on('message', function (user, userID, channelID, message, evt) {
                 tekst += '\n\t\tOmgjør fra metrisk til imperial';
                 tekst += '\n\nOppetid:';
                 tekst += '\n\t\tSier hvor lenge boten har kjørt';
+                tekst += '\n\nLyder:';
+                tekst += '\n\t\tBruk '+' for å spille av lyder eller se hvilke som er tilgjengelige';
+                bot.sendMessage({ to: channelID, message: tekst });
+        }
+    }
+    else if (message.substring(0, 1) == '+') {
+        //Hvis lyder skal spilles av
+        var args = message.substring(1).split(' ');
+        var cmd = args[0];
+        args = args.splice(1);
+        switch (cmd.toLowerCase()) {
+            case 'jodel':
+                var vcID = bot.servers[serverID].members[userID].voice_channel_id;
+                try {
+                    playAudio(vcID, './media/jodel.mp3');
+                    break;
+                }
+                catch (err) {
+                    bot.sendMessage({ to: channelID, message: '...' });
+                }
+                break;
+
+            case 'kristian':
+                var vcID = bot.servers[serverID].members[userID].voice_channel_id;
+                try {
+                    playAudio(vcID, './media/kristian.mp3');
+                    break;
+                }
+                catch (err) {
+                    bot.sendMessage({ to: channelID, message: '...' });
+                }
+                
+            
+            default:
+                var tekst = 'Lyder lagt inn:'
                 tekst += '\n\nJodel:';
-                tekst += '\n\t\tSlå på lyden';
-                tekst += '\n\nKristian:';
-                tekst += '\n\t\tSlå på lyden';
+                tekst += '\nKristian:';
                 bot.sendMessage({ to: channelID, message: tekst });
         }
     }
     
+
     if (userID != bot.id) {
         var args = message.split(' ');
         //Går gjennom teksten på jakt etter tall
