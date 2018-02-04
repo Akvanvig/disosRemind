@@ -180,6 +180,11 @@ bot.on('message', function (user, userID, channelID, message, evt) {
         var cmd = args[0];
         args = args.splice(1);
         switch (cmd.toLowerCase()) {
+            case 'leave':
+                var vcID = bot.servers[serverID].members[userID].voice_channel_id;
+                bot.leaveVoiceChannel(voiceChannelID);
+                break;
+
             case 'jodel':
                 var vcID = bot.servers[serverID].members[userID].voice_channel_id;
                 try {
@@ -223,6 +228,8 @@ bot.on('message', function (user, userID, channelID, message, evt) {
             
             default:
                 var tekst = 'Lyder lagt inn:'
+                tekst += '\n\nLeave:';
+                tekst += '\n\t\tTvinger boten til å leave kanalen.';
                 tekst += '\n\nJodel';
                 tekst += '\nKristian';
                 tekst += '\nT2-lang';
