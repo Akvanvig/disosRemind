@@ -179,61 +179,41 @@ bot.on('message', function (user, userID, channelID, message, evt) {
         var args = message.substring(1).split(' ');
         var cmd = args[0];
         args = args.splice(1);
+        var vcID = bot.servers[serverID].members[userID].voice_channel_id;
         switch (cmd.toLowerCase()) {
             case 'leave':
-                var vcID = bot.servers[serverID].members[userID].voice_channel_id;
-                bot.leaveVoiceChannel(voiceChannelID);
+                bot.leaveVoiceChannel(vcID);
                 break;
 
             case 'jodel':
-                var vcID = bot.servers[serverID].members[userID].voice_channel_id;
-                try {
-                    playAudio(vcID, './media/jodel.mp3');
-                    break;
-                }
-                catch (err) {
-                    bot.sendMessage({ to: channelID, message: '...' });
-                }
+                playAudio(vcID, './media/jodel.mp3');
                 break;
 
             case 'kristian':
-                var vcID = bot.servers[serverID].members[userID].voice_channel_id;
-                try {
-                    playAudio(vcID, './media/kristian.mp3');
-                    break;
-                }
-                catch (err) {
-                    bot.sendMessage({ to: channelID, message: '...' });
-                }
+                playAudio(vcID, './media/kristian.mp3');
+                break;
 
             case 't2-lang':
-                var vcID = bot.servers[serverID].members[userID].voice_channel_id;
-                try {
-                    playAudio(vcID, './media/t2-long.mp3');
-                    break;
-                }
-                catch (err) {
-                    bot.sendMessage({ to: channelID, message: '...' });
-                }
+                playAudio(vcID, './media/t2-long.mp3');
+                break;
 
             case 't2-kort':
-                var vcID = bot.servers[serverID].members[userID].voice_channel_id;
-                try {
-                    playAudio(vcID, './media/t2-short.mp3');
-                    break;
-                }
-                catch (err) {
-                    bot.sendMessage({ to: channelID, message: '...' });
-                }
+                playAudio(vcID, './media/t2-short.mp3');
+                break;
+
+            case 'prank':
+                playAudio(vcID, './media/prank.mp3');
+                break;
             
             default:
                 var tekst = 'Lyder lagt inn:'
                 tekst += '\n\nLeave:';
-                tekst += '\n\t\tTvinger boten til å leave kanalen.';
+                tekst += '\n\t\tTvinger bot-en til å forlate kanalen';
                 tekst += '\n\nJodel';
                 tekst += '\nKristian';
                 tekst += '\nT2-lang';
                 tekst += '\nT2-kort';
+                tekst += '\nPrank';
                 bot.sendMessage({ to: channelID, message: tekst });
         }
     }
