@@ -21,8 +21,7 @@ bot.on('ready', function (evt) {
 });
 bot.on('message', function (user, userID, channelID, message, evt) {
     var serverID = bot.channels[channelID].guild_id;
-    // Our bot needs to know if it will execute a command
-    // It will listen for messages that will start with '?'
+    //Diverse kommandoer
     if (message.substring(0, 1) == '?') {
         var args = message.substring(1).split(' ');
         var cmd = args[0];
@@ -171,12 +170,12 @@ bot.on('message', function (user, userID, channelID, message, evt) {
                 tekst += '\n\nOppetid:';
                 tekst += '\n\t\tSier hvor lenge boten har kjørt';
                 tekst += '\n\nLyder:';
-                tekst += '\n\t\tBruk '+' for å spille av lyder eller se hvilke som er tilgjengelige';
+                tekst += '\n\t\tBruk "+" for å spille av lyder eller se hvilke som er tilgjengelige';
                 bot.sendMessage({ to: channelID, message: tekst });
         }
     }
+    //Hvis lyder skal spilles av
     else if (message.substring(0, 1) == '+') {
-        //Hvis lyder skal spilles av
         var args = message.substring(1).split(' ');
         var cmd = args[0];
         args = args.splice(1);
@@ -205,8 +204,8 @@ bot.on('message', function (user, userID, channelID, message, evt) {
             
             default:
                 var tekst = 'Lyder lagt inn:'
-                tekst += '\n\nJodel:';
-                tekst += '\nKristian:';
+                tekst += '\n\nJodel';
+                tekst += '\nKristian';
                 bot.sendMessage({ to: channelID, message: tekst });
         }
     }
