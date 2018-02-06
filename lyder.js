@@ -1,7 +1,7 @@
 var funk = require('./funksjoner.js');
 
 module.exports = {
-    lyder: function (user, userID, channelID, message, serverID, client) {
+    lyder: function (user, userID, channelID, message, serverID, bot) {
         var args = message.substring(1).split(' ');
         var cmd = args[0];
         args = args.splice(1);

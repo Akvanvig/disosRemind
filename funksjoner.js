@@ -76,23 +76,21 @@ module.exports = {
     */
 
     playAudio: function (voiceChannelID, relativeFilepath, bot, serverID) {
-        if (botVcID == null || botVcID != voiceChannelID ) {
+        if (lastVChannel == null || lastVChannel != voiceChannelID ) {
             joinVoiceChannel(voiceChannelID, bot, serverID);
         }
         bot.getAudioContext(voiceChannelID, function (error, stream) {
             fs.createReadStream(relativeFilepath).pipe(stream, { end: false }); //Create a stream to your file and pipe it to the stream Without {end: false}
-            lastVChannel = voiceChannelID;
             stream.on('done', function () {
-                leaveChannel = setTimeout(function (bot1, voiceChannelID) { bot.leaveVoiceChannel(voiceChannelID); leaveChannel = null; }, 15000);
+                leaveChannel = setTimeout(function (bot, voiceChannelID) { bot.leaveVoiceChannel(voiceChannelID); leaveChannel = null; }, 15000);
             });
         });
     },
 
-    joinVoicechat: function (voiceChannelID, bot, serverID) {
-        var botVcID = bot.servers[serverID].members[bot.userID].voice_channel_id;
-        if (botVcID != null && botVcID != voiceChannelID) {
+    joinVoicechat: function (voiceChannelID, bot, serverID, botVcID) {
+        if (lastVChannel != null && lastVChannel != voiceChannelID) {
             bot.joinVoiceChannel(voiceChannelID, function (error, stream) {
-
+                lastVChannel = voiceChannelID;
             });
         }
     },

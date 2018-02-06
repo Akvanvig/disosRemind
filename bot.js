@@ -161,6 +161,7 @@ bot.on('message', function (user, userID, channelID, message, evt) {
     }
     //Hvis lyder skal spilles av
     else if (message.substring(0, 1) == '+') {
+        botVC = bot.servers[serverID].members[bot.userID].voice_channel_id;
         lyder.lyder(user, userID, channelID, message, serverID, bot)
     }
     
