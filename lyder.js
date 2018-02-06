@@ -35,7 +35,7 @@ module.exports = {
                 funk.playAudio(vcID, './media/vibrator.mp3', bot);
                 break;
 
-            case 'Skottland':
+            case 'skottland':
                 var tall = int(Math.random() * 23);
                 switch (tall) {
                     case 0:
@@ -111,6 +111,7 @@ module.exports = {
                         funk.playAudio(vcID, './media/t2-short.mp3', bot);
 
                 }
+                break;
             default:
                 var tekst = 'Leave:';
                 tekst += '\n\t\tTvinger bot-en til \u00e5 forlate kanalen';
