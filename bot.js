@@ -7,8 +7,8 @@ var funk = require('./funksjoner.js');
 var lyder = require('./lyder.js');
 var konvert = require('./konverteringer.js');
 var reminders = [];
-var checkReminders = setInterval(function () { reminders = funk.checkLastReminder(reminders, bot, logger); }, 1000); //Sjekker hvert sekund om noen påminnelser må gjennomføres
-var checkActive = setInterval(function () { funk.checkActive(logger); }, 1800000); //Hver halvtime skrives det til logg om bot er aktiv
+var checkReminders = setInterval(function() {reminder = funk.checkLastReminder(reminders, bot, logger); }, 1000); //Sjekker hvert sekund om noen påminnelser må gjennomføres
+var checkActive = setInterval(function() {funk.checkActive(logger)}, 1800000); //Hver halvtime skrives det til logg om bot er aktiv
 var startupTime = new Date().getTime();
 
 //configure loggersettings
@@ -163,7 +163,7 @@ bot.on('message', function (user, userID, channelID, message, evt) {
     else if (message.substring(0, 1) == '+') {
         lyder.lyder(user, userID, channelID, message, serverID, bot)
     }
-    
+
     //Ser etter enheter å konvertere
     if (userID != bot.id) {
         var args = message.split(' ');
@@ -177,7 +177,7 @@ bot.on('message', function (user, userID, channelID, message, evt) {
     }
 });
 
-//Hvis bot-en disconnectes, vil den prøve å reconnecte 
+//Hvis bot-en disconnectes, vil den prøve å reconnecte
 bot.on('disconnect', function (errMsg, code) {
     bot.connect();
 });
