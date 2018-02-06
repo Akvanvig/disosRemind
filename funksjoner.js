@@ -1,6 +1,8 @@
 var fs = require('fs');
+var funk = require('./funksjoner.js');
 var lastVChannel = null;
 var leaveChannel = null;
+var stream = null;
 
 module.exports = {
     isInteger: function(num) {
@@ -75,27 +77,29 @@ module.exports = {
     },
     */
 
-    playAudio: function (voiceChannelID, relativeFilepath, bot, serverID) {
-        if (lastVChannel == null || lastVChannel != voiceChannelID ) {
-            joinVoiceChannel(voiceChannelID, bot, serverID);
+    playAudio: function(voiceChannelID, relativeFilepath, bot, serverID) {
+        botVC = bot.servers[serverID].members[bot.id].voice_channel_id;
+        if (botVC == null || botVC != voiceChannelID ) {
+            funk.joinVoicechat(voiceChannelID, bot, serverID, botVC);
         }
         bot.getAudioContext(voiceChannelID, function (error, stream) {
             fs.createReadStream(relativeFilepath).pipe(stream, { end: false }); //Create a stream to your file and pipe it to the stream Without {end: false}
             stream.on('done', function () {
-                leaveChannel = setTimeout(function (bot, voiceChannelID) { bot.leaveVoiceChannel(voiceChannelID); leaveChannel = null; }, 15000);
+                leaveChannel = setTimeout(funk.leaveVoicechat(bot, serverID), 15000);
             });
         });
     },
 
-    joinVoicechat: function (voiceChannelID, bot, serverID, botVcID) {
-        if (lastVChannel != null && lastVChannel != voiceChannelID) {
+    joinVoicechat: function(voiceChannelID, bot, serverID, botVcID) {
+        if (botVC != null && botVC != voiceChannelID) {
             bot.joinVoiceChannel(voiceChannelID, function (error, stream) {
                 lastVChannel = voiceChannelID;
+                this.stream = stream;
             });
         }
     },
 
-    leaveVoicechat: function (voiceChannelID, bot, serverID) {
+    leaveVoicechat: function(bot, serverID) {
         bot.leaveVoiceChannel(lastVChannel);
     },
 
