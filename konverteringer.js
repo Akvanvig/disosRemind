@@ -1,7 +1,7 @@
 var funk = require('./funksjoner.js');
 
 module.exports = {
-    //Args er ordene fra meldingen splittet opp, i er i fra løkka
+    //Args er ordene fra meldingen splittet opp, i er i fra lï¿½kka
     konverter: function (channelID, bot, args, i) {
         var respons = '';
         var c = false; //changed?
@@ -35,8 +35,8 @@ module.exports = {
                 c = true;
                 break;
 
-            case '°f':
-                respons = funk.convert(args[i], -32, (5 / 9), '°F', '°C');
+            case 'ï¿½f':
+                respons = funk.convert(args[i], -32, (5 / 9), 'ï¿½F', 'ï¿½C');
                 c = true;
                 break;
 
@@ -46,7 +46,7 @@ module.exports = {
                 break;
 
             case 'k':
-                respons = funk.convert(args[i], -272.15, 1, 'K', '°C');
+                respons = funk.convert(args[i], -272.15, 1, 'K', 'ï¿½C');
                 c = true;
                 break;
 

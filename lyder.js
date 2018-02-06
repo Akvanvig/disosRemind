@@ -12,32 +12,32 @@ module.exports = {
                 break;
 
             case 'jodel':
-                funk.playAudio(vcID, './media/jodel.mp3', bot, serverID);
+                funk.playAudio(vcID, './media/jodel.mp3', bot);
                 break;
 
             case 'kristian':
-                funk.playAudio(vcID, './media/kristian.mp3', bot, serverID);
+                funk.playAudio(vcID, './media/kristian.mp3', bot);
                 break;
 
             case 't2':
                 if (args[0] == 'full') {
-                    funk.playAudio(vcID, './media/t2-long.mp3', bot, serverID);
+                    funk.playAudio(vcID, './media/t2-long.mp3', bot);
                 }
                 else {
-                    funk.playAudio(vcID, './media/t2-short.mp3', bot, serverID);
+                    funk.playAudio(vcID, './media/t2-short.mp3', bot);
                 }
 
             case 'prank':
-                funk.playAudio(vcID, './media/prank.mp3', bot, serverID);
+                funk.playAudio(vcID, './media/prank.mp3', bot);
                 break;
 
             case 'vibrator':
-                funk.playAudio(vcID, './media/vibrator.mp3', bot, serverID);
+                funk.playAudio(vcID, './media/vibrator.mp3', bot);
                 break;
 
             default:
                 var tekst = 'Leave:';
-                tekst += '\n\t\tTvinger bot-en til å forlate kanalen';
+                tekst += '\n\t\tTvinger bot-en til \u00e5 forlate kanalen';
                 tekst = '\n\n Lyder lagt inn:';
                 tekst += '\nJodel';
                 tekst += '\nKristian';
