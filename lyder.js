@@ -12,27 +12,27 @@ module.exports = {
                 break;
 
             case 'jodel':
-                funk.playAudio(vcID, './media/jodel.mp3', bot);
+                funk.playAudio(vcID, './media/jodel.mp3', bot, serverID);
                 break;
 
             case 'kristian':
-                funk.playAudio(vcID, './media/kristian.mp3', bot);
+                funk.playAudio(vcID, './media/kristian.mp3', bot, serverID);
                 break;
 
             case 't2':
                 if (args[0] == 'full') {
-                    funk.playAudio(vcID, './media/t2-long.mp3', bot);
+                    funk.playAudio(vcID, './media/t2-long.mp3', bot, serverID);
                 }
                 else {
-                    funk.playAudio(vcID, './media/t2-short.mp3', bot);
+                    funk.playAudio(vcID, './media/t2-short.mp3', bot, serverID);
                 }
 
             case 'prank':
-                funk.playAudio(vcID, './media/prank.mp3', bot);
+                funk.playAudio(vcID, './media/prank.mp3', bot, serverID);
                 break;
 
             case 'vibrator':
-                funk.playAudio(vcID, './media/vibrator.mp3', bot);
+                funk.playAudio(vcID, './media/vibrator.mp3', bot, serverID);
                 break;
 
             default:

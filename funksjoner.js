@@ -1,4 +1,6 @@
 var fs = require('fs');
+var lastVChannel = null;
+var leaveChannel = null;
 
 module.exports = {
     isInteger: function(num) {
@@ -53,27 +55,50 @@ module.exports = {
         res += "extensively trained in unarmed combat, but I have access to the entire arsenal of the United States Marine Corps and I will use it to its full extent to wipe your miserable ass off the face of the continent, you little shit. If only you could have known what unholy retribution your little 'clever' comment was about to bring down upon you, maybe you would have held your fucking tongue. But you couldn’t, you didn’t, and now you’re paying the price, you goddamn idiot. I will shit fury all over you and you will drown in it. You’re fucking dead, kiddo.";
         return res;
     },
-
-    playAudio: function(voiceChannelID, relativeFilepath, bot) {
-        //Let's join the voice channel, the ID is whatever your voice channel's ID is.
-        bot.joinVoiceChannel(voiceChannelID, function (error, events) {
-        //Check to see if any errors happen while joining.
-        if (error) return console.error(error);
-            //Then get the audio context
-            bot.getAudioContext(voiceChannelID, function (error, stream) {
-            //Once again, check to see if any errors exist
-            if (error) return console.error(error);
-                
-                //Create a stream to your file and pipe it to the stream
-                //Without {end: false}, it would close up the stream, so make sure to include that.
-                fs.createReadStream(relativeFilepath).pipe(stream, { end: false });
-
-                //The stream fires `done` when it's got nothing else to send to Discord.
-                stream.on('done', function () {
-                    bot.leaveVoiceChannel(voiceChannelID);
+    /*
+    playAudio: function (voiceChannelID, relativeFilepath, bot, serverID) {
+        var botVcID = bot.servers[serverID].members[bot.userID].voice_channel_id;
+        if () {
+            bot.joinVoiceChannel(voiceChannelID, function (error, events) { //Let's join the voice channel, the ID is whatever your voice channel's ID is.
+                if (error) return console.error(error);
+                //Then get the audio context
+                bot.getAudioContext(voiceChannelID, function (error, stream) {
+                    if (error) return console.error(error); //Once again, check to see if any errors exist
+                    fs.createReadStream(relativeFilepath).pipe(stream, { end: false }); //Create a stream to your file and pipe it to the stream Without {end: false}, it would close up the stream, so make sure to include that.
+                    //The stream fires `done` when it's got nothing else to send to Discord.
+                    stream.on('done', function () {
+                        bot.leaveVoiceChannel(voiceChannelID);
+                    });
                 });
             });
+        }
+    },
+    */
+
+    playAudio: function (voiceChannelID, relativeFilepath, bot, serverID) {
+        if (botVcID == null || botVcID != voiceChannelID ) {
+            joinVoiceChannel(voiceChannelID, bot, serverID);
+        }
+        bot.getAudioContext(voiceChannelID, function (error, stream) {
+            fs.createReadStream(relativeFilepath).pipe(stream, { end: false }); //Create a stream to your file and pipe it to the stream Without {end: false}
+            lastVChannel = voiceChannelID;
+            stream.on('done', function () {
+                leaveChannel = setTimeout(function (bot1, voiceChannelID) { bot.leaveVoiceChannel(voiceChannelID); leaveChannel = null; }, 15000);
+            });
         });
+    },
+
+    joinVoicechat: function (voiceChannelID, bot, serverID) {
+        var botVcID = bot.servers[serverID].members[bot.userID].voice_channel_id;
+        if (botVcID != null && botVcID != voiceChannelID) {
+            bot.joinVoiceChannel(voiceChannelID, function (error, stream) {
+
+            });
+        }
+    },
+
+    leaveVoicechat: function (voiceChannelID, bot, serverID) {
+        bot.leaveVoiceChannel(lastVChannel);
     },
 
     convert: function (value, add, multiple, unit1Name, unit2Name) {
