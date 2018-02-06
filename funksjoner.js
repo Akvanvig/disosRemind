@@ -1,3 +1,5 @@
+var fs = require('fs');
+
 module.exports = {
     isInteger: function(num) {
         return !isNaN(parseInt(num)) && isFinite(num);
@@ -29,7 +31,7 @@ module.exports = {
         if (m > 0) { respons += m + ' min, '; }
         respons += s + ' sek.';
         return respons;
-    }
+    },
 
     checkLastReminder: function(reminders, bot, logger) {
         var lengde = reminders.length;
@@ -52,7 +54,7 @@ module.exports = {
         return res;
     },
 
-    playAudio: function(voiceChannelID, relativeFilepath) {
+    playAudio: function(voiceChannelID, relativeFilepath, bot) {
         //Let's join the voice channel, the ID is whatever your voice channel's ID is.
         bot.joinVoiceChannel(voiceChannelID, function (error, events) {
         //Check to see if any errors happen while joining.

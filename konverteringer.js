@@ -1,8 +1,8 @@
-var funk = require('./funksjoner.js)')
+var funk = require('./funksjoner.js');
 
 module.exports = {
     //Args er ordene fra meldingen splittet opp, i er i fra løkka
-    konverter: function (channelID, client, args, i) {
+    konverter: function (channelID, bot, args, i) {
         var respons = '';
         var c = false; //changed?
         var unit = args[i + 1];

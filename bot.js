@@ -6,10 +6,9 @@ var auth = require('./auth.json');
 var funk = require('./funksjoner.js');
 var lyder = require('./lyder.js');
 var konvert = require('./konverteringer.js');
-var fs = require('fs');
 var reminders = [];
-var checkReminders = setInterval(funk.checkLastReminder(reminders,bot,logger), 1000);
-var checkActive = setInterval(checkActive, 1800000); //Hver halvtime skrives det til logg om bot er aktiv
+var checkReminders = setInterval(function () { reminders = funk.checkLastReminder(reminders, bot, logger); }, 1000); //Sjekker hvert sekund om noen påminnelser må gjennomføres
+var checkActive = setInterval(function () { funk.checkActive(logger); }, 1800000); //Hver halvtime skrives det til logg om bot er aktiv
 var startupTime = new Date().getTime();
 
 //configure loggersettings
