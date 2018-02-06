@@ -1,16 +1,22 @@
+//Discord.io: https://izy521.gitbooks.io/discord-io/content/
+
 var Discord = require('discord.io');
 var logger = require('winston');
 var auth = require('./auth.json');
 var funk = require('./funksjoner.js');
+var lyder = require('./lyder.js');
+var konvert = require('./konverteringer.js');
 var fs = require('fs');
 var reminders = [];
-var checkReminders = setInterval(checkLastReminder, 1000);
-var checkActive = setInterval(checkActive, 1800000) //Hver halvtime skrives det til logg om bot er aktiv
-var startupTime = new Date().getTime()
+var checkReminders = setInterval(funk.checkLastReminder(reminders,bot,logger), 1000);
+var checkActive = setInterval(checkActive, 1800000); //Hver halvtime skrives det til logg om bot er aktiv
+var startupTime = new Date().getTime();
+
 //configure loggersettings
 logger.remove(logger.transports.Console);
 logger.add(logger.transports.Console, { colorize: true });
 logger.level = 'debug';
+
 //initialize Discord bot
 var bot = new Discord.Client({ token: auth.token, autorun: true });
 
@@ -45,7 +51,7 @@ bot.on('message', function (user, userID, channelID, message, evt) {
                 //Forhindrer misbruk av tagging på discord
                 text = text.replace('@', 'Alfakr\u00f8ll')
 
-                if (isInteger(args[0])) {
+                if (funk.isInteger(args[0])) {
                     if (args[0] > 0 && args[0] % 1 == 0) {
                         bot.sendMessage({ to: channelID, message: 'Du vil f\u00e5 en p\u00e5minnelse om ' + args[0] + ' minutt(er)' });
                         reminders.push(new Reminder(args[0], userID, channelID, text));
@@ -85,7 +91,7 @@ bot.on('message', function (user, userID, channelID, message, evt) {
                 var tekst = 'Enheter lagt inn:';
                 tekst += '\n\t\tkW (Til hk)';
 
-                if (isNumeric(args[0])) {
+                if (funk.isNumeric(args[0])) {
                     respons = '';
                     switch (args[1].toLowerCase()) {
                         case 'kw':
@@ -116,27 +122,7 @@ bot.on('message', function (user, userID, channelID, message, evt) {
             case 'oppetid':
                 var uptime = new Date().getTime() - startupTime;
                 var respons = bot.username + ' har kjørt i ';
-                var s = 0, m = 0, h = 0, d = 0;
-                if (uptime > 1000) {
-                    s = (uptime - (uptime % 1000)) / 1000;
-                    if (s > 60) {
-                        m = (s - (s % 60)) / 60;
-                        s = s - (60 * m);
-                        if (m > 60) {
-                            h = (m - (m % 60)) / 60;
-                            m = m - (60 * h);
-                            if (h > 24) {
-                                d = (h - (h % 24)) / 24;
-                                h = h - (24 * d);
-                            }
-                        }
-                    }
-                }
-                if (d > 0) { respons += d + ' dager, '; }
-                if (h > 0) { respons += h + ' timer, '; }
-                if (m > 0) { respons += m + ' minutter, '; }
-                respons += s + ' sekunder.'
-
+                respons = funk.calcTime(uptime);
                 bot.sendMessage({ to: channelID, message: respons });
                 break;
 
@@ -176,133 +162,17 @@ bot.on('message', function (user, userID, channelID, message, evt) {
     }
     //Hvis lyder skal spilles av
     else if (message.substring(0, 1) == '+') {
-        var args = message.substring(1).split(' ');
-        var cmd = args[0];
-        args = args.splice(1);
-        var vcID = bot.servers[serverID].members[userID].voice_channel_id;
-        switch (cmd.toLowerCase()) {
-            case 'leave':
-                bot.leaveVoiceChannel(vcID);
-                break;
-
-            case 'jodel':
-                playAudio(vcID, './media/jodel.mp3');
-                break;
-
-            case 'kristian':
-                playAudio(vcID, './media/kristian.mp3');
-                break;
-
-            case 't2':
-                if (args[0] == full) {
-                    playAudio(vcID, './media/t2-long.mp3');
-                }
-                else {
-                    playAudio(vcID, './media/t2-short.mp3');
-                }
-                
-            case 'prank':
-                playAudio(vcID, './media/prank.mp3');
-                break;
-
-            case 'vibrator':
-                playAudio(vcID, './media/vibrator.mp3');
-                break;
-            
-            default:
-                var tekst = 'Leave:';
-                tekst += '\n\t\tTvinger bot-en til å forlate kanalen';
-                tekst = '\n\n Lyder lagt inn:';
-                tekst += '\nJodel';
-                tekst += '\nKristian';
-                tekst += '\nT2:';
-                tekst += '\n\t\t"+T2" for kort versjon, "+T2 full" for full versjon';
-                tekst += '\nPrank';
-                tekst += '\nVibrator';
-                bot.sendMessage({ to: channelID, message: tekst });
-        }
+        lyder.lyder(user, userID, channelID, message, serverID, bot)
     }
     
-
+    //Ser etter enheter å konvertere
     if (userID != bot.id) {
         var args = message.split(' ');
         //Går gjennom teksten på jakt etter tall
         for (var i = 0; i < (args.length - 1); i++) {
             //Blir et tall funnet, sjekker den ordet etter for enhetstype
-            if (isNumeric(args[i])) {
-                var respons = '';
-                var c = false; //changed?
-                var unit = args[i + 1];
-                switch (unit.toLowerCase()) {
-                    case 'pounds':
-                        respons = convert(args[i], 0, 0.45359237, 'lbs', 'kg');
-                        c = true;
-                        break;
-
-                    case 'lbs':
-                        respons = convert(args[i], 0, 0.45359237, 'lbs', 'kg');
-                        c = true;
-                        break;
-
-                    case 'miles':
-                        respons = convert(args[i], 0, 1.609344, 'miles', 'km');
-                        c = true;
-                        break;
-
-                    case 'mi':
-                        respons = convert(args[i], 0, 1.609344, 'miles', 'km');
-                        c = true;
-                        break;
-
-                    case 'foot':
-                        respons = convert(args[i], 0, 0.3048, 'foot', 'meters');
-                        c = true;
-                        break;
-
-                    case 'feet':
-                        respons = convert(args[i], 0, 0.3048, 'feet', 'meters');
-                        c = true;
-                        break;
-
-                    case 'mph':
-                        respons = convert(args[i], 0, 1.609344, 'mph', 'km/h');
-                        c = true;
-                        break;
-
-                    case 'fahrenheit':
-                        respons = convert(args[i], -32, (5 / 9), 'Fahrenheit', 'Celsius');
-                        c = true;
-                        break;
-
-                    case '°f':
-                        respons = convert(args[i], -32, (5 / 9), '°F', '°C');
-                        c = true;
-                        break;
-
-                    case 'kelvin':
-                        respons = convert(args[i], -272.15, 1, 'Kelvin', 'Celsius');
-                        c = true;
-                        break;
-
-                    case 'k':
-                        respons = convert(args[i], -272.15, 1, 'K', '°C');
-                        c = true;
-                        break;
-
-                    case 'bhp':
-                        respons = convert(args[i], 0, 0.73549875, 'bhp', 'kW');
-                        c = true;
-                        break;
-
-                    case 'hk':
-                        respons = convert(args[i], 0, 0.73549875, 'hk', 'kW');
-                        c = true;
-                        break;
-                }
-
-                if (c) {
-                    bot.sendMessage({ to: channelID, message: respons });
-                }
+            if (funk.isNumeric(args[i])) {
+                konvert.konverter(channelID, bot, args, i)
             }
         }
     }
@@ -312,20 +182,6 @@ bot.on('message', function (user, userID, channelID, message, evt) {
 bot.on('disconnect', function (errMsg, code) {
     bot.connect();
 });
-
-function isInteger(num) {
-    return !isNaN(parseInt(num)) && isFinite(num);
-}
-
-function isNumeric(num) {
-    return !isNaN(parseFloat(num)) && isFinite(num);
-}
-
-function convert(value, add, multiple, unit1Name, unit2Name) {
-    var unit = Math.round((+value + add) * multiple * 100) / 100;
-    return value + ' ' + unit1Name + ' = ' + unit + ' ' + unit2Name;
-}
-
 
 class Reminder {
     //Takes in time for alarm, userID that requested reminder, channelID it was requested in and text requested
@@ -344,14 +200,7 @@ class Reminder {
 
     get remainingTime() {
         var result = this.time - new Date().getTime();
-        result = result / 1000 / 60 / 60;
-
-        var hr  = Math.floor(result);
-        var min = (result % 1) * 60;
-        var sek = Math.floor((min % 1) * 60);
-        min = Math.floor(min);
-
-        return hr + ' hour(s), ' + min + ' minute(s), ' + sek + ' second(s)';
+        return funk.calcTime(result);
     }
 
     get channelID() {
@@ -366,42 +215,3 @@ class Reminder {
       return this.text;
     }
 };
-
-//Sjekkes hvert sekund pga. timer satt opp øverst
-function checkLastReminder() {
-    var lengde = reminders.length;
-    if (lengde > 0 && reminders[lengde - 1].finishTime <= new Date().getTime()) {
-        bot.sendMessage({to: reminders[lengde - 1].channelID , message: '<@!' + reminders[lengde - 1].userID + '> ' + reminders[lengde - 1].reqText});
-        //fjerner reminder
-        reminders.pop();
-        logger.info('Påminnelse sendt');
-    }
-}
-
-function playAudio(voiceChannelID, relativeFilepath ) {
-    //Let's join the voice channel, the ID is whatever your voice channel's ID is.
-    bot.joinVoiceChannel(voiceChannelID, function (error, events) {
-        //Check to see if any errors happen while joining.
-        if (error) return console.error(error);
-
-        //Then get the audio context
-        bot.getAudioContext(voiceChannelID, function (error, stream) {
-            //Once again, check to see if any errors exist
-            if (error) return console.error(error);
-
-            //Create a stream to your file and pipe it to the stream
-            //Without {end: false}, it would close up the stream, so make sure to include that.
-            fs.createReadStream(relativeFilepath).pipe(stream, { end: false });
-
-            //The stream fires `done` when it's got nothing else to send to Discord.
-            stream.on('done', function () {
-                bot.leaveVoiceChannel(voiceChannelID);
-            });
-        });
-    });
-}
-
-function checkActive() {
-    logger.info('Mr.Roboto aktiv - ' + Date());
-    //bot.sendMessage({ to: 408674766631862283, message: Date() });
-}
