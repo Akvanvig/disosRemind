@@ -76,8 +76,9 @@ module.exports = {
     */
 
     playAudio: function (voiceChannelID, relativeFilepath, bot, serverID) {
-        if (lastVChannel == null || lastVChannel != voiceChannelID ) {
-            joinVoiceChannel(voiceChannelID, bot, serverID);
+        botVC = bot.servers[serverID].members[bot.id].voice_channel_id;
+        if (botVC == null || botVC != voiceChannelID ) {
+            joinVoiceChannel(voiceChannelID, bot, serverID, botVC);
         }
         bot.getAudioContext(voiceChannelID, function (error, stream) {
             fs.createReadStream(relativeFilepath).pipe(stream, { end: false }); //Create a stream to your file and pipe it to the stream Without {end: false}
@@ -88,9 +89,9 @@ module.exports = {
     },
 
     joinVoicechat: function (voiceChannelID, bot, serverID, botVcID) {
-        if (lastVChannel != null && lastVChannel != voiceChannelID) {
+        if (botVC != null && botVC != voiceChannelID) {
             bot.joinVoiceChannel(voiceChannelID, function (error, stream) {
-                lastVChannel = voiceChannelID;
+                botVC = voiceChannelID;
             });
         }
     },
