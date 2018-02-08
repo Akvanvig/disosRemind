@@ -34,7 +34,11 @@ module.exports = {
             case 'vibrator':
                 funk.playAudio(vcID, './media/vibrator.mp3', bot);
                 break;
-
+            
+            case 'redneck':
+                funk.playAudio(vcID, './media/wedonotappreciateyourkindaroundhere.mp3', bot);
+                break;
+                
             case 'skottland':
                 var tall = parseInt(Math.random() * 23);
                 switch (tall.toString()) {
@@ -123,6 +127,7 @@ module.exports = {
                 tekst +='\n\t\t+T2 full';
                 tekst += '\nPrank';
                 tekst += '\nVibrator';
+                tekst += '\nRedneck';
                 tekst += '\nSkottland';
                 bot.sendMessage({ to: channelID, message: tekst });
         }
