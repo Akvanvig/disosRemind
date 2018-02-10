@@ -1,4 +1,6 @@
 //Discord.io: https://izy521.gitbooks.io/discord-io/content/
+//Test Python Script i kombinasjon med js/nJode
+//https://stackoverflow.com/questions/23450534/how-to-call-python-function-from-nodejs
 
 var Discord = require('discord.io');
 var logger = require('winston');
