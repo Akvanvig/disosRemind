@@ -39,76 +39,80 @@ module.exports = {
                 funk.playAudio(vcID, './media/wedonotappreciateyourkindaroundhere.mp3', bot);
                 break;
 
+            case 'kjeften':
+                funk.playAudio(vcID, './media/kjeften.mp3', bot);
+                break;
+
             case 'skottland':
                 var tall = parseInt(Math.random() * 23);
-                switch (tall.toString()) {
-                    case '0':
+                switch (tall) {
+                    case 0:
                         funk.playAudio(vcID, './media/skott/tooHard.mp3', bot);
                         break;
-                    case '1':
+                    case 1:
                         funk.playAudio(vcID, './media/skott/keepWankingMeOffImStaringToGetSoft.mp3', bot);
                         break;
-                    case '2':
+                    case 2:
                         funk.playAudio(vcID, './media/skott/imStartingToGetSoft.mp3', bot);
                         break;
-                    case '3':
+                    case 3:
                         funk.playAudio(vcID, './media/skott/navaTuuHard.mp3', bot);
                         break;
-                    case '4':
+                    case 4:
                         funk.playAudio(vcID, './media/skott/keepWankingMe.mp3', bot);
                         break;
-                    case '5':
+                    case 5:
                         funk.playAudio(vcID, './media/skott/sockMeOff.mp3', bot);
                         break;
-                    case '6':
+                    case 6:
                         funk.playAudio(vcID, './media/skott/howDoesThatCockInUrMouthTaste.mp3', bot);
                         break;
-                    case '7':
+                    case 7:
                         funk.playAudio(vcID, './media/skott/tasteEt.mp3', bot);
                         break;
-                    case '8':
+                    case 8:
                         funk.playAudio(vcID, './media/skott/ohOohYee.mp3', bot);
                         break;
-                    case '9':
+                    case 9:
                         funk.playAudio(vcID, './media/skott/oooohhh.mp3', bot);
                         break;
-                    case '10':
+                    case 10:
                         funk.playAudio(vcID, './media/skott/suckMyBalls.mp3', bot);
                         break;
-                    case '11':
+                    case 11:
                         funk.playAudio(vcID, './media/skott/takeEt.mp3', bot);
                         break;
-                    case '12':
+                    case 12:
                         funk.playAudio(vcID, './media/skott/lickMyBalls.mp3', bot);
                         break;
-                    case '13':
+                    case 13:
                         funk.playAudio(vcID, './media/skott/waaaatTakiDaDaDa.mp3', bot);
                         break;
-                    case '14':
+                    case 14:
                         funk.playAudio(vcID, './media/skott/lickMyBallz.mp3', bot);
                         break;
-                    case '15':
+                    case 15:
                         //funk.playAudio(vcID, './media/skott/you_got_a_big_ass_and_i_love_shaging_et.mp3', bot);
                         //break;
-                    case '16':
+                    case 16:
                         funk.playAudio(vcID, './media/skott/iLoveShaginEt.mp3', bot);
                         break;
-                    case '17':
+                    case 17:
                         //funk.playAudio(vcID, './media/skott/you_darty_fakin_slut.mp3', bot);
                         //break;
-                    case '18':
+                    case 18:
                         funk.playAudio(vcID, './media/skott/suckMyCockQuick.mp3', bot);
                         break;
-                    case '19':
+                    case 19:
                         funk.playAudio(vcID, './media/skott/grabEt.mp3', bot);
                         break;
-                    case '20':
+                    case 20:
                         funk.playAudio(vcID, './media/skott/getMyCock.mp3', bot);
                         break;
-                    case '21':
+                    case 21:
                         funk.playAudio(vcID, './media/skott/nooohShe.mp3', bot);
                         break;
-                    case '22':
+                    case 22:
                         funk.playAudio(vcID, './media/skott/uaaaah.mp3', bot);
                         break;
                     default:
