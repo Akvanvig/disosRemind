@@ -132,6 +132,7 @@ module.exports = {
                 tekst += '\nPrank';
                 tekst += '\nVibrator';
                 tekst += '\nRedneck';
+                tekst += '\nKjeften';
                 tekst += '\nSkottland';
                 bot.sendMessage({ to: channelID, message: tekst });
         }
