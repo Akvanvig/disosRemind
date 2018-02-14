@@ -1,7 +1,7 @@
 var funk = require('./funksjoner.js');
 
 module.exports = {
-    kommando: function (user, userID, channelID, message, serverID, bot, reminders, startupTime) {
+    kommando: function (user, userID, channelID, message, serverID, bot, logger, reminders, startupTime) {
         var args = message.substring(1).split(' ');
         var cmd = args[0];
         args = args.splice(1);

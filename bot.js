@@ -32,7 +32,7 @@ bot.on('message', function (user, userID, channelID, message, evt) {
     //Diverse kommandoer
     if (message.substring(0, 1) == '?') {
         try {
-            reminders = kommando.kommando(user, userID, channelID, message, serverID, bot, reminders, startupTime);
+            reminders = kommando.kommando(user, userID, channelID, message, serverID, bot, logger, reminders, startupTime);
         } catch (e) {
             bot.sendMessage({ to: channelID, message: e });
         }
