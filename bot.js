@@ -31,7 +31,11 @@ bot.on('message', function (user, userID, channelID, message, evt) {
     var serverID = bot.channels[channelID].guild_id;
     //Diverse kommandoer
     if (message.substring(0, 1) == '?') {
-        reminders = kommando.kommando(user, userID, channelID, message, serverID, bot, reminders);
+        try {
+            reminders = kommando.kommando(user, userID, channelID, message, serverID, bot, reminders, startupTime);
+        } catch (e) {
+            bot.sendMessage({ to: channelID, message: e });
+        }
     }
     //Hvis lyder skal spilles av
     else if (message.substring(0, 1) == '+') {
