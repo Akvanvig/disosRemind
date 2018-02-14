@@ -27,7 +27,7 @@ module.exports = {
                 if (funk.isInteger(args[0])) {
                     if (args[0] > 0 && args[0] % 1 == 0) {
                         bot.sendMessage({ to: channelID, message: 'Du vil f\u00e5 en p\u00e5minnelse om ' + args[0] + ' minutt(er)' });
-                        reminders.push(new Reminder(args[0], userID, channelID, text));
+                        reminders.push(new Reminder(args[0], userID, channelID, text, logger));
                         //Sorterer fohåpentligvis arrayen
                         reminders.sort(function compareNumbers(a, b) { return b.finishTime - a.finishTime; });
                     }
@@ -43,7 +43,7 @@ module.exports = {
                 break;
 
             case 'grandis':
-                reminders.push(new Reminder(10, userID, channelID, 'Grandis'));
+                reminders.push(new Reminder(10, userID, channelID, 'Grandis', logger));
                 bot.sendMessage({ to: channelID, message: 'du vil bli varslet om 10 min' })
                 break;
 
@@ -138,7 +138,7 @@ module.exports = {
 
 class Reminder {
     //Takes in time for alarm, userID that requested reminder, channelID it was requested in and text requested
-    constructor(time, uid, chid, text) {
+    constructor(time, uid, chid, text, logger) {
         var d = new Date();
         this.time = ((time * 60 * 1000) + (d.getTime()));
         this.uid = uid;
