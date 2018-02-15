@@ -40,7 +40,7 @@ bot.on('message', function (user, userID, channelID, message, evt) {
     //Hvis lyder skal spilles av
     else if (message.substring(0, 1) == '+') {
         try {
-            lyder.lyder(user, userID, channelID, message, serverID, bot);
+            lyder.lyder(user, userID, channelID, message, serverID, bot, logger);
         } catch (e) {
             bot.sendMessage({ to: channelID, message: 'error.exe launched - failed to execute order 66' });
         }

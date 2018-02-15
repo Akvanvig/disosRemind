@@ -2,7 +2,7 @@ var funk = require('./funksjoner.js');
 var audioObjects = [];
 
 module.exports = {
-    lyder: function (user, userID, channelID, message, serverID, bot) {
+    lyder: function (user, userID, channelID, message, serverID, bot, logger) {
         var args = message.substring(1).split(' ');
         var cmd = args[0];
         args = args.splice(1);
@@ -150,8 +150,8 @@ class audioObject {
         this.voice_channel_id = voice_channel_id;
         this.bot = bot;
         this.disconnTime = new Date().getTime() + (30 * 60 * 1000);
-        this.timer = setTimeout(60*1000, leaveVoiceChannel())
-        bot.joinVoiceChannel(voice_channel_id, err);
+        this.timer = setTimeout(60*1000, this.leaveVoiceChannel())
+        this.bot.joinVoiceChannel(voice_channel_id, err);
     }
 
     leaveVoiceChannel() {
