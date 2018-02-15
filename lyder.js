@@ -1,4 +1,5 @@
 var funk = require('./funksjoner.js');
+var audioObjects = [];
 
 module.exports = {
     lyder: function (user, userID, channelID, message, serverID, bot) {
@@ -120,6 +121,9 @@ module.exports = {
 
                 }
                 break;
+            case 'test':
+                audioObjects.push(new audioObject(vcID, bot));
+                break;
             default:
                 var tekst = 'Leave:';
                 tekst += '\n\t\tTvinger bot-en til \u00e5 forlate kanalen';
@@ -141,9 +145,19 @@ module.exports = {
 
 //kontrollerer avspilling i gitt kanal
 class audioObject {
+    
     constructor(voice_channel_id, bot) {
-
+        this.voice_channel_id = voice_channel_id;
+        this.bot = bot;
+        this.disconnTime = new Date().getTime() + (30 * 60 * 1000);
+        this.timer = setTimeout(60*1000, leaveVoiceChannel())
+        bot.joinVoiceChannel(voice_channel_id, err);
     }
+
+    leaveVoiceChannel() {
+        this.bot.leaveVoiceChannel(this.voice_channel_id, err);
+    }
+    
 }
 
 //playAudio: function(voiceChannelID, relativeFilepath, bot) {

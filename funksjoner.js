@@ -77,7 +77,7 @@ module.exports = {
         });
     },
 
-    convert: function (value, add, multiple, unit1Name, unit2Name) {
+    convert: function(value, add, multiple, unit1Name, unit2Name) {
         var unit = Math.round((+value + add) * multiple * 100) / 100;
         return value + ' ' + unit1Name + ' = ' + unit + ' ' + unit2Name;
     }
