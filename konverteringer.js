@@ -7,6 +7,7 @@ module.exports = {
         var c = false; //changed?
         var unit = args[i + 1];
         switch (unit.toLowerCase()) {
+            //Konvertering gjøres ved å kalle "Convert([Verdi som omgjøres], [Hvor mye som skal legges til], [Hva skal det ganges med], [Enhetsnavn som blir konvertert], [Enhetsnavn det konverteres til])"
             case 'pounds':
             case 'lbs':
                 respons = funk.convert(args[i], 0, 0.45359237, 'lbs', 'kg');
@@ -25,36 +26,30 @@ module.exports = {
                 c = true;
                 break;
 
+            case 'inch':
+            case 'inches':
+                respons = funk.convert(args[i], 0, 2.54, 'inches', 'centimeter');
+                c = true;
+                break;
+
             case 'mph':
                 respons = funk.convert(args[i], 0, 1.609344, 'mph', 'km/h');
                 c = true;
                 break;
 
             case 'fahrenheit':
-                respons = funk.convert(args[i], -32, (5 / 9), 'Fahrenheit', 'Celsius');
-                c = true;
-                break;
-
-            case '�f':
-                respons = funk.convert(args[i], -32, (5 / 9), '�F', '�C');
+            case '\u00b0f':
+                respons = funk.convert(args[i], -32, (5 / 9), '\u00b0F', '\u00b0C');
                 c = true;
                 break;
 
             case 'kelvin':
-                respons = funk.convert(args[i], -272.15, 1, 'Kelvin', 'Celsius');
-                c = true;
-                break;
-
             case 'k':
-                respons = funk.convert(args[i], -272.15, 1, 'K', '�C');
+                respons = funk.convert(args[i], -272.15, 1, 'K', '\u00b0C');
                 c = true;
                 break;
 
             case 'bhp':
-                respons = funk.convert(args[i], 0, 0.73549875, 'bhp', 'kW');
-                c = true;
-                break;
-
             case 'hk':
                 respons = funk.convert(args[i], 0, 0.73549875, 'hk', 'kW');
                 c = true;

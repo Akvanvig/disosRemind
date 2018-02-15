@@ -125,11 +125,11 @@ module.exports = {
                 tekst += '\n\nKonverteringer:';
                 tekst += '\n\t\tLar deg se implementerte konverteringer';
                 tekst += '\n\nFreedomunits:';
-                tekst += '\n\t\tOmgjør fra metrisk til imperial';
+                tekst += '\n\t\tOmgj\u00f8r fra metrisk til imperial';
                 tekst += '\n\nOppetid:';
-                tekst += '\n\t\tSier hvor lenge boten har kjørt';
+                tekst += '\n\t\tSier hvor lenge boten har kj\u00f8rt';
                 tekst += '\n\nLyder:';
-                tekst += '\n\t\tBruk "+" for å spille av lyder eller se hvilke som er tilgjengelige';
+                tekst += '\n\t\tBruk "+" for \u00e5 spille av lyder eller se hvilke som er tilgjengelige';
                 bot.sendMessage({ to: channelID, message: tekst });
         }
         return reminders;
