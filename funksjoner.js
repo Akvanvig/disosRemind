@@ -12,15 +12,15 @@ module.exports = {
     calcTime: function (time) {
         var respons = '';
         var s = 0, m = 0, h = 0, d = 0;
-        if (time > 1000) {
+        if (time >= 1000) {
             s = (time - (time % 1000)) / 1000;
-            if (s > 60) {
+            if (s >= 60) {
                 m = (s - (s % 60)) / 60;
                 s = s - (60 * m);
-                if (m > 60) {
+                if (m >= 60) {
                     h = (m - (m % 60)) / 60;
                     m = m - (60 * h);
-                    if (h > 24) {
+                    if (h >= 24) {
                         d = (h - (h % 24)) / 24;
                         h = h - (24 * d);
                     }
