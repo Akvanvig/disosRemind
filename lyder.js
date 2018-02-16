@@ -151,11 +151,11 @@ class audioObject {
         this.bot = bot;
         this.disconnTime = new Date().getTime() + (30 * 60 * 1000);
         this.timer = setTimeout(60*1000, this.leaveVoiceChannel())
-        this.bot.joinVoiceChannel(voice_channel_id, err);
+        this.bot.joinVoiceChannel(voice_channel_id, function (error, events) { this.joinErr = error; this.joinEvents = events });
     }
 
     leaveVoiceChannel() {
-        this.bot.leaveVoiceChannel(this.voice_channel_id, err);
+        this.bot.leaveVoiceChannel(this.voice_channel_id);
     }
     
 }

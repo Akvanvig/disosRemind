@@ -54,6 +54,12 @@ module.exports = {
                 respons = funk.convert(args[i], 0, 0.73549875, 'hk', 'kW');
                 c = true;
                 break;
+
+            case 'ms':
+            case 'millisekund':
+            case 'millisecond':
+                respons = args[i] + ' ms er ' + funk.calcTime(args[i]);
+                c = true;
         }
 
         if (c) {
