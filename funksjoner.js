@@ -11,7 +11,7 @@ module.exports = {
 
     calcTime: function (time) {
         var respons = '';
-        var s = 0, m = 0, h = 0, d = 0;
+        var s = 0, m = 0, h = 0, d = 0, y = 0;
         if (time >= 1000) {
             s = (time - (time % 1000)) / 1000;
             if (s >= 60) {
@@ -23,10 +23,15 @@ module.exports = {
                     if (h >= 24) {
                         d = (h - (h % 24)) / 24;
                         h = h - (24 * d);
+                        if (y >= 365) {
+                            y = (d - (d % 365)) / 365;
+                            d = d - (365 * y);
+                        }
                     }
                 }
             }
         }
+        if (y > 0) { respons += y + ' år, '; }
         if (d > 0) { respons += d + ' dager, '; }
         if (h > 0) { respons += h + ' timer, '; }
         if (m > 0) { respons += m + ' min, '; }
