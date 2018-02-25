@@ -1,5 +1,6 @@
 var funk = require('./funksjoner.js');
-var audioObjects = [];
+var Player = require('./Player.js');
+var audioObjects = []; //For øyeblikket ikke implementert
 
 module.exports = {
     lyder: function (user, userID, channelID, message, serverID, bot, logger) {
@@ -124,6 +125,11 @@ module.exports = {
             case 'test':
                 audioObjects.push(new audioObject(vcID, bot));
                 break;
+
+            case 'initiald':
+                funk.playAudio(vcID, './media/InitialD', bot);
+                break;
+
             default:
                 var tekst = 'Leave:';
                 tekst += '\n\t\tTvinger bot-en til \u00e5 forlate kanalen';
@@ -138,6 +144,7 @@ module.exports = {
                 tekst += '\nRedneck';
                 tekst += '\nKjeften';
                 tekst += '\nSkottland';
+                tekst += '\nInitialD';
                 bot.sendMessage({ to: channelID, message: tekst });
         }
     }
