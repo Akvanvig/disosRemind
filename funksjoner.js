@@ -89,7 +89,7 @@ module.exports = {
             if (error) return console.error(error);
                 var cut = 9;
                 var startet = 0;
-                while (cut < 0 && bot.servers[serverID].members[bot.id].voice_channel_id == voiceChannelID;) {
+                while (cut > 0 && bot.servers[serverID].members[bot.id].voice_channel_id == voiceChannelID;) {
                     if (startet != cut) {
                         fs.createReadStream(idSanger[Math.floor(Math.random() * idSanger.length)]).pipe(stream, { end: false }); //Velger tilfeldig sang fra idSanger
                         startet = cut;

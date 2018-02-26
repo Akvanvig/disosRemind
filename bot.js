@@ -55,10 +55,11 @@ bot.on('message', function (user, userID, channelID, message, evt) {
         for (var i = 0; i < (args.length - 1); i++) {
             //Blir et tall funnet, sjekker den ordet etter for enhetstype
             if (funk.isNumeric(args[i])) {
-                konvert.konverter(channelID, bot, args, i)
+                konvert.konverter(channelID, bot, args, i);
             }
+
             else if (args[i] == 'korkje') {
-                bot.sendMessage({to: channelID, message: '# Offentleg Samferdselsbodskap frå Språkrådet #\nkorkje = hverken eller'})
+                bot.sendMessage({to: channelID, message: '# Offentleg Samferdselsbodskap frå Språkrådet #\nkorkje = hverken eller'});
             }
         }
     }
