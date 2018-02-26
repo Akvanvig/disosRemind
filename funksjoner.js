@@ -82,6 +82,28 @@ module.exports = {
         });
     },
 
+    playID: function(voiceChannelID, serverID, idSanger, bot) {
+        bot.joinVoiceChannel(voiceChannelID, function (error, events) {
+        if (error) return console.error(error);
+            bot.getAudioContext(voiceChannelID, function (error, stream) {
+            if (error) return console.error(error);
+                var cut = 9;
+                var startet = 0;
+                while (cut < 0 && bot.servers[serverID].members[bot.id].voice_channel_id == voiceChannelID;) {
+                    if (startet != cut) {
+                        fs.createReadStream(idSanger[Math.floor(Math.random() * idSanger.length)]).pipe(stream, { end: false }); //Velger tilfeldig sang fra idSanger
+                        startet = cut;
+                    }
+                    stream.on('done', function () {
+                        cut--;
+                    });
+                }
+                bot.leaveVoiceChannel(voiceChannelID);
+
+            });
+        });
+    },
+
     convert: function(value, add, multiple, unit1Name, unit2Name) {
         var unit = Math.round((+value + add) * multiple * 100) / 100;
         return value + ' ' + unit1Name + ' = ' + unit + ' ' + unit2Name;

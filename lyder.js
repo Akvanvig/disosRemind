@@ -1,6 +1,8 @@
 var funk = require('./funksjoner.js');
 var Player = require('./Player.js');
-var audioObjects = []; //For øyeblikket ikke implementert
+var audioObjects = []; //For ï¿½yeblikket ikke implementert
+var sid = "./media/InitialD/"//Sti Initial D
+var idSanger = [sid+'A-Perfect-Hero.mp3', sid+'Chemical-Love.mp3', sid+'Deja-Vu.mp3', sid+'Fly-Me-To-The-Moon-And-Back.mp3', sid+'Forever-Young.mp3', sid+'Full-Metal-Cars.mp3', sid+'Gas-Gas-Gas.mp3', sid+'Running-in-The-90s.mp3', sid+'The-Top.mp3']
 
 module.exports = {
     lyder: function (user, userID, channelID, message, serverID, bot, logger) {
@@ -127,7 +129,7 @@ module.exports = {
                 break;
 
             case 'initiald':
-                funk.playAudio(vcID, './media/InitialD', bot);
+                funk.playID(vcID, serverID, idSanger, bot);
                 break;
 
             default:
@@ -152,7 +154,7 @@ module.exports = {
 
 //kontrollerer avspilling i gitt kanal
 class audioObject {
-    
+
     constructor(voice_channel_id, bot) {
         this.voice_channel_id = voice_channel_id;
         this.bot = bot;
@@ -164,7 +166,7 @@ class audioObject {
     leaveVoiceChannel() {
         this.bot.leaveVoiceChannel(this.voice_channel_id);
     }
-    
+
 }
 
 //playAudio: function(voiceChannelID, relativeFilepath, bot) {

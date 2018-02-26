@@ -45,7 +45,7 @@ bot.on('message', function (user, userID, channelID, message, evt) {
         } catch (e) {
             bot.sendMessage({ to: channelID, message: 'error.exe launched - failed to execute order 66' });
         }
-        
+
     }
 
     //Ser etter enheter å konvertere
@@ -56,6 +56,9 @@ bot.on('message', function (user, userID, channelID, message, evt) {
             //Blir et tall funnet, sjekker den ordet etter for enhetstype
             if (funk.isNumeric(args[i])) {
                 konvert.konverter(channelID, bot, args, i)
+            }
+            else if (args[i] == 'korkje') {
+                bot.sendMessage({to: channelID, message: '# Offentleg Samferdselsbodskap frå Språkrådet #\nkorkje = hverken eller'})
             }
         }
     }
