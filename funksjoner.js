@@ -91,14 +91,13 @@ module.exports = {
             if (error) return console.error(error);
                 //Når cut når 0, vil boten slutte å spille av, og leave voicechannel
                 var cut = 9;
-                var startet = 0;
                 var sjekkSang = setInterval(function () {
                   if (cut > 0 && bot.servers[serverID].members[bot.id].voice_channel_id == voiceChannelID) {
                     fs.createReadStream(stiSanger[Math.floor(Math.random() * stiSanger.length)]).pipe(stream, { end: false }); //Velger tilfeldig sang fra idSanger
-                    startet = cut;
                   }
                   else if (cut == 0) {
                     bot.leaveVoiceChannel(voiceChannelID);
+                    clearInterval(sjekkSang);
                   }
                 }, 1000);
                 stream.on('done', function () {
