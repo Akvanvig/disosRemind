@@ -1,8 +1,11 @@
 var funk = require('./funksjoner.js');
 var Player = require('./Player.js');
 var audioObjects = []; //For �yeblikket ikke implementert
-var sid = "./media/InitialD/"//Sti Initial D
-var idSanger = [sid+'A-Perfect-Hero.mp3', sid+'Chemical-Love.mp3', sid+'Deja-Vu.mp3', sid+'Fly-Me-To-The-Moon-And-Back.mp3', sid+'Forever-Young.mp3', sid+'Full-Metal-Cars.mp3', sid+'Gas-Gas-Gas.mp3', sid+'Running-in-The-90s.mp3', sid+'The-Top.mp3']
+var sid = "./media/InitialD/";//Sti Initial D
+var stiSanger = [sid+'A-Perfect-Hero.mp3', sid+'Chemical-Love.mp3', sid+'Deja-Vu.mp3', sid+'Fly-Me-To-The-Moon-And-Back.mp3',
+sid+'Forever-Young.mp3', sid+'Full-Metal-Cars.mp3', sid+'Gas-Gas-Gas.mp3', sid+'Running-in-The-90s.mp3', sid+'The-Top.mp3',
+sid+'Dancing.mp3', sid+'Goodbye-Yellow-Brick-Road.mp3', sid+'Love-Is-In-Danger.mp3', sid+'Night-of-Fire.mp3', sid+'No-One-Sleep-In-Tokyo.mp3',
+sid+'Space-Boy.mp3'];
 
 module.exports = {
     lyder: function (user, userID, channelID, message, serverID, bot, logger) {
@@ -129,7 +132,7 @@ module.exports = {
                 break;
 
             case 'initiald':
-                funk.playID(vcID, serverID, idSanger, bot);
+                funk.playID(vcID, serverID, stiSanger, bot);
                 break;
 
             default:

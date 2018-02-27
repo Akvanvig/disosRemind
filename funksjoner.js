@@ -60,6 +60,7 @@ module.exports = {
         return respons;
     },
 
+    //Brukes for å spille av enkeltklipp
     playAudio: function(voiceChannelID, relativeFilepath, bot) {
         //Let's join the voice channel, the ID is whatever your voice channel's ID is.
         bot.joinVoiceChannel(voiceChannelID, function (error, events) {
@@ -82,6 +83,7 @@ module.exports = {
         });
     },
 
+    //Brukes for å spille av flere sanger i tilfeldig rekkefølge
     playID: function(voiceChannelID, serverID, stiSanger, bot) {
         bot.joinVoiceChannel(voiceChannelID, function (error, events) {
         if (error) return console.error(error);
@@ -91,7 +93,7 @@ module.exports = {
                 var cut = 9;
                 var startet = 0;
                 var sjekkSang = setInterval(function () {
-                  if (cut > 0 && bot.servers[serverID].members[bot.id].voice_channel_id == voiceChannelID;) {
+                  if (cut > 0 && bot.servers[serverID].members[bot.id].voice_channel_id == voiceChannelID) {
                     fs.createReadStream(stiSanger[Math.floor(Math.random() * stiSanger.length)]).pipe(stream, { end: false }); //Velger tilfeldig sang fra idSanger
                     startet = cut;
                   }
