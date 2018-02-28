@@ -132,7 +132,7 @@ module.exports = {
                     if (parseInt(args[0]) >= 0 && parseInt(args[0]) < stiSanger.length) {
                         funk.playAudio(vcID, stiSanger[parseInt(args[0])], bot);
                         var sti = stiSanger.split('/');
-                        bot.sendMessage({to:channelID, message: 'Spiller nå: ' + sti[3].replace('.mp3','').replace('-',' ')});
+                        bot.sendMessage({to:channelID, message: 'Spiller nå: ' + sti[3].replace('.mp3','').replace(/-/g,' ')});
                     }
                     else {
                         bot.sendMessage({to:channelID, message: 'Velg et gyldig tall'});
@@ -143,7 +143,7 @@ module.exports = {
                     for (var i = 0; i < stiSanger.length; i++) {
                         var sti = stiSanger[i].split('/');
                         var navn = sti[3].split('.');
-                        sangerNavn += '\n' + navn[0].replace('-', ' ');
+                        sangerNavn += '\n' + i + '. ' + navn[0].replace(/-/g, ' ');
                     }
                     bot.sendMessage({to:channelID, message: sangerNavn});
                 }
