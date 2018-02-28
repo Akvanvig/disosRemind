@@ -95,7 +95,7 @@ module.exports = {
                   if (cut > 0 && bot.servers[serverID].members[bot.id].voice_channel_id == voiceChannelID) {
                     fs.createReadStream(stiSanger[Math.floor(Math.random() * stiSanger.length)]).pipe(stream, { end: false }); //Velger tilfeldig sang fra idSanger
                   }
-                  else if (cut == 0) {
+                  if (cut < 1) {
                     bot.leaveVoiceChannel(voiceChannelID);
                     clearInterval(sjekkSang);
                   }
