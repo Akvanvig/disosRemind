@@ -132,7 +132,16 @@ module.exports = {
                 break;
 
             case 'initiald':
-                funk.playID(vcID, serverID, stiSanger, channelID, bot, logger);
+                if (funk.isInteger(args[0])) {
+                    if (parseInt(args[0]) >= 0 && parseInt(args[0] < stiSanger.length)) {
+                        funk.playAudio(vcID, stiSanger[parseInt(args[0])], bot);
+                        var sti = stiSanger.split('/');
+                        bot.sendMessage({to:channelID, message: 'Spiller nå: ' + sti[3]});
+                    }
+                }
+                else {
+                    funk.playID(vcID, serverID, stiSanger, channelID, bot, logger);
+                }
                 break;
 
             default:
