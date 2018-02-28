@@ -1,6 +1,5 @@
 var funk = require('./funksjoner.js');
 var Player = require('./Player.js');
-var audioObjects = []; //For �yeblikket ikke implementert
 var sid = "./media/InitialD/";//Sti Initial D
 var stiSanger = [sid+'A-Perfect-Hero.mp3', sid+'Chemical-Love.mp3', sid+'Deja-Vu.mp3', sid+'Fly-Me-To-The-Moon-And-Back.mp3',
 sid+'Forever-Young.mp3', sid+'Full-Metal-Cars.mp3', sid+'Gas-Gas-Gas.mp3', sid+'Running-in-The-90s.mp3', sid+'The-Top.mp3',
@@ -127,23 +126,23 @@ module.exports = {
 
                 }
                 break;
-            case 'test':
-                audioObjects.push(new audioObject(vcID, bot));
-                break;
 
             case 'initiald':
                 if (funk.isInteger(args[0])) {
-                    if (parseInt(args[0]) >= 0 && parseInt(args[0] < stiSanger.length)) {
+                    if (parseInt(args[0]) >= 0 && parseInt(args[0]) < stiSanger.length) {
                         funk.playAudio(vcID, stiSanger[parseInt(args[0])], bot);
                         var sti = stiSanger.split('/');
-                        bot.sendMessage({to:channelID, message: 'Spiller nå: ' + sti[3]});
+                        bot.sendMessage({to:channelID, message: 'Spiller nå: ' + sti[3].replace('.mp3','').replace('-',' ')});
+                    }
+                    else {
+                        bot.sendMessage({to:channelID, message: 'Velg et gyldig tall'});
                     }
                 }
-                else if (args[0] == 'liste') {
+                else if (args[0].toLowerCase() == 'liste') {
                     var sangerNavn = 'ID-sanger lagt inn:';
-                    var sti = stiSanger.split('/');
-                    var navn = sti.split('.');
-                    for (var i = 0; i < sti.length; i++) {
+                    for (var i = 0; i < stiSanger.length; i++) {
+                        var sti = stiSanger[i].split('/');
+                        var navn = sti[3].split('.');
                         sangerNavn += '\n' + navn[0].replace('-', ' ');
                     }
                     bot.sendMessage({to:channelID, message: sangerNavn});
@@ -168,47 +167,8 @@ module.exports = {
                 tekst += '\nKjeften';
                 tekst += '\nSkottland';
                 tekst += '\nInitialD';
-                tekst += '\n\t\tSpiller av tilfeldige InitialD sanger, kan flyttes til annen samtale ved å gjenta kommandoen.\n\t\tHvis du ønsker den skal forlate samtalen, bruk: +Leave'
+                tekst += '\n\t\tSpiller av tilfeldige InitialD sanger, kan flyttes til annen samtale ved å gjenta kommandoen.\n\t\tHvis du ønsker den skal forlate samtalen, bruk: +Leave\n\t\tFor full ID-sangliste, bruk: +InitialD liste'
                 bot.sendMessage({ to: channelID, message: tekst });
         }
     }
 }
-
-//kontrollerer avspilling i gitt kanal
-class audioObject {
-
-    constructor(voice_channel_id, bot) {
-        this.voice_channel_id = voice_channel_id;
-        this.bot = bot;
-        this.disconnTime = new Date().getTime() + (30 * 60 * 1000);
-        this.timer = setTimeout(60*1000, this.leaveVoiceChannel())
-        this.bot.joinVoiceChannel(voice_channel_id, function (error, events) { this.joinErr = error; this.joinEvents = events });
-    }
-
-    leaveVoiceChannel() {
-        this.bot.leaveVoiceChannel(this.voice_channel_id);
-    }
-
-}
-
-//playAudio: function(voiceChannelID, relativeFilepath, bot) {
-//    //Let's join the voice channel, the ID is whatever your voice channel's ID is.
-//    bot.joinVoiceChannel(voiceChannelID, function (error, events) {
-//        //Check to see if any errors happen while joining.
-//        if (error) return console.error(error);
-//        //Then get the audio context
-//        bot.getAudioContext(voiceChannelID, function (error, stream) {
-//            //Once again, check to see if any errors exist
-//            if (error) return console.error(error);
-
-//            //Create a stream to your file and pipe it to the stream
-//            //Without {end: false}, it would close up the stream, so make sure to include that.
-//            fs.createReadStream(relativeFilepath).pipe(stream, { end: false });
-
-//            //The stream fires `done` when it's got nothing else to send to Discord.
-//            stream.on('done', function () {
-//                bot.leaveVoiceChannel(voiceChannelID);
-//            });
-//        });
-//    });
-//},

@@ -60,7 +60,7 @@ bot.on('message', function (user, userID, channelID, message, evt) {
         }
         var nynorsk = '# Offentleg Samferdselsbodskap frå Språkrådet #'
         for (var i = 0; i < args.length; i++) {
-            switch (args[i]) {
+            switch (args[i].toLowerCase()) {
                 case 'korkje':
                     nynorsk += '\nkorkje = hverken';
                     break;
