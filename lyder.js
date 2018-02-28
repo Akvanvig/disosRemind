@@ -131,7 +131,7 @@ module.exports = {
                 if (funk.isInteger(args[0])) {
                     if (parseInt(args[0]) >= 0 && parseInt(args[0]) < stiSanger.length) {
                         funk.playAudio(vcID, stiSanger[parseInt(args[0])], bot);
-                        var sti = stiSanger.split('/');
+                        var sti = stiSanger[parseInt(args[0])].split('/');
                         bot.sendMessage({to:channelID, message: 'Spiller nå: ' + sti[3].replace('.mp3','').replace(/-/g,' ')});
                     }
                     else {
