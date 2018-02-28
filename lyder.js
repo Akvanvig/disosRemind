@@ -139,6 +139,15 @@ module.exports = {
                         bot.sendMessage({to:channelID, message: 'Spiller nå: ' + sti[3]});
                     }
                 }
+                else if (args[0] == 'liste') {
+                    var sangerNavn = 'ID-sanger lagt inn:';
+                    var sti = stiSanger.split('/');
+                    var navn = sti.split('.');
+                    for (var i = 0; i < sti.length; i++) {
+                        sangerNavn += '\n' + navn[0].replace('-', ' ');
+                    }
+                    bot.sendMessage({to:channelID, message: sangerNavn});
+                }
                 else {
                     funk.playID(vcID, serverID, stiSanger, channelID, bot, logger);
                 }
@@ -147,7 +156,7 @@ module.exports = {
             default:
                 var tekst = 'Leave:';
                 tekst += '\n\t\tTvinger bot-en til \u00e5 forlate kanalen';
-                tekst = '\n\n Lyder lagt inn:';
+                tekst += '\n\n Lyder lagt inn:';
                 tekst += '\nJodel';
                 tekst += '\nKristian';
                 tekst += '\nT2:';

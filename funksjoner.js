@@ -100,12 +100,12 @@ module.exports = {
                       startet = cut;
                       logger.info('Sang ' + cut + ',' + startet + 'rnd: ' + rnd);
                     }
-                    if (cut < 0) {
+                    if (cut < 0 || bot.servers[serverID].members[bot.id].voice_channel_id != voiceChannelID) {
                       bot.leaveVoiceChannel(voiceChannelID);
                       clearInterval(sjekkSang);
                       logger.info('Initial D fullført');
                     }
-                  }, 1000);
+                  }, 2000);
                   stream.on('done', function () {
                       cut--;
                   });
