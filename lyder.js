@@ -150,6 +150,7 @@ module.exports = {
                 tekst += '\nKjeften';
                 tekst += '\nSkottland';
                 tekst += '\nInitialD';
+                tekst += '\n\t\tSpiller av tilfeldige InitialD sanger, kan flyttes til annen samtale ved å gjenta kommandoen.\n\t\tHvis du ønsker den skal forlate samtalen, bruk: +Leave'
                 bot.sendMessage({ to: channelID, message: tekst });
         }
     }
