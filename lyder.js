@@ -4,7 +4,7 @@ var sid = "./media/InitialD/";//Sti Initial D
 var stiSanger = [sid+'A-Perfect-Hero.mp3', sid+'Chemical-Love.mp3', sid+'Deja-Vu.mp3', sid+'Fly-Me-To-The-Moon-And-Back.mp3',
 sid+'Forever-Young.mp3', sid+'Full-Metal-Cars.mp3', sid+'Gas-Gas-Gas.mp3', sid+'Running-in-The-90s.mp3', sid+'The-Top.mp3',
 sid+'Dancing.mp3', sid+'Goodbye-Yellow-Brick-Road.mp3', sid+'Love-Is-In-Danger.mp3', sid+'Night-of-Fire.mp3', sid+'No-One-Sleep-In-Tokyo.mp3',
-sid+'Space-Boy.mp3'];
+sid+'Space-Boy.mp3', sid+'Max-Power.mp3'];
 
 module.exports = {
     lyder: function (user, userID, channelID, message, serverID, bot, logger) {
