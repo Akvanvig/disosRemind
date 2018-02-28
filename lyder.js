@@ -132,7 +132,7 @@ module.exports = {
                 break;
 
             case 'initiald':
-                funk.playID(vcID, serverID, stiSanger, bot);
+                funk.playID(vcID, serverID, stiSanger, channelID, bot, logger);
                 break;
 
             default:

@@ -84,25 +84,36 @@ module.exports = {
     },
 
     //Brukes for å spille av flere sanger i tilfeldig rekkefølge
-    playID: function(voiceChannelID, serverID, stiSanger, bot) {
+    playID: function(voiceChannelID, serverID, stiSanger, channelID, bot, logger) {
         bot.joinVoiceChannel(voiceChannelID, function (error, events) {
         if (error) return console.error(error);
             bot.getAudioContext(voiceChannelID, function (error, stream) {
             if (error) return console.error(error);
-                //Når cut når 0, vil boten slutte å spille av, og leave voicechannel
-                var cut = 9;
-                var sjekkSang = setInterval(function () {
-                  if (cut > 0 && bot.servers[serverID].members[bot.id].voice_channel_id == voiceChannelID) {
-                    fs.createReadStream(stiSanger[Math.floor(Math.random() * stiSanger.length)]).pipe(stream, { end: false }); //Velger tilfeldig sang fra idSanger
-                  }
-                  if (cut < 1) {
-                    bot.leaveVoiceChannel(voiceChannelID);
-                    clearInterval(sjekkSang);
-                  }
-                }, 1000);
-                stream.on('done', function () {
-                    cut--;
-                });
+                //Når cut når 0, vil boten slutte å spille av, og forlate voicechannel
+                try {
+                  var cut = 5;
+                  var startet = 0;
+                  var sjekkSang = setInterval(function () {
+                    if (cut > 0 && startet != cut && bot.servers[serverID].members[bot.id].voice_channel_id == voiceChannelID) {
+                      var rnd = Math.floor(Math.random() * stiSanger.length)
+                      fs.createReadStream(stiSanger[rnd]).pipe(stream, { end: false }); //Velger tilfeldig sang fra idSanger
+                      startet = cut;
+                      logger.info('Sang ' + cut + ',' + startet + 'rnd: ' + rnd);
+                    }
+                    if (cut < 1) {
+                      bot.leaveVoiceChannel(voiceChannelID);
+                      clearInterval(sjekkSang);
+                      logger.info('Initial D fullført');
+                    }
+                  }, 1000);
+                  stream.on('done', function () {
+                      cut--;
+                  });
+                } catch (e) {
+                  logger.info('Initial D feilmelding:');
+                  logger.info(e);
+                }
+
             });
         });
     },
