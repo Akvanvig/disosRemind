@@ -57,11 +57,39 @@ bot.on('message', function (user, userID, channelID, message, evt) {
             if (funk.isNumeric(args[i])) {
                 konvert.konverter(channelID, bot, args, i);
             }
-
-            else if (args[i] == 'korkje') {
-                bot.sendMessage({to: channelID, message: '# Offentleg Samferdselsbodskap frå Språkrådet #\nkorkje = hverken eller'});
+        }
+        var nynorsk = '# Offentleg Samferdselsbodskap frå Språkrådet #'
+        for (var i = 0; i < args.length; i++) {
+            switch (args[i]) {
+                case 'korkje':
+                    nynorsk += '\nkorkje = hverken';
+                    break;
+                case 'kjærleik':
+                    nynorsk += '\nkjærleik = kjærlighet';
+                    break;
+                case 'hugleik':
+                    nynorsk += '\nhugleik = fantasi';
+                    break;
+                case 'røyndom':
+                    nynorsk += '\nrøyndom = virkelighet';
+                    break;
+                case 'olboge':
+                    nynorsk += '\nolboge = albue';
+                    break;
+                case 'åtak':
+                    nynorsk += '\nåtak = angrep';
+                    break;
+                case 'byrja':
+                    nynorsk += '\nbyrja = begynne';
+                    break;
+                case 'hjå':
+                    nynorsk += '\nhjå = hos';
+                    break;
             }
         }
+    if (nynorsk.length > 50) {
+        bot.sendMessage({to: channelID, message: nynorsk});
+    }
     }
 });
 

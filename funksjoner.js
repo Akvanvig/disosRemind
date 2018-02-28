@@ -100,7 +100,7 @@ module.exports = {
                       startet = cut;
                       logger.info('Sang ' + cut + ',' + startet + 'rnd: ' + rnd);
                     }
-                    if (cut < 1) {
+                    if (cut < 0) {
                       bot.leaveVoiceChannel(voiceChannelID);
                       clearInterval(sjekkSang);
                       logger.info('Initial D fullført');
