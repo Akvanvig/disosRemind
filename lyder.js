@@ -128,7 +128,10 @@ module.exports = {
                 break;
 
             case 'initiald':
-                if (funk.isInteger(args[0])) {
+                if (args[0] == null) {
+                    funk.playID(vcID, serverID, stiSanger, channelID, bot, logger);
+                }
+                else if (funk.isInteger(args[0])) {
                     if (parseInt(args[0]) >= 0 && parseInt(args[0]) < stiSanger.length) {
                         funk.playAudio(vcID, stiSanger[parseInt(args[0])], bot);
                         var sti = stiSanger[parseInt(args[0])].split('/');
@@ -143,12 +146,9 @@ module.exports = {
                     for (var i = 0; i < stiSanger.length; i++) {
                         var sti = stiSanger[i].split('/');
                         var navn = sti[3].split('.');
-                        sangerNavn += '\n' + i + '. ' + navn[0].replace(/-/g, ' ');
+                        sangerNavn += '\n' + i + '.\t' + navn[0].replace(/-/g, ' ');
                     }
                     bot.sendMessage({to:channelID, message: sangerNavn});
-                }
-                else {
-                    funk.playID(vcID, serverID, stiSanger, channelID, bot, logger);
                 }
                 break;
 
