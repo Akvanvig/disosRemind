@@ -29,7 +29,11 @@ bot.on('ready', function (evt) {
     logger.info(bot.username + ' - (' + bot.id + ')');
 });
 bot.on('message', function (user, userID, channelID, message, evt) {
-    var serverID = bot.channels[channelID].guild_id;
+    try {
+        var serverID = bot.channels[channelID].guild_id;
+    } catch (e) {
+        bot.sendMessage({to: channelID, message: '...'})
+    }
     //Diverse kommandoer
     if (message.substring(0, 1) == '?') {
         try {
