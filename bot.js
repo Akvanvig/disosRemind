@@ -32,7 +32,9 @@ bot.on('message', function (user, userID, channelID, message, evt) {
     try {
         var serverID = bot.channels[channelID].guild_id;
     } catch (e) {
-        bot.sendMessage({to: channelID, message: '...'})
+        if (userID != bot.id) {
+          bot.sendMessage({to: channelID, message: '...'});
+        }
     }
     //Diverse kommandoer
     if (message.substring(0, 1) == '?') {
