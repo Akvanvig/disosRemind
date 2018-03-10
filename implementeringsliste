@@ -8,10 +8,9 @@ småjobber:
   tekst til numeriske verdier (1 = a, 2 = b osv..)
   Legg til +musikk (Gir deg tilfeldig sang på noe lavt nivå.) Liste med heismusikk typisk (Costa del sol, wii theme osv...)
   Legg inn +server (This is a christian server, no swearing)
-  Legg til Youtube streaming (Så lenger sanger kan spilles av, > 2h)
-  Legg inn en del Initial D sanger, samt kommando som starter avspilling inntil stoppet (tilfeldige sanger, maks 3t kanskje?)
   Legg til python-script som skriver feilmeldinger til fil
   Legg til +ronaldo spiller av "https://www.youtube.com/watch?v=N-QCwMK-c8o"
 
 Store oppgaver:
   Legg inn så boten ikke forlater voice-chat med en gang ( https://github.com/izy521/discord.io-music-plugin/blob/master/Player.js )
+  Legg til Youtube streaming (Så lenger sanger kan spilles av, > 2h)
