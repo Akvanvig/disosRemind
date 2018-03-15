@@ -32,6 +32,7 @@ module.exports = {
                 else {
                     funk.playAudio(vcID, './media/t2-short.mp3', bot);
                 }
+                break;
 
             case 'prank':
                 funk.playAudio(vcID, './media/prank.mp3', bot);
@@ -47,6 +48,11 @@ module.exports = {
 
             case 'kjeften':
                 funk.playAudio(vcID, './media/kjeften.mp3', bot);
+                break;
+
+            case 'ronaldo':
+            case 'cr7':
+                funk.playAudio(vcID, './media/ronaldo.mp3', bot);
                 break;
 
             case 'skottland':
