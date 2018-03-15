@@ -9,6 +9,7 @@ småjobber:
   Legg til +musikk (Gir deg tilfeldig sang på noe lavt nivå.) Liste med heismusikk typisk (Costa del sol, wii theme osv...)
   Legg inn +server (This is a christian server, no swearing)
   Legg til python-script som skriver feilmeldinger til fil
+  Demp lyd ved musikkavspilling noe
 
 Store oppgaver:
   Legg inn så boten ikke forlater voice-chat med en gang ( https://github.com/izy521/discord.io-music-plugin/blob/master/Player.js )
