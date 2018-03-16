@@ -75,7 +75,8 @@ bot.on('message', function (user, userID, channelID, message, evt) {
         }
         var nynorsk = '# Offentleg Samferdselsbodskap frå Språkrådet #'
         for (var i = 0; i < args.length; i++) {
-            switch (args[i].toLowerCase().replace(/[-,._'^*"()[\]\t\n{}]/g, '')) {
+            args[i] = args[i].replace(/\n\t/g, " ");
+            switch (args[i].toLowerCase().replace(/[-,._'^*"()[\]{}]/g, '')) {
                 case 'korkje':
                     nynorsk += '\nkorkje = hverken';
                     break;
