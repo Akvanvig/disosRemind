@@ -57,7 +57,7 @@ bot.on('message', function (user, userID, channelID, message, evt) {
 
     }
 
-    for (var i = 0; i < roblxActive[0].length; i++) {
+    for (var i = 0; i < roblxActive[].length; i++) {
         if (roblxActive[0][i] == channelID && userID != bot.id) {
             funk.roblxify(channelID, message, bot, evt);
         }
