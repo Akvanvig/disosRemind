@@ -1,7 +1,7 @@
 var funk = require('./funksjoner.js');
 
 module.exports = {
-    kommando: function (user, userID, channelID, message, serverID, bot, logger, reminders, startupTime) {
+    kommando: function (user, userID, channelID, message, serverID, bot, logger, reminders, roblxActive, startupTime) {
         var args = message.substring(1).split(' ');
         var cmd = args[0];
         args = args.splice(1);
@@ -21,14 +21,14 @@ module.exports = {
                     }
                 }
 
-                //Forhindrer misbruk av tagging på discord
+                //Forhindrer misbruk av tagging pï¿½ discord
                 text = text.replace('@', 'Alfakr\u00f8ll')
 
                 if (funk.isInteger(args[0])) {
                     if (args[0] > 0 && args[0] % 1 == 0) {
                         bot.sendMessage({ to: channelID, message: 'Du vil f\u00e5 en p\u00e5minnelse om ' + args[0] + ' minutt(er)' });
                         reminders.push(new Reminder(args[0], userID, channelID, text, logger));
-                        //Sorterer fohåpentligvis arrayen
+                        //Sorterer fohï¿½pentligvis arrayen
                         reminders.sort(function compareNumbers(a, b) { return b.finishTime - a.finishTime; });
                     }
                     //Hvis tallet er mindre enn 0, eller ikke delbart med 1
@@ -77,7 +77,7 @@ module.exports = {
                     bot.sendMessage({ to: channelID, message: respons });
                 }
                 else {
-                    bot.sendMessage({ to: channelID, message: 'Brukes slik:\n\t\t?Freedomunits [antall metrisk enhet] [Enhet du vil gjøre om]\n\n' + tekst })
+                    bot.sendMessage({ to: channelID, message: 'Brukes slik:\n\t\t?Freedomunits [antall metrisk enhet] [Enhet du vil gjï¿½re om]\n\n' + tekst })
                 }
                 break;
 
@@ -86,7 +86,7 @@ module.exports = {
                 tekst += '\nMiles / mi';
                 tekst += '\nFeet';
                 tekst += '\nMPH';
-                tekst += '\nFahrenheit / °F';
+                tekst += '\nFahrenheit / ï¿½F';
                 tekst += '\nKelvin / K';
                 tekst += '\nBHP / HK'
                 bot.sendMessage({ to: channelID, message: tekst });
@@ -94,7 +94,7 @@ module.exports = {
 
             case 'oppetid':
                 var uptime = new Date().getTime() - startupTime;
-                var respons = bot.username + ' har kjørt i ';
+                var respons = bot.username + ' har kjï¿½rt i ';
                 respons = funk.calcTime(uptime);
                 bot.sendMessage({ to: channelID, message: respons });
                 break;
@@ -110,6 +110,22 @@ module.exports = {
                 }
 
                 bot.sendMessage({ to: channelID, message: respons });
+                break;
+
+            case 'roblox':
+                var granted = false;
+                for (var i = 0; i < bot.servers[serverID].members[userID].roles.length; i++) {
+                    var role = bot.servers[serverID].members[userID].roles[i]
+                    if (role == 'Admin' || role == 'RÃ¸blÃ¸ks-admin') {
+                        granted = true;
+                    }
+                }
+                if (granted) {
+                    bot.sendMessage({ to: channelID, message: 'Roblox-mode started' });
+                    roblxActive.push(channelID, new Date.getTime() + 300000);
+                    //Sorterer fohï¿½pentligvis arrayen
+                    roblxActive.sort(function sortFunction(a, b) { return b[1] - a[1]; });
+                }
                 break;
 
             default:
@@ -144,7 +160,7 @@ class Reminder {
         this.uid = uid;
         this.chid = chid;
         this.text = text;
-        logger.info('Påminnelse opprettet');
+        logger.info('Pï¿½minnelse opprettet');
     }
 
     get finishTime() {

@@ -54,6 +54,20 @@ module.exports = {
         logger.info('Mr.Roboto aktiv - ' + Date());
     },
 
+    checkroblx: function(roblxActive) {
+        var filsti = './media/img/roblx/'
+        var filnavn =['rob1.png', 'rob2.png']
+        var lengde = roblxActive.length;
+        if (lengde > 0 && roblxActive[1][lengde - 1] <= new Date().getTime()) {
+            var tall = parseInt(Math.random() * 2);
+            bot.sendMessage({ to: roblxActive[lengde - 1][0], message: 'CALM YOUR BLOXES, ROBLOX MODE IS NOW OFF' });
+            bot.uploadFile(roblxActive[lengde - 1][0], filsti + filnavn[tall]);
+            //avslutter roblxMode
+            roblxActive.pop();
+        }
+        return roblxActive;
+    },
+
     kys: function() {
         var respons = "What the fuck did you just fucking say about me, you little bitch? I’ll have you know I graduated top of my class in the Navy Seals, and I’ve been involved in numerous secret raids on Al-Quaeda, and I have over 300 confirmed kills. I am trained in gorilla warfare and I’m the top sniper in the entire US armed forces. You are nothing to me but just another target. I will wipe you the fuck out with precision the likes of which has never been seen before on this Earth, mark my fucking words. You think you can get away with saying that shit to me over the Internet? Think again, fucker. As we speak I am contacting my secret network of spies across the USA and your IP is being traced right now so you better prepare for the storm, maggot. The storm that wipes out the pathetic little thing you call your life. You’re fucking dead, kid. I can be anywhere, anytime, and I can kill you in over seven hundred ways, and that’s just with my bare hands. Not only am I ";
         respons += "extensively trained in unarmed combat, but I have access to the entire arsenal of the United States Marine Corps and I will use it to its full extent to wipe your miserable ass off the face of the continent, you little shit. If only you could have known what unholy retribution your little 'clever' comment was about to bring down upon you, maybe you would have held your fucking tongue. But you couldn’t, you didn’t, and now you’re paying the price, you goddamn idiot. I will shit fury all over you and you will drown in it. You’re fucking dead, kiddo.";
@@ -121,5 +135,29 @@ module.exports = {
     convert: function(value, add, multiple, unit1Name, unit2Name) {
         var unit = Math.round((+value + add) * multiple * 100) / 100;
         return value + ' ' + unit1Name + ' = ' + unit + ' ' + unit2Name;
+    },
+
+    roblxify: function(channelID, message, bot, evt) {
+        var msgID = evt.d.id;
+        var msg = message.split('');
+        for (var i = 0; i < msg.length; i++) {
+            if (i % 2 == 0) { //Gjør små bokstaver store
+                var j = msg[i].charCodeAt(0);
+                if ((j > 96 && j < 123) || j == 229 || j == 230 || 248 ) {
+                    j -= 32;
+                }
+                msg[i] = j;
+            }
+
+            else { //Gjør store bokstaver små
+                var j = msg[i].charCodeAt(0);
+                if ((j > 64 && j < 91) || j == 197 || j == 198 || 216) {
+                    j += 32;
+                }
+                msg[i] = j;
+            }
+        }
+
+        bot.editMessage(channelID, msgID, msg)
     }
 }

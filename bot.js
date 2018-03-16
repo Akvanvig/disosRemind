@@ -13,7 +13,10 @@ var konvert = require('./konverteringer.js');
 var reminders = [];
 var checkReminders = setInterval(function() {reminders = funk.checkLastReminder(reminders, bot, logger); }, 1000); //Sjekker hvert sekund om noen påminnelser må gjennomføres
 var checkActive = setInterval(function() {funk.checkActive(logger)}, 1800000); //Hver halvtime skrives det til logg om bot er aktiv
+var roblxActive = [][];
+var checkRoblx = setInterval(function() {funk.checkroblx(roblxActive)}, 2000);
 var startupTime = new Date().getTime();
+
 
 //configure loggersettings
 logger.remove(logger.transports.Console);
@@ -39,7 +42,7 @@ bot.on('message', function (user, userID, channelID, message, evt) {
     //Diverse kommandoer
     if (message.substring(0, 1) == '?') {
         try {
-            reminders = kommando.kommando(user, userID, channelID, message, serverID, bot, logger, reminders, startupTime);
+            reminders = kommando.kommando(user, userID, channelID, message, serverID, bot, logger, reminders, roblxActive, startupTime);
         } catch (e) {
             bot.sendMessage({ to: channelID, message: e });
         }
@@ -54,6 +57,12 @@ bot.on('message', function (user, userID, channelID, message, evt) {
 
     }
 
+    for (var i = 0; i < roblxActive[0].length; i++) {
+        if (roblxActive[0][i] == channelID && userID != bot.id) {
+            funk.roblxify(channelID, message, bot, evt);
+        }
+    }
+
     //Ser etter enheter å konvertere
     if (userID != bot.id) {
         var args = message.split(' ');
@@ -66,7 +75,7 @@ bot.on('message', function (user, userID, channelID, message, evt) {
         }
         var nynorsk = '# Offentleg Samferdselsbodskap frå Språkrådet #'
         for (var i = 0; i < args.length; i++) {
-            switch (args[i].toLowerCase().replace(/[-,._'^*"()[\]{}]/g, '')) {
+            switch (args[i].toLowerCase().replace(/[-,._'^*"()[\]\t\n{}]/g, '')) {
                 case 'korkje':
                     nynorsk += '\nkorkje = hverken';
                     break;
