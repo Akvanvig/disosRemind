@@ -73,13 +73,9 @@ bot.on('message', function (user, userID, channelID, message, evt) {
                 konvert.konverter(channelID, bot, args, i);
             }
         }
-        var nynorsk = '# Offentleg Samferdselsbodskap frå Språkrådet #'
-        var argumenter = [];
+        var nynorsk = '# Offentleg Samferdselsbodskap frå Språkrådet #';
         for (var i = 0; i < args.length; i++) {
-            argumenter = [].push(args[i].replace(/\n\t/g, " ").split(" "));
-        }
-        for (var i = 0; i < args.length; i++) {
-            switch (argumenter[i].toLowerCase().replace(/[-,._'^*"()[\]{}]/g, '')) {
+            switch (args[i].toLowerCase().replace(/[-,._'^*"()[\]{}]/g, '')) {
                 case 'korkje':
                     nynorsk += '\nkorkje = hverken';
                     break;
