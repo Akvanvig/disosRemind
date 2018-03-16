@@ -115,7 +115,7 @@ module.exports = {
             case 'roblox':
                 var granted = false;
                 for (var i = 0; i < bot.servers[serverID].members[userID].roles.length; i++) {
-                    var role = bot.servers[serverID].members[userID].roles[i]
+                    var role = bot.servers[serverID].members[userID].roles[i].name
                     if (role == 'Admin' || role == 'Røbløks-admin') {
                         granted = true;
                     }
