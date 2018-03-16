@@ -79,7 +79,7 @@ bot.on('message', function (user, userID, channelID, message, evt) {
             argumenter = [].push(args[i].replace(/\n\t/g, " ").split(" "));
         }
         for (var i = 0; i < args.length; i++) {
-            switch (argumenter.toLowerCase().replace(/[-,._'^*"()[\]{}]/g, '')) {
+            switch (argumenter[i].toLowerCase().replace(/[-,._'^*"()[\]{}]/g, '')) {
                 case 'korkje':
                     nynorsk += '\nkorkje = hverken';
                     break;
