@@ -9,7 +9,7 @@ module.exports = {
 
             case 'ping':
                 var timeSent = message.createdAt;
-                var timePassed = Date() - timeSent;
+                var timePassed = + Date() - timeSent;
                 bot.sendMessage({ to: channelID, message: 'Pong? ping: ' + timePassed + ' ms' });
                 break;
 
@@ -117,16 +117,14 @@ module.exports = {
                 logger.info(bot.servers[serverID].name)
                 for (var i = 0; i < bot.servers[serverID].members[userID].roles.length; i++) {
                     var role = bot.servers[serverID].members[userID].roles[i].name
-                    logger.info(bot.servers[serverID].name)
-                    logger.info(bot.servers[serverID].members[userID].name)
-                    logger.info(bot.servers[serverID].members[userID].roles[i].name)
-                    if (role == 'Admin' || role == 'Røbløks-admin') {
+                    if (role == '@Admin' || role == '@Røbløks-admin') {
                         granted = true;
                     }
                 }
                 if (granted) {
+                    var d = new Date;
                     bot.sendMessage({ to: channelID, message: 'Roblox-mode started' });
-                    roblxActive.push(channelID, new Date.getTime() + 300000);
+                    roblxActive.push(channelID, (d.getTime() + 300000));
                     //Sorterer foh�pentligvis arrayen
                     roblxActive.sort(function sortFunction(a, b) { return b[1] - a[1]; });
                 }

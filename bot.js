@@ -31,35 +31,35 @@ bot.on('ready', function (evt) {
     logger.info('Logged in as: ')
     logger.info(bot.username + ' - (' + bot.id + ')');
 });
-bot.on('message', function (user, userID, channelID, message, evt) {
+bot.on('message', function (user, userID, chID, message, evt) {
     try {
-        var serverID = bot.channels[channelID].guild_id;
+        var serverID = bot.channels[chID].guild_id;
     } catch (e) {
         if (userID != bot.id) {
-          bot.sendMessage({to: channelID, message: '...'});
+          bot.sendMessage({to: chID, message: '...'});
         }
     }
     //Diverse kommandoer
     if (message.substring(0, 1) == '?') {
         try {
-            reminders = kommando.kommando(user, userID, channelID, message, serverID, bot, logger, reminders, roblxActive, startupTime);
+            reminders = kommando.kommando(user, userID, chID, message, serverID, bot, logger, reminders, roblxActive, startupTime);
         } catch (e) {
-            bot.sendMessage({ to: channelID, message: e });
+            bot.sendMessage({ to: chID, message: e });
         }
     }
     //Hvis lyder skal spilles av
     else if (message.substring(0, 1) == '+') {
         try {
-            lyder.lyder(user, userID, channelID, message, serverID, bot, logger);
+            lyder.lyder(user, userID, chID, message, serverID, bot, logger);
         } catch (e) {
-            bot.sendMessage({ to: channelID, message: 'error.exe launched - failed to execute order 66' });
+            bot.sendMessage({ to: chID, message: 'error.exe launched - failed to execute order 66' });
         }
 
     }
 
     for (var i = 0; i < roblxActive.length; i++) {
-        if (roblxActive[0][i] == channelID && userID != bot.id) {
-            funk.roblxify(channelID, message, bot, evt);
+        if (roblxActive[0][i] == chID && userID != bot.id) {
+            funk.roblxify(chID, message, bot, evt);
         }
     }
 
@@ -70,7 +70,7 @@ bot.on('message', function (user, userID, channelID, message, evt) {
         for (var i = 0; i < (args.length - 1); i++) {
             //Blir et tall funnet, sjekker den ordet etter for enhetstype
             if (funk.isNumeric(args[i])) {
-                konvert.konverter(channelID, bot, args, i);
+                konvert.konverter(chID, bot, args, i);
             }
         }
         var nynorsk = '# Offentleg Samferdselsbodskap frå Språkrådet #';
@@ -100,10 +100,14 @@ bot.on('message', function (user, userID, channelID, message, evt) {
                 case 'hjå':
                     nynorsk += '\nhjå = hos';
                     break;
+                case '@everyone':
+                    nynorsk = '';
+                    var msgID = evt.d.id;
+                    bot.deleteMessage({channelID: chID, messageID: msgID});
             }
         }
     if (nynorsk.length > 50) {
-        bot.sendMessage({to: channelID, message: nynorsk});
+        bot.sendMessage({to: chID, message: nynorsk});
     }
     }
 });
