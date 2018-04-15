@@ -138,10 +138,9 @@ module.exports = {
         return value + ' ' + unit1Name + ' = ' + unit + ' ' + unit2Name;
     },
 
-    roblxify: function(chID, message, bot, evt, logger) {
+    roblxify: function(userID, chID, message, bot, evt, logger) {
         var msgID = evt.d.id;
         var msg = message.split('');
-        logger.info(msg);
         for (var i = 0; i < msg.length; i++) {
             var j = msg[i].charCodeAt(0);
             if (i % 2 == 0) { //Gjør små bokstaver store
@@ -155,12 +154,15 @@ module.exports = {
                     j += 32;
                 }
             }
+            if (j == 64) { j--;}
             msg[i] = j;
         }
         for (var i = 0; i < msg.length; i++) {
             msg[i] = String.fromCharCode(msg[i]);
         }
-        logger.info(msg.join(''));
-        bot.editMessage({ channel: chID, messageID: msgID, message: msg.join('') });
+        //Kan ikke endre andre brukeres meldinger
+        //bot.editMessage({ channel: chID, messageID: msgID, message: msg.join('') });
+        bot.deleteMessage({channelID: chID, messageID: msgID});
+        bot.sendMessage({to: chID, message: '<@!' + userID + '> :' + msg.join('')});
     }
 }

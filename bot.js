@@ -45,7 +45,6 @@ bot.on('message', function (user, userID, chID, message, evt) {
             res = kommando.kommando(user, userID, chID, message, serverID, bot, logger, reminders, roblxActive, startupTime);
             reminders = res[0];
             roblxActive = res[1];
-            logger.info(roblxActive + ' , ' + roblxActive.length);
         } catch (e) {
             bot.sendMessage({ to: chID, message: e });
         }
@@ -62,7 +61,7 @@ bot.on('message', function (user, userID, chID, message, evt) {
 
     for (var i = 0; i < roblxActive.length; i++) {
         if (roblxActive[0][i] == chID && userID != bot.id) {
-            funk.roblxify(chID, message, bot, evt, logger);
+            funk.roblxify(userID, chID, message, bot, evt, logger);
         }
     }
 
