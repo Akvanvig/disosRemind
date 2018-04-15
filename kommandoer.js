@@ -114,17 +114,11 @@ module.exports = {
 
             case 'roblox':
                 var granted = true;
-                logger.info(bot.servers[serverID].name)
-                for (var i = 0; i < bot.servers[serverID].members[userID].roles.length; i++) {
-                    var role = bot.servers[serverID].members[userID].roles[i].name
-                    if (role == '@Admin' || role == '@Røbløks-admin') {
-                        granted = true;
-                    }
-                }
+                logger.info('Roblox mode started - ' + bot.servers[serverID].name);
                 if (granted) {
                     var d = new Date;
                     bot.sendMessage({ to: channelID, message: 'Roblox-mode started' });
-                    roblxActive.push(channelID, (d.getTime() + 300000));
+                    roblxActive.push([channelID, (d.getTime() + 300000)]);
                     //Sorterer foh�pentligvis arrayen
                     roblxActive.sort(function sortFunction(a, b) { return b[1] - a[1]; });
                 }
@@ -150,7 +144,7 @@ module.exports = {
                 tekst += '\n\t\tBruk "+" for \u00e5 spille av lyder eller se hvilke som er tilgjengelige';
                 bot.sendMessage({ to: channelID, message: tekst });
         }
-        return reminders;
+        return [reminders, roblxActive];
     }
 }
 

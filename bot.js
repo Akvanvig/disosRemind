@@ -11,10 +11,10 @@ var kommando = require('./kommandoer.js');
 var lyder = require('./lyder.js');
 var konvert = require('./konverteringer.js');
 var reminders = [];
-var checkReminders = setInterval(function() {reminders = funk.checkLastReminder(reminders, bot, logger); }, 1000); //Sjekker hvert sekund om noen påminnelser må gjennomføres
-var checkActive = setInterval(function() {funk.checkActive(logger)}, 1800000); //Hver halvtime skrives det til logg om bot er aktiv
 var roblxActive = [];
-var checkRoblx = setInterval(function() {funk.checkroblx(roblxActive)}, 2000);
+var checkReminders = setInterval(function() { reminders = funk.checkLastReminder(reminders, bot, logger); }, 1000); //Sjekker hvert sekund om noen påminnelser må gjennomføres
+var checkActive = setInterval(function() { funk.checkActive(logger)}, 1800000); //Hver halvtime skrives det til logg om bot er aktiv
+var checkRoblx = setInterval(function() { roblxActive = funk.checkroblx(bot, roblxActive) }, 5000);
 var startupTime = new Date().getTime();
 
 
@@ -42,7 +42,10 @@ bot.on('message', function (user, userID, chID, message, evt) {
     //Diverse kommandoer
     if (message.substring(0, 1) == '?') {
         try {
-            reminders = kommando.kommando(user, userID, chID, message, serverID, bot, logger, reminders, roblxActive, startupTime);
+            res = kommando.kommando(user, userID, chID, message, serverID, bot, logger, reminders, roblxActive, startupTime);
+            reminders = res[0];
+            roblxActive = res[1];
+            logger.info(roblxActive + ' , ' + roblxActive.length);
         } catch (e) {
             bot.sendMessage({ to: chID, message: e });
         }
@@ -59,7 +62,7 @@ bot.on('message', function (user, userID, chID, message, evt) {
 
     for (var i = 0; i < roblxActive.length; i++) {
         if (roblxActive[0][i] == chID && userID != bot.id) {
-            funk.roblxify(chID, message, bot, evt);
+            funk.roblxify(chID, message, bot, evt, logger);
         }
     }
 
@@ -103,6 +106,7 @@ bot.on('message', function (user, userID, chID, message, evt) {
                 case 'kvensleis':
                 case 'kvenleis':
                     nynorsk += '\n' + args[i].toLowerCase().replace(/[-,._'^*"()[\]{}]/g, '') + ' = hva / hvem / når / hvor / hvorfor / hvordan';
+                    break;
                 case '@everyone':
                     nynorsk = '';
                     var msgID = evt.d.id;

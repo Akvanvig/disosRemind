@@ -54,14 +54,15 @@ module.exports = {
         logger.info('Mr.Roboto aktiv - ' + Date());
     },
 
-    checkroblx: function(roblxActive) {
-        var filsti = './media/img/roblx/'
-        var filnavn =['rob1.png', 'rob2.png']
+    checkroblx: function(bot, roblxActive) {
+        var filsti = './media/img/roblx/';
+        var filnavn = ['rob1.png', 'rob2.png'];
         var lengde = roblxActive.length;
-        if (lengde > 0 && roblxActive[1][lengde - 1] <= new Date().getTime()) {
-            var tall = parseInt(Math.random() * 2);
+        if (lengde > 0 && roblxActive[lengde - 1][1] <= new Date().getTime()) {
+            var tall = parseInt(Math.random() * filnavn.length);
             bot.sendMessage({ to: roblxActive[lengde - 1][0], message: 'CALM YOUR BLOXES, ROBLOX MODE IS NOW OFF' });
             bot.uploadFile(roblxActive[lengde - 1][0], filsti + filnavn[tall]);
+            bot.uploadFile( {to: roblxActive[lengde - 1][0], file: filsti + filnavn[tall]} );
             //avslutter roblxMode
             roblxActive.pop();
         }
@@ -137,27 +138,29 @@ module.exports = {
         return value + ' ' + unit1Name + ' = ' + unit + ' ' + unit2Name;
     },
 
-    roblxify: function(channelID, message, bot, evt) {
+    roblxify: function(chID, message, bot, evt, logger) {
         var msgID = evt.d.id;
         var msg = message.split('');
+        logger.info(msg);
         for (var i = 0; i < msg.length; i++) {
+            var j = msg[i].charCodeAt(0);
             if (i % 2 == 0) { //Gjør små bokstaver store
-                var j = msg[i].charCodeAt(0);
-                if ((j > 96 && j < 123) || j == 229 || j == 230 || 248 ) {
+                if ((j > 96 && j < 123) || j == 229 || j == 230 || j == 248 ) {
                     j -= 32;
                 }
-                msg[i] = j;
             }
 
             else { //Gjør store bokstaver små
-                var j = msg[i].charCodeAt(0);
-                if ((j > 64 && j < 91) || j == 197 || j == 198 || 216) {
+                if ((j > 64 && j < 91) || j == 197 || j == 198 || j == 216) {
                     j += 32;
                 }
-                msg[i] = j;
             }
+            msg[i] = j;
         }
-
-        bot.editMessage(channelID, msgID, msg)
+        for (var i = 0; i < msg.length; i++) {
+            msg[i] = String.fromCharCode(msg[i]);
+        }
+        logger.info(msg.join(''));
+        bot.editMessage({ channel: chID, messageID: msgID, message: msg.join('') });
     }
 }
