@@ -100,6 +100,9 @@ bot.on('message', function (user, userID, chID, message, evt) {
                 case 'hjå':
                     nynorsk += '\nhjå = hos';
                     break;
+                case 'kvensleis':
+                case 'kvenleis':
+                    nynorsk += '\n' + args[i].toLowerCase().replace(/[-,._'^*"()[\]{}]/g, '') + ' = hva / hvem / når / hvor / hvorfor / hvordan';
                 case '@everyone':
                     nynorsk = '';
                     var msgID = evt.d.id;
