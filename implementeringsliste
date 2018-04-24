@@ -14,6 +14,8 @@ småjobber:
           https://media.discordapp.net/attachments/423919291013005322/423919299082846223/ac1d9457472f614a8b83a54b0fa6b18c.png
           https://media.discordapp.net/attachments/423919291013005322/423919369786228748/86ab60e708aa805db3da32f5c2ba6e79dd8244e7_hq.png?width=676&height=676
   Legg til +anthem (Spiller av Boten Anna, eller wavin' flag)
+  Fjern at boten fjerner @everyone meldinger
+  Legg til så botten gir beskjed ved hver femtiende melding i rolox-mode
   
 Store oppgaver:
   Legg inn så boten ikke forlater voice-chat med en gang ( https://github.com/izy521/discord.io-music-plugin/blob/master/Player.js )
