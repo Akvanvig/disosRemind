@@ -116,8 +116,9 @@ module.exports = {
             case 'numerisk':
                 var tegn;
                 var unicode = false;
-                if (args[0].toLowerCase == 'unicode') {
+                if (args[0].toLowerCase() == 'unicode') {
                     args = args.splice(1);
+                    unicode = true;
                 }
                 var tekst = args.join(' ');
                 if (unicode) {
@@ -125,13 +126,13 @@ module.exports = {
                     for (var i = 0; i < tegn.length; i++) {
                         tegn[i] = tegn[i].charCodeAt(0);
                     }
-                    bot.sendMessage({ to: channelID, message: tegn.join('') });
+                    bot.sendMessage({ to: channelID, message: tegn.join(',') });
                 }
                 else {  //Standard a=1, b=2 osv. ' ' = 0
                     var tegn = tekst.toLowerCase().split('');
                     for (var i = 0; i < tegn.length; i++) {
                         if (tegn[i].charCodeAt(0) > 96 && tegn[i].charCodeAt(0) < 123 ) {
-                            tegn[i] = (tegn[i].charCodeAt(0)) - 95;
+                            tegn[i] = (tegn[i].charCodeAt(0)) - 96;
                         }
 
                         else if (tegn[i].charCodeAt(0) == 229) { tegn[i] = 0; }     //' '
