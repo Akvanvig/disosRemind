@@ -136,7 +136,7 @@ module.exports = {
             case 'id':
             case 'initiald':
                 if (args[0] == null) {
-                    funk.playRnd(vcID, serverID, stiSanger, channelID, bot, logger);
+                    funk.playRnd(vcID, serverID, stiSanger, 5, channelID, bot, logger);
                 }
                 else if (funk.isInteger(args[0])) {
                     if (parseInt(args[0]) >= 0 && parseInt(args[0]) < stiSanger.length) {
@@ -157,9 +157,17 @@ module.exports = {
                     }
                     bot.sendMessage({to:channelID, message: sangerNavn});
                 }
+                else if (args[0].toLowerCase() == 'a' || args[0].toLowerCase() == 'ant' || args[0].toLowerCase() == 'antall') {
+                    if (funk.isInteger(args[1]) && args[1] > 0 && args[1] < 50) {
+                        funk.playRnd(vcID, serverID, stiSanger, args[1], channelID, bot, logger);
+                    }
+                    else {
+                        bot.sendMessage({to:channelID, message: '+id ant <antall>'});
+                    }
+                }
                 break;
 
-            //Spiller av tilfeldige sanger på noe lavere nivå
+            //Spiller av tilfeldige sanger på noe lavere nivå fra listen ""
             case 'm':
             case 'musikk':
 

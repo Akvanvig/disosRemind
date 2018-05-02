@@ -106,10 +106,10 @@ bot.on('message', function (user, userID, chID, message, evt) {
                 case 'kvenleis':
                     nynorsk += '\n' + args[i].toLowerCase().replace(/[-,._'^*"()[\]{}]/g, '') + ' = hva / hvem / når / hvor / hvorfor / hvordan';
                     break;
-                case '@everyone':
+                /*case '@everyone':
                     nynorsk = '';
                     var msgID = evt.d.id;
-                    bot.deleteMessage({channelID: chID, messageID: msgID});
+                    bot.deleteMessage({channelID: chID, messageID: msgID});*/
             }
         }
     if (nynorsk.length > 50) {
