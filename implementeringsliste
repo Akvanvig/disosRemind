@@ -1,23 +1,22 @@
 InitialD-sanger planlagt lagt inn:
 
+Heismusikk planlagt lagt inn:
 
 Nynorskord:
 
 
 småjobber:
   tekst til numeriske verdier (1 = a, 2 = b osv..)
-  Legg til +musikk (Gir deg tilfeldig sang på noe lavt nivå.) Liste med heismusikk typisk (Costa del sol, wii theme osv...)
   Legg inn +server (This is a christian server, no swearing)
   Legg til python-script som skriver feilmeldinger til fil
-  Demp lyd ved musikkavspilling noe
   Legg til +anthem (Spiller av Boten Anna, eller wavin' flag)
-  Fjern at boten fjerner @everyone meldinger
-  Legg til så botten gir beskjed ved hver femtiende melding i rolox-mode, bygger borg (se
+  Legg til så botten gir beskjed ved hver femtiende melding i rolox-mode, bygger borg (se pm mr. Oktopus)
   Aktiv-meldinger i logg må endres til å bruke gjeldende bot sitt navn, og ikke bare "Mr.Roboto"
 
 Store oppgaver:
   Legg inn så boten ikke forlater voice-chat med en gang ( https://github.com/izy521/discord.io-music-plugin/blob/master/Player.js )
-  Legg til Youtube streaming (Så lenger sanger kan spilles av, > 2h
+  Legg til Youtube streaming (Så lenger sanger kan spilles av, > 2h)
+  Demp lyd ved musikkavspilling noe
 
 @everyone-problem:
   oppdag når noen skriver @everyone i chat, og gi ut advarsel/straff.

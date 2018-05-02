@@ -153,7 +153,7 @@ module.exports = {
                     j += 32;
                 }
             }
-            if (j == 64) { j--;}
+            if (j == 64) { j--;} //alfakrøll endres
             msg[i] = j;
         }
         for (var i = 0; i < msg.length; i++) {

@@ -134,6 +134,7 @@ module.exports = {
                 }
                 break;
 
+            //Spiller av tilfeldige sanger fra InitialD-lista
             case 'id':
             case 'initiald':
                 //Funksjon ligger nederst i denne fila

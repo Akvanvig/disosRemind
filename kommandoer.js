@@ -112,6 +112,32 @@ module.exports = {
                 bot.sendMessage({ to: channelID, message: respons });
                 break;
 
+            case 'str2num':
+            case 'numerisk':
+                var tegn;
+                if (args[0].toLowerCase() == 'unicode') {
+                    tegn = message.splice(8).split(''); //Fjerner første tegnene (unicode kodeordet) og legger i tegn
+                    for (var i = 0; i < tegn.length; i++) {
+                        tegn[i] = tegn[i].charCodeAt(0);
+                    }
+                    bot.sendMessage({ to: channelID, message: tegn.join('') });
+                }
+                else {  //Standard a=1, b=2 osv. ' ' = 0
+                    var tegn = message.toLowerCase().split('');
+                    for (var i = 0; i < tegn.length; i++) {
+                        if (tegn[i].charCodeAt(0) > 96 && tegn[i].charCodeAt(0) < 123 ) {
+                            tegn[i] = (tegn[i].charCodeAt(0)) - 95;
+                        }
+
+                        else if (tegn[i].charCodeAt(0) == 229) { tegn[i] = 0; }     //' '
+                        else if (tegn[i].charCodeAt(0) == 229) { tegn[i] = 29; }    //'å'
+                        else if (tegn[i].charCodeAt(0) == 230) { tegn[i] = 27; }    //'æ'
+                        else if (tegn[i].charCodeAt(0) == 248) { tegn[i] = 28; }    //'ø'
+                    }
+                    bot.sendMessage({ to: channelID, message: tegn.join('') });
+                }
+                break;
+
             case 'roblox':
                 var granted = true;
                 logger.info('Roblox mode started - ' + bot.servers[serverID].name);
@@ -142,6 +168,8 @@ module.exports = {
                 tekst += '\n\t\tSier hvor lenge boten har kj\u00f8rt';
                 tekst += '\n\nLyder:';
                 tekst += '\n\t\tBruk "+" for \u00e5 spille av lyder eller se hvilke som er tilgjengelige';
+                tekst += '\n\nNumerisk:';
+                tekst += '\n\t\tGjør om tekst til numeriske verdier. For unicode-verdier på alle tegn bruk: "?Numerisk Unicode [melding]"'
                 bot.sendMessage({ to: channelID, message: tekst });
         }
         return [reminders, roblxActive];
