@@ -131,52 +131,21 @@ module.exports = {
                         break;
                     default:
                         funk.playAudio(vcID, './media/t2-short.mp3', bot);
-
                 }
                 break;
 
             case 'id':
             case 'initiald':
-                musikkListeAvspillingCmd(args, vcID, serverID, stiID, channelID, bot, logger);
-                /*
-                if (args[0] == null) {
-                    funk.playRnd(vcID, serverID, stiID, 5, channelID, bot, logger);
-                }
-                else if (funk.isInteger(args[0])) {
-                    if (parseInt(args[0]) >= 0 && parseInt(args[0]) < stiID.length) {
-                        funk.playAudio(vcID, stiID[parseInt(args[0])], bot);
-                        var sti = stiID[parseInt(args[0])].split('/');
-                        bot.sendMessage({to:channelID, message: 'Spiller nå: ' + sti[3].replace('.mp3','').replace(/-/g,' ')});
-                    }
-                    else {
-                        bot.sendMessage({to:channelID, message: 'Velg et gyldig tall'});
-                    }
-                }
-                else if (args[0].toLowerCase() == 'l' || args[0].toLowerCase() == 'liste') {
-                    var sangerNavn = 'ID-sanger lagt inn:';
-                    for (var i = 0; i < stiID.length; i++) {
-                        var sti = stiID[i].split('/');
-                        var navn = sti[3].split('.');
-                        sangerNavn += '\n' + i + '.\t' + navn[0].replace(/-/g, ' ');
-                    }
-                    bot.sendMessage({to:channelID, message: sangerNavn});
-                }
-                else if (args[0].toLowerCase() == 'a' || args[0].toLowerCase() == 'ant' || args[0].toLowerCase() == 'antall') {
-                    if (funk.isInteger(args[1]) && args[1] > 0 && args[1] < 30) {
-                        funk.playRnd(vcID, serverID, stiID, args[1], channelID, bot, logger);
-                    }
-                    else {
-                        bot.sendMessage({to:channelID, message: 'Brukes slik: \n\t"+id ant <antall>"'});
-                    }
-                }
-                */
+                //Funksjon ligger nederst i denne fila
+                musikkListeAvspillingCmd(args, vcID, serverID, stiID, 'InitialD', channelID, bot, logger);
                 break;
 
             //Spiller av tilfeldige sanger fra heismusikk-lista
             case 'm':
             case 'musikk':
                 //Funksjon ligger nederst i denne fila
-                musikkListeAvspillingCmd(args, vcID, serverID, stiH, channelID, bot, logger);
+                musikkListeAvspillingCmd(args, vcID, serverID, stiH, 'musikk', channelID, bot, logger);
+
                 break;
             default:
                 var tekst = 'Leave:';
@@ -186,24 +155,24 @@ module.exports = {
                 tekst += '\nKristian';
                 tekst += '\nT2:';
                 tekst += '\n\t\t+T2';
-                tekst +='\n\t\t+T2 full';
+                tekst += '\n\t\t+T2 full';
                 tekst += '\nPrank';
                 tekst += '\nVibrator';
                 tekst += '\nRedneck';
                 tekst += '\nKjeften';
-                tekst += '\nRonaldo';
+                tekst += '\nRonaldo || cr7';
                 tekst += '\nSkottland';
-                tekst += '\nMusikk';
-                tekst += '\nInitialD';
-                tekst += '\n\t\tSpiller av tilfeldige InitialD sanger, kan flyttes til annen samtale ved å gjenta kommandoen.\n\t\tHvis du ønsker den skal forlate samtalen, bruk: +Leave\n\t\tFor full ID-sangliste, bruk: +InitialD liste'
+                tekst += '\nMusikk || m';
+                tekst += '\nInitialD || id';
+                tekst += '\n\t\tSpiller av tilfeldige InitialD sanger, kan flyttes til annen samtale ved å gjenta kommandoen.\n\t\tFor full ID-sangliste, bruk: +InitialD liste eller +id l'
                 bot.sendMessage({ to: channelID, message: tekst });
         }
     }
 }
 
-function musikkListeAvspillingCmd(args, vcID, serverID, stiSanger, channelID, bot, logger) {
+function musikkListeAvspillingCmd(args, vcID, serverID, stiSanger, kommandoNavn, channelID, bot, logger) {
     if (args[0] == null) {
-        funk.playRnd(vcID, serverID, stiSanger, kommandoNavn, 5, channelID, bot, logger);
+        funk.playRnd(vcID, serverID, stiSanger, 5, channelID, bot, logger);
     }
     else if (funk.isInteger(args[0])) {
         if (parseInt(args[0]) >= 0 && parseInt(args[0]) < stiSanger.length) {
