@@ -57,7 +57,10 @@ module.exports = {
                 funk.playAudio(vcID, './media/ronaldo.mp3', bot);
                 break;
 
-            case 'skottland':
+            case 'anthem':
+                funk.playAudio(vcID, './media/Boten-Anna.mp3', bot);
+                break;
+            /*case 'skottland':
                 var tall = parseInt(Math.random() * 23);
                 switch (tall) {
                     case 0:
@@ -133,7 +136,7 @@ module.exports = {
                         funk.playAudio(vcID, './media/t2-short.mp3', bot);
                 }
                 break;
-
+                */
             //Spiller av tilfeldige sanger fra InitialD-lista
             case 'id':
             case 'initiald':
@@ -161,10 +164,11 @@ module.exports = {
                 tekst += '\nVibrator';
                 tekst += '\nRedneck';
                 tekst += '\nKjeften';
-                tekst += '\nRonaldo || cr7';
-                tekst += '\nSkottland';
-                tekst += '\nMusikk || m';
-                tekst += '\nInitialD || id';
+                tekst += '\nRonaldo\t||\tcr7';
+                tekst += '\nAnthem';
+                //tekst += '\nSkottland';
+                tekst += '\nMusikk\t||\tm';
+                tekst += '\nInitialD\t||\tid';
                 tekst += '\n\t\tSpiller av tilfeldige InitialD sanger, kan flyttes til annen samtale ved å gjenta kommandoen.\n\t\tFor full ID-sangliste, bruk: +InitialD liste eller +id l'
                 bot.sendMessage({ to: channelID, message: tekst });
         }
