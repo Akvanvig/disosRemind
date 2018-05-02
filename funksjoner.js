@@ -99,7 +99,7 @@ module.exports = {
     },
 
     //Brukes for å spille av flere sanger i tilfeldig rekkefølge
-    playID: function(voiceChannelID, serverID, stiSanger, channelID, bot, logger) {
+    playRnd: function(voiceChannelID, serverID, stiSanger, channelID, bot, logger) {
         bot.joinVoiceChannel(voiceChannelID, function (error, events) {
         if (error) return console.error(error);
             bot.getAudioContext(voiceChannelID, function (error, stream) {

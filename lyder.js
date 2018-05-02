@@ -133,9 +133,10 @@ module.exports = {
                 }
                 break;
 
+            case 'id':
             case 'initiald':
                 if (args[0] == null) {
-                    funk.playID(vcID, serverID, stiSanger, channelID, bot, logger);
+                    funk.playRnd(vcID, serverID, stiSanger, channelID, bot, logger);
                 }
                 else if (funk.isInteger(args[0])) {
                     if (parseInt(args[0]) >= 0 && parseInt(args[0]) < stiSanger.length) {
@@ -158,6 +159,11 @@ module.exports = {
                 }
                 break;
 
+            //Spiller av tilfeldige sanger på noe lavere nivå
+            case 'm':
+            case 'musikk':
+
+                break;
             default:
                 var tekst = 'Leave:';
                 tekst += '\n\t\tTvinger bot-en til \u00e5 forlate kanalen';
