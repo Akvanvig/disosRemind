@@ -115,15 +115,16 @@ module.exports = {
             case 'str2num':
             case 'numerisk':
                 var tegn;
+                var tekst = message.splice(10);
                 if (args[0].toLowerCase() == 'unicode') {
-                    tegn = message.splice(8).split(''); //Fjerner første tegnene (unicode kodeordet) og legger i tegn
+                    tegn = tekst.splice(8).split(''); //Fjerner første tegnene (unicode kodeordet) og legger i tegn
                     for (var i = 0; i < tegn.length; i++) {
                         tegn[i] = tegn[i].charCodeAt(0);
                     }
                     bot.sendMessage({ to: channelID, message: tegn.join('') });
                 }
                 else {  //Standard a=1, b=2 osv. ' ' = 0
-                    var tegn = message.toLowerCase().split('');
+                    var tegn = tekst.toLowerCase().split('');
                     for (var i = 0; i < tegn.length; i++) {
                         if (tegn[i].charCodeAt(0) > 96 && tegn[i].charCodeAt(0) < 123 ) {
                             tegn[i] = (tegn[i].charCodeAt(0)) - 95;
