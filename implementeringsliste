@@ -10,14 +10,11 @@ småjobber:
   Legg inn +server (This is a christian server, no swearing)
   Legg til python-script som skriver feilmeldinger til fil
   Demp lyd ved musikkavspilling noe
-  +Roblox (Alle meldinger endre til å ha annenhver bokstav stor og liten, etter fem minutter avsluttes det ved at bot-en sier: "CALM YOUR BLOXES, ROBLOX MODE IS NOW OFF" og bilde av roblox karakter)
-          https://media.discordapp.net/attachments/423919291013005322/423919299082846223/ac1d9457472f614a8b83a54b0fa6b18c.png
-          https://media.discordapp.net/attachments/423919291013005322/423919369786228748/86ab60e708aa805db3da32f5c2ba6e79dd8244e7_hq.png?width=676&height=676
   Legg til +anthem (Spiller av Boten Anna, eller wavin' flag)
   Fjern at boten fjerner @everyone meldinger
-  Legg til så botten gir beskjed ved hver femtiende melding i rolox-mode, bygger borg (se 
+  Legg til så botten gir beskjed ved hver femtiende melding i rolox-mode, bygger borg (se
   Aktiv-meldinger i logg må endres til å bruke gjeldende bot sitt navn, og ikke bare "Mr.Roboto"
-  
+
 Store oppgaver:
   Legg inn så boten ikke forlater voice-chat med en gang ( https://github.com/izy521/discord.io-music-plugin/blob/master/Player.js )
   Legg til Youtube streaming (Så lenger sanger kan spilles av, > 2h
@@ -26,5 +23,4 @@ Store oppgaver:
   oppdag når noen skriver @everyone i chat, og gi ut advarsel/straff.
   straff kan innebære temp-ban, ban, kick eller en eller annen midletidlig utestengelse fra chat.
   Kan gi advarsel første gang, og registrere personen som fare-moment.
-  
-  Kan eventuellt bare slette alle meldinger som inneholder @everyone.
+  Føre statistikk over @everyone-bruk.

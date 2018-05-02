@@ -50,8 +50,8 @@ module.exports = {
         return reminders
     },
 
-    checkActive: function(logger) {
-        logger.info('Mr.Roboto aktiv - ' + Date());
+    checkActive: function(bot, logger) {
+        logger.info(bot.username + ' aktiv - ' + Date());
     },
 
     checkroblx: function(bot, roblxActive) {
@@ -163,5 +163,5 @@ module.exports = {
         //bot.editMessage({ channel: chID, messageID: msgID, message: msg.join('') });
         bot.deleteMessage({channelID: chID, messageID: msgID});
         bot.sendMessage({to: chID, message: '<@!' + userID + '> :' + msg.join('')});
-    }
+    },
 }

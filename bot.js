@@ -13,7 +13,7 @@ var konvert = require('./konverteringer.js');
 var reminders = [];
 var roblxActive = [];
 var checkReminders = setInterval(function() { reminders = funk.checkLastReminder(reminders, bot, logger); }, 1000); //Sjekker hvert sekund om noen påminnelser må gjennomføres
-var checkActive = setInterval(function() { funk.checkActive(logger)}, 1800000); //Hver halvtime skrives det til logg om bot er aktiv
+var checkActive = setInterval(function() { funk.checkActive(bot, logger)}, 1800000); //Hver halvtime skrives det til logg om bot er aktiv
 var checkRoblx = setInterval(function() { roblxActive = funk.checkroblx(bot, roblxActive) }, 5000);
 var startupTime = new Date().getTime();
 

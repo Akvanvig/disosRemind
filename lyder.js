@@ -1,10 +1,12 @@
 var funk = require('./funksjoner.js');
 var Player = require('./Player.js');
-var sid = "./media/InitialD/";//Sti Initial D
-var stiSanger = [sid+'A-Perfect-Hero.mp3', sid+'Chemical-Love.mp3', sid+'Deja-Vu.mp3', sid+'Fly-Me-To-The-Moon-And-Back.mp3',
+var sid = './media/InitialD/';  //Sti Initial D
+var sh = './media/heismusikk/'; //Sti Heismusikk
+var stiID = [sid+'A-Perfect-Hero.mp3', sid+'Chemical-Love.mp3', sid+'Deja-Vu.mp3', sid+'Fly-Me-To-The-Moon-And-Back.mp3',
 sid+'Forever-Young.mp3', sid+'Full-Metal-Cars.mp3', sid+'Gas-Gas-Gas.mp3', sid+'Running-in-The-90s.mp3', sid+'The-Top.mp3',
 sid+'Dancing.mp3', sid+'Goodbye-Yellow-Brick-Road.mp3', sid+'Love-Is-In-Danger.mp3', sid+'Night-of-Fire.mp3', sid+'No-One-Sleep-In-Tokyo.mp3',
 sid+'Space-Boy.mp3', sid+'Max-Power.mp3'];
+var stiH = [sh+'Costa-Del-Sol.mp3', sh+'Mii-Channel-Theme.mp3'];
 
 module.exports = {
     lyder: function (user, userID, channelID, message, serverID, bot, logger) {
@@ -135,42 +137,46 @@ module.exports = {
 
             case 'id':
             case 'initiald':
+                musikkListeAvspillingCmd(args, vcID, serverID, stiID, channelID, bot, logger);
+                /*
                 if (args[0] == null) {
-                    funk.playRnd(vcID, serverID, stiSanger, 5, channelID, bot, logger);
+                    funk.playRnd(vcID, serverID, stiID, 5, channelID, bot, logger);
                 }
                 else if (funk.isInteger(args[0])) {
-                    if (parseInt(args[0]) >= 0 && parseInt(args[0]) < stiSanger.length) {
-                        funk.playAudio(vcID, stiSanger[parseInt(args[0])], bot);
-                        var sti = stiSanger[parseInt(args[0])].split('/');
+                    if (parseInt(args[0]) >= 0 && parseInt(args[0]) < stiID.length) {
+                        funk.playAudio(vcID, stiID[parseInt(args[0])], bot);
+                        var sti = stiID[parseInt(args[0])].split('/');
                         bot.sendMessage({to:channelID, message: 'Spiller nå: ' + sti[3].replace('.mp3','').replace(/-/g,' ')});
                     }
                     else {
                         bot.sendMessage({to:channelID, message: 'Velg et gyldig tall'});
                     }
                 }
-                else if (args[0].toLowerCase() == 'liste') {
+                else if (args[0].toLowerCase() == 'l' || args[0].toLowerCase() == 'liste') {
                     var sangerNavn = 'ID-sanger lagt inn:';
-                    for (var i = 0; i < stiSanger.length; i++) {
-                        var sti = stiSanger[i].split('/');
+                    for (var i = 0; i < stiID.length; i++) {
+                        var sti = stiID[i].split('/');
                         var navn = sti[3].split('.');
                         sangerNavn += '\n' + i + '.\t' + navn[0].replace(/-/g, ' ');
                     }
                     bot.sendMessage({to:channelID, message: sangerNavn});
                 }
                 else if (args[0].toLowerCase() == 'a' || args[0].toLowerCase() == 'ant' || args[0].toLowerCase() == 'antall') {
-                    if (funk.isInteger(args[1]) && args[1] > 0 && args[1] < 50) {
-                        funk.playRnd(vcID, serverID, stiSanger, args[1], channelID, bot, logger);
+                    if (funk.isInteger(args[1]) && args[1] > 0 && args[1] < 30) {
+                        funk.playRnd(vcID, serverID, stiID, args[1], channelID, bot, logger);
                     }
                     else {
-                        bot.sendMessage({to:channelID, message: '+id ant <antall>'});
+                        bot.sendMessage({to:channelID, message: 'Brukes slik: \n\t"+id ant <antall>"'});
                     }
                 }
+                */
                 break;
 
-            //Spiller av tilfeldige sanger på noe lavere nivå fra listen ""
+            //Spiller av tilfeldige sanger fra heismusikk-lista
             case 'm':
             case 'musikk':
-
+                //Funksjon ligger nederst i denne fila
+                musikkListeAvspillingCmd(args, vcID, serverID, stiH, channelID, bot, logger);
                 break;
             default:
                 var tekst = 'Leave:';
@@ -187,9 +193,43 @@ module.exports = {
                 tekst += '\nKjeften';
                 tekst += '\nRonaldo';
                 tekst += '\nSkottland';
+                tekst += '\nMusikk';
                 tekst += '\nInitialD';
                 tekst += '\n\t\tSpiller av tilfeldige InitialD sanger, kan flyttes til annen samtale ved å gjenta kommandoen.\n\t\tHvis du ønsker den skal forlate samtalen, bruk: +Leave\n\t\tFor full ID-sangliste, bruk: +InitialD liste'
                 bot.sendMessage({ to: channelID, message: tekst });
+        }
+    }
+}
+
+function musikkListeAvspillingCmd(args, vcID, serverID, stiSanger, channelID, bot, logger) {
+    if (args[0] == null) {
+        funk.playRnd(vcID, serverID, stiSanger, kommandoNavn, 5, channelID, bot, logger);
+    }
+    else if (funk.isInteger(args[0])) {
+        if (parseInt(args[0]) >= 0 && parseInt(args[0]) < stiSanger.length) {
+            funk.playAudio(vcID, stiSanger[parseInt(args[0])], bot);
+            var sti = stiSanger[parseInt(args[0])].split('/');
+            bot.sendMessage({to:channelID, message: 'Spiller nå: ' + sti[3].replace('.mp3','').replace(/-/g,' ')});
+        }
+        else {
+            bot.sendMessage({to:channelID, message: 'Velg et gyldig tall'});
+        }
+    }
+    else if (args[0].toLowerCase() == 'l' || args[0].toLowerCase() == 'liste') {
+        var sangerNavn = 'ID-sanger lagt inn:';
+        for (var i = 0; i < stiSanger.length; i++) {
+            var sti = stiSanger[i].split('/');
+            var navn = sti[3].split('.');
+            sangerNavn += '\n' + i + '.\t' + navn[0].replace(/-/g, ' ');
+        }
+        bot.sendMessage({to:channelID, message: sangerNavn});
+    }
+    else if (args[0].toLowerCase() == 'a' || args[0].toLowerCase() == 'ant' || args[0].toLowerCase() == 'antall') {
+        if (funk.isInteger(args[1]) && args[1] > 0 && args[1] < 30) {
+            funk.playRnd(vcID, serverID, stiSanger, args[1], channelID, bot, logger);
+        }
+        else {
+            bot.sendMessage({to:channelID, message: 'Brukes slik: \n\t"+' + kommandoNavn + ' ant <antall>"'});
         }
     }
 }
