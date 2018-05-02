@@ -115,9 +115,13 @@ module.exports = {
             case 'str2num':
             case 'numerisk':
                 var tegn;
-                var tekst = message.splice(10);
-                if (args[0].toLowerCase() == 'unicode') {
-                    tegn = tekst.splice(8).split(''); //Fjerner første tegnene (unicode kodeordet) og legger i tegn
+                var unicode = false;
+                if (args[0].toLowerCase == 'unicode') {
+                    args = args.splice(1);
+                }
+                var tekst = args.join(' ');
+                if (unicode) {
+                    tegn = tekst.split(''); //Fjerner første tegnene (unicode kodeordet) og legger i tegn
                     for (var i = 0; i < tegn.length; i++) {
                         tegn[i] = tegn[i].charCodeAt(0);
                     }
