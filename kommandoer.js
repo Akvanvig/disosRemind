@@ -8,9 +8,9 @@ module.exports = {
         switch (cmd.toLowerCase()) {
 
             case 'ping':
-                var msgID = bot.channels[channelID].last_message_id;
+                var msgID = evt.d.id;;
                 var timeSent = (msgID / 4194304) + 1420070400000;
-                var timePassed = + Date() - timeSent;
+                var timePassed = + (new Date()).getTime() - timeSent;
                 bot.sendMessage({ to: channelID, message: 'Pong? ping: ' + timePassed + ' ms' });
                 break;
 
