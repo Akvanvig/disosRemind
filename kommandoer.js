@@ -1,14 +1,15 @@
 var funk = require('./funksjoner.js');
 
 module.exports = {
-    kommando: function (user, userID, channelID, message, serverID, bot, logger, reminders, roblxActive, startupTime) {
+    kommando: function (user, userID, channelID, message, serverID, bot, logger, reminders, roblxActive, startupTime, evt) {
         var args = message.substring(1).split(' ');
         var cmd = args[0];
         args = args.splice(1);
         switch (cmd.toLowerCase()) {
 
             case 'ping':
-                var timeSent = message.createdAt;
+                var msgID = bot.channels[channelID].last_message_id;
+                var timeSent = (msgID / 4194304) + 1420070400000;
                 var timePassed = + Date() - timeSent;
                 bot.sendMessage({ to: channelID, message: 'Pong? ping: ' + timePassed + ' ms' });
                 break;

@@ -42,7 +42,7 @@ bot.on('message', function (user, userID, chID, message, evt) {
     //Diverse kommandoer
     if (message.substring(0, 1) == '?' && userID != bot.id) {
         try {
-            res = kommando.kommando(user, userID, chID, message, serverID, bot, logger, reminders, roblxActive, startupTime);
+            res = kommando.kommando(user, userID, chID, message, serverID, bot, logger, reminders, roblxActive, startupTime, evt);
             reminders = res[0];
             roblxActive = res[1];
         } catch (e) {
