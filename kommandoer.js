@@ -146,15 +146,18 @@ module.exports = {
 
             case 'brok':
             case 'brøk':
-                if (isInteger(args[0]) && isInteger(args[1])) {
+                if (funk.isInteger(args[0]) && funk.isInteger(args[1]) && args[0] > 0 && args[1] > 0) {
                     var faktorer1 = funk.factorize(args[0]);
                     var faktorer2 = funk.factorize(args[1]);
-                    var f = removeCommon(faktorer1, faktorer2);
+                    var f = funk.removeCommon(faktorer1, faktorer2);
                     faktorer1 = f[0];
                     faktorer2 = f[1];
-                    var res1 = multiplyList(faktorer1);
-                    var res2 = multiplyList(faktorer2);
+                    var res1 = funk.multiplyList(faktorer1);
+                    var res2 = funk.multiplyList(faktorer2);
                     bot.sendMessage({ to: channelID, message: args[0] + ' / ' + args[1] + ' = ' + res1 + ' / ' + res2 });
+                }
+                else {
+                    bot.sendMessage({ to: channelID, message: 'Heltall større enn 0, "?Brøk [heltall 1] [heltall 2]"' });
                 }
 
             case 'roblox':

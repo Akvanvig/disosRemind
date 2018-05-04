@@ -213,7 +213,7 @@ module.exports = {
     },
 
     //Returnerer alle primtall under gitt tall
-    getPrimes: function(num): {
+    getPrimes: function(num) {
         list = [2];
         if (n > 2) {
             for (var i = 2; i < num; i++) {
