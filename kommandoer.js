@@ -140,7 +140,7 @@ module.exports = {
                         else if (tegn[i].charCodeAt(0) == 230) { tegn[i] = 27; }    //'æ'
                         else if (tegn[i].charCodeAt(0) == 248) { tegn[i] = 28; }    //'ø'
                     }
-                    bot.sendMessage({ to: channelID, message: tegn.join('') });
+                    bot.sendMessage({ to: channelID, message: tegn.join(',') });
                 }
                 break;
 
