@@ -194,15 +194,15 @@ module.exports = {
 
     //Faktoriserer et tall, eks. 12 = 2 * 2 * 3
     factorize: function(num) {
-        primes = getPrimes(num + 1);
+        primes = module.exports.getPrimes(num + 1);
         factors = [];
         notOne = num != 1;
 
         while (notOne) {
             for (var i = 0; i < primes.length; i++) {
-                if (num % prime[i] == 0) {
-                    factors.push(prime[i]);
-                    num /= prime[i];
+                if (num % primes[i] == 0) {
+                    factors.push(primes[i]);
+                    num /= primes[i];
                     notOne = num != 1;
                     break;
                 }
@@ -215,12 +215,12 @@ module.exports = {
     //Returnerer alle primtall under gitt tall
     getPrimes: function(num) {
         list = [2];
-        if (n > 2) {
+        if (num > 2) {
             for (var i = 2; i < num; i++) {
                 isPrime = true;
                 for (var j = 0; j < list.length; j++) {
-                    if (i % j == 0) {
-                        isPrime = false
+                    if (i % list[j] == 0) {
+                        isPrime = false;
                         break;
                     }
                 }

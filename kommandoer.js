@@ -159,6 +159,7 @@ module.exports = {
                 else {
                     bot.sendMessage({ to: channelID, message: 'Heltall større enn 0, "?Brøk [heltall 1] [heltall 2]"' });
                 }
+                break;
 
             case 'roblox':
                 var granted = true;
