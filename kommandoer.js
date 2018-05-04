@@ -174,7 +174,7 @@ module.exports = {
                 break;
 
             default:
-                var tekst = 'Commands: ';
+                var tekst = '```Commands: ';
                 tekst += '\n\nPing:';
                 tekst += '\n\t\tPong?';
                 tekst += '\n\nRemindMe:';
@@ -195,6 +195,7 @@ module.exports = {
                 tekst += '\n\t\tGjør om tekst til numeriske verdier. For unicode-verdier på alle tegn bruk: "?Numerisk Unicode [melding]"'
                 tekst += '\n\nBrøk:';
                 tekst += '\n\t\tGir deg en forkortet brøk: "?Brøk [heltall 1] [heltall 2]"'
+                tekst += '```'
                 bot.sendMessage({ to: channelID, message: tekst });
         }
         return [reminders, roblxActive];
