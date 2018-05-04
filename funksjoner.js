@@ -164,4 +164,71 @@ module.exports = {
         bot.deleteMessage({channelID: chID, messageID: msgID});
         bot.sendMessage({to: chID, message: '<@!' + userID + '> :' + msg.join('')});
     },
+
+    multiplyList: function(listNum) {
+        res = 1;
+        for (var i = 0; i < listNum.length; i++) {
+            res *= listNum[i];
+        }
+        return res;
+    },
+
+    //Tar inn to lister, og fjerner de som er like (Går ut fra at listene er sorterte)
+    removeCommon: function(list1, list2) {
+        i = 0;
+        j = 0;
+        while (i < list1.length && j < list2.length) {
+            if (list1[i] == list2[j]) {
+                list1.splice(i, 1);
+                list2.splice(j, 1);
+            }
+            else if (list1[i] > list2[j]) {
+                j++;
+            }
+            else if (list1[i] < list2[j]) {
+                i++;
+            }
+        }
+        return [list1, list2];
+    },
+
+    //Faktoriserer et tall, eks. 12 = 2 * 2 * 3
+    factorize: function(num) {
+        primes = getPrimes(num + 1);
+        factors = [];
+        notOne = num != 1;
+
+        while (notOne) {
+            for (var i = 0; i < primes.length; i++) {
+                if (num % prime[i] == 0) {
+                    factors.push(prime[i]);
+                    num /= prime[i];
+                    notOne = num != 1;
+                    break;
+                }
+            }
+        }
+        return factors
+
+    },
+
+    //Returnerer alle primtall under gitt tall
+    getPrimes: function(num): {
+        list = [2];
+        if (n > 2) {
+            for (var i = 2; i < num; i++) {
+                isPrime = true;
+                for (var j = 0; j < list.length; j++) {
+                    if (i % j == 0) {
+                        isPrime = false
+                        break;
+                    }
+                }
+                if (isPrime) {
+                    list.push(i);
+                }
+            }
+        }
+        return list;
+    }
 }

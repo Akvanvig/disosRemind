@@ -144,6 +144,19 @@ module.exports = {
                 }
                 break;
 
+            case 'brok':
+            case 'brøk':
+                if (isInteger(args[0]) && isInteger(args[1])) {
+                    var faktorer1 = funk.factorize(args[0]);
+                    var faktorer2 = funk.factorize(args[1]);
+                    var f = removeCommon(faktorer1, faktorer2);
+                    faktorer1 = f[0];
+                    faktorer2 = f[1];
+                    var res1 = multiplyList(faktorer1);
+                    var res2 = multiplyList(faktorer2);
+                    bot.sendMessage({ to: channelID, message: args[0] + ' / ' + args[1] + ' = ' + res1 + ' / ' + res2 });
+                }
+
             case 'roblox':
                 var granted = true;
                 logger.info('Roblox mode started - ' + bot.servers[serverID].name);
@@ -176,6 +189,8 @@ module.exports = {
                 tekst += '\n\t\tBruk "+" for \u00e5 spille av lyder eller se hvilke som er tilgjengelige';
                 tekst += '\n\nNumerisk:';
                 tekst += '\n\t\tGjør om tekst til numeriske verdier. For unicode-verdier på alle tegn bruk: "?Numerisk Unicode [melding]"'
+                tekst += '\n\nBrøk:';
+                tekst += '\n\t\tGir deg en forkortet brøk: "?Brøk [heltall 1] [heltall 2]"'
                 bot.sendMessage({ to: channelID, message: tekst });
         }
         return [reminders, roblxActive];
