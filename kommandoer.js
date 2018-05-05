@@ -114,8 +114,9 @@ module.exports = {
                 break;
 
             case 'hemmeligkommando':
-                bot.sendMessage({ to: userID, message: 'Hysj, dette her forteller du ikke om til nokon' });
+                bot.sendMessage({ to: userID, message: 'Hysj, dette her forteller du ikke om til noen' });
                 bot.deleteMessage({channelID: channelID, messageID: evt.d.id});
+                break;
 
             case 'str2num':
             case 'numerisk':
