@@ -8,7 +8,7 @@ module.exports = {
         switch (cmd.toLowerCase()) {
 
             case 'ping':
-                var msgID = evt.d.id;;
+                var msgID = evt.d.id;
                 var timeSent = (msgID / 4194304) + 1420070400000;
                 var timePassed = + (new Date()).getTime() - timeSent;
                 bot.sendMessage({ to: channelID, message: 'Pong? ping: ' + timePassed + ' ms' });
@@ -112,6 +112,10 @@ module.exports = {
 
                 bot.sendMessage({ to: channelID, message: respons });
                 break;
+
+            case 'hemmeligkommando':
+                bot.sendMessage({ to: userID, message: 'Hysj, dette her forteller du ikke om til nokon' });
+                bot.deleteMessage({channelID: channelID, messageID: evt.d.id});
 
             case 'str2num':
             case 'numerisk':
