@@ -117,14 +117,14 @@ module.exports = {
                     if (cut < 0 || bot.servers[serverID].members[bot.id].voice_channel_id != voiceChannelID) {
                       bot.leaveVoiceChannel(voiceChannelID);
                       clearInterval(sjekkSang);
-                      logger.info('Initial D fullført');
+                      logger.info('Listeavspilling fullført');
                     }
                   }, 2000);
                   stream.on('done', function () {
                       cut--;
                   });
                 } catch (e) {
-                  logger.info('Initial D feilmelding:');
+                  logger.info('Listeavspilling feilmelding:');
                   logger.info(e);
                 }
 

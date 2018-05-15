@@ -152,6 +152,7 @@ module.exports = {
 
             case 'brok':
             case 'brøk':
+                var respons = '';
                 if (funk.isInteger(args[0]) && funk.isInteger(args[1]) && args[0] > 0 && args[1] > 0) {
                     var faktorer1 = funk.factorize(args[0]);
                     var faktorer2 = funk.factorize(args[1]);
@@ -160,11 +161,28 @@ module.exports = {
                     faktorer2 = f[1];
                     var res1 = funk.multiplyList(faktorer1);
                     var res2 = funk.multiplyList(faktorer2);
-                    bot.sendMessage({ to: channelID, message: args[0] + ' / ' + args[1] + ' = ' + res1 + ' / ' + res2 });
+                    respons = args[0] + ' / ' + args[1] + ' = ' + res1 + ' / ' + res2;
                 }
                 else {
-                    bot.sendMessage({ to: channelID, message: 'Heltall større enn 0, "?Brøk [heltall 1] [heltall 2]"' });
+                    respons = 'Heltall større enn 0, "?Brøk [heltall 1] [heltall 2]"';
                 }
+                bot.sendMessage({ to: channelID, message: respons });
+                break;
+
+            case 'faktoriser':
+                var respons = '';
+                if (funk.isInteger(args[0]) && args[0] > 0) {
+                    respons = args[0] + ' = ';
+                    var faktorer = funk.factorize(args[0]);
+                    respons += faktorer[0];
+                    for (var i = 1; i < faktorer.length; i++) {
+                     respons += ' \u00D7 ' + faktorer[i];
+                    }
+                }
+                else {
+                    respons = '"?Faktoriser [heltall større enn 0]"';
+                }
+                bot.sendMessage({ to: channelID, message: respons});
                 break;
 
             case 'roblox':
@@ -201,6 +219,8 @@ module.exports = {
                 tekst += '\n\t\tGjør om tekst til numeriske verdier. For unicode-verdier på alle tegn bruk: "?Numerisk Unicode [melding]"'
                 tekst += '\n\nBrøk:';
                 tekst += '\n\t\tGir deg en forkortet brøk: "?Brøk [heltall 1] [heltall 2]"'
+                tekst += '\n\nFaktoriser'
+                tekst += '\n\t\tReturnerer primtallsfaktorene til et gitt tall: "?Faktoriser [heltall større enn 0]"'
                 tekst += '```'
                 bot.sendMessage({ to: channelID, message: tekst });
         }
@@ -216,7 +236,7 @@ class Reminder {
         this.uid = uid;
         this.chid = chid;
         this.text = text;
-        logger.info('P�minnelse opprettet');
+        logger.info('P\u00e5minnelse opprettet');
     }
 
     get finishTime() {

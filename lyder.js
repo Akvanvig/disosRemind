@@ -16,7 +16,12 @@ module.exports = {
         var vcID = bot.servers[serverID].members[userID].voice_channel_id;
         switch (cmd.toLowerCase()) {
             case 'leave':
-                bot.leaveVoiceChannel(vcID);
+                try {
+                    bot.leaveVoiceChannel(vcID);
+                } catch (e) {
+                    logger.info('Leave utført med feilmelding');
+                }
+
                 break;
 
             case 'jodel':
@@ -154,6 +159,7 @@ module.exports = {
             default:
                 var tekst = 'Leave:';
                 tekst += '\n\t\tTvinger bot-en til \u00e5 forlate kanalen';
+                tekst += '```';
                 tekst += '\n\n Lyder lagt inn:';
                 tekst += '\nJodel';
                 tekst += '\nKristian';
@@ -170,6 +176,7 @@ module.exports = {
                 tekst += '\nMusikk\t||\tm';
                 tekst += '\nInitialD\t||\tid';
                 tekst += '\n\t\tSpiller av tilfeldige InitialD sanger, kan flyttes til annen samtale ved å gjenta kommandoen.\n\t\tFor full ID-sangliste, bruk: +InitialD liste eller +id l'
+                tekst += '```';
                 bot.sendMessage({ to: channelID, message: tekst });
         }
     }
