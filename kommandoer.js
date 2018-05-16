@@ -180,7 +180,7 @@ module.exports = {
                     }
                 }
                 else if (funk.isInteger(args[0]) && args[0] > 0) {
-                    respons = 'For stort tall, for å sjekke faktorene kan koden lastes ned her i enten python eller javascript:\n\t\thttps://github.com/Akvanvig/Primtallsfaktorisering'
+                    respons = 'For stort tall, for å sjekke faktorene kan koden lastes ned her i enten python, javascript, java, visual basic eller som exe:\n\t\thttps://github.com/Akvanvig/Primtallsfaktorisering'
                 }
                 else {
                     respons = '"?Faktoriser [heltall større enn 0]"';
