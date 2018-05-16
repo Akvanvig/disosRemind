@@ -199,7 +199,7 @@ module.exports = {
         notOne = num != 1;
 
         while (notOne) {
-            var notChanged = false;
+            var notChanged = true;
             for (var i = 0; i < primes.length; i++) {
                 if (num % primes[i] == 0) {
                     factors.push(primes[i]);
