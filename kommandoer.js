@@ -171,13 +171,16 @@ module.exports = {
 
             case 'faktoriser':
                 var respons = '';
-                if (funk.isInteger(args[0]) && args[0] > 0) {
+                if (funk.isInteger(args[0]) && args[0] > 0 && args[0] < 100000) {
                     respons = args[0] + ' = ';
                     var faktorer = funk.factorize(args[0]);
                     respons += faktorer[0];
                     for (var i = 1; i < faktorer.length; i++) {
                      respons += ' \u00D7 ' + faktorer[i];
                     }
+                }
+                else if (funk.isInteger(args[0]) && args[0] > 0) {
+                    respons = 'For stort tall, for å sjekke faktorene kan koden lastes ned her i enten python eller javascript:\n\t\thttps://github.com/Akvanvig/Primtallsfaktorisering'
                 }
                 else {
                     respons = '"?Faktoriser [heltall større enn 0]"';
