@@ -194,18 +194,24 @@ module.exports = {
 
     //Faktoriserer et tall, eks. 12 = 2 * 2 * 3
     factorize: function(num) {
-        primes = module.exports.getPrimes(num + 1);
+        primes = module.exports.getPrimes(Math.ceil(num / 2));
         factors = [];
         notOne = num != 1;
 
         while (notOne) {
+            var notChanged = false;
             for (var i = 0; i < primes.length; i++) {
                 if (num % primes[i] == 0) {
                     factors.push(primes[i]);
                     num /= primes[i];
                     notOne = num != 1;
+                    notChanged = false;
                     break;
                 }
+            }
+            if (notChanged) {
+                factors.push(parseInt(num));
+                notOne = false;
             }
         }
         return factors
