@@ -1,4 +1,14 @@
 var funk = require('./funksjoner.js');
+var morse = {
+            'A': '.-', 'B': '-...','C': '-.-.', 'D': '-..','E': '.','F': '..-.','G': '--.','H': '....',
+            'I': '..', 'J': '.---','K': '-.-', 'L': '.-..','M': '--','N': '-.','O': '---','P': '.--.',
+            'Q': '--.-', 'R': '.-.','S': '...', 'T': '-','U': '..-','V': '...-','W': '.--','X': '-..-',
+            'Y': '-.--', 'Z': '--..','Æ': '.-.-', 'Ø': '---.','Å': '.--.-','1': '.----','2': '..---','3': '...--',
+            '4': '....-', '5': '.....','6': '-....', '7': '--...','8': '---..','9': '----.','0': '-----','.': '.-.-.-',
+            ',': '--..--', ':': '---...','?': '..--..', '-': '-....-','=': '-...-','/': '-..-.','(': '-.--.',')': '-.--.-',
+            '+': '.-.-.', 'start': '-.-.-','stopp': '.-.-.', 'rettelse': '........','forstått': '...-.','avslutning': '...-.-','vent': '.-...','nødsignalet': '...---...',
+            '!': '..--.', '@': '.--.-.'
+        };
 
 module.exports = {
     kommando: function (user, userID, channelID, message, serverID, bot, logger, reminders, roblxActive, startupTime, evt) {
@@ -186,6 +196,40 @@ module.exports = {
                     respons = '"?Faktoriser [heltall større enn 0]"';
                 }
                 bot.sendMessage({ to: channelID, message: respons});
+                break;
+
+            case 'tilmorse':
+                var res = args.join(' ').toUpperCase().split('');
+                for (var i = 0; i < res.length; i++) {
+                    if (res[i] == ' ') {
+                        res[i] = '\t\t';
+                    } else {
+                        res[i] = morse[res[i]];
+                    }
+                }
+                bot.sendMessage({ to: channelID, message: res.join(' ')});
+                break;
+
+            case 'framorse':
+                var res = args.join(' ').toUpperCase().split('');
+                //Oppretter en funksjon som lar dicts bli gjennomsøkt basert på verdi
+                Object.prototype.getKeyByValue = function( value ) {
+                    for( var prop in this ) {
+                        if( this.hasOwnProperty( prop ) ) {
+                            if( this[ prop ] === value ) {
+                                return prop;
+                            }
+                        }
+                    }
+                }
+                for (var i = 0; i < res.length; i++) {
+                    if (res[i] == '\t\t' || res[i] == '\t') {
+                        res[i] = ' ';
+                    } else {
+                        res[i] = morse.getKeyByValue(res[i]);
+                    }
+                }
+                bot.sendMessage({ to: channelID, message: res.join('')});
                 break;
 
             case 'roblox':
