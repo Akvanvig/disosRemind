@@ -202,7 +202,7 @@ module.exports = {
                 var res = args.join(' ').toUpperCase().split('');
                 for (var i = 0; i < res.length; i++) {
                     if (res[i] == ' ') {
-                        res[i] = '\t\t';
+                        res[i] = '\t';
                     } else {
                         res[i] = morse[res[i]];
                     }
@@ -211,7 +211,6 @@ module.exports = {
                 break;
 
             case 'framorse':
-                var res = args.join(' ').toUpperCase().split('');
                 //Oppretter en funksjon som lar dicts bli gjennomsøkt basert på verdi
                 Object.prototype.getKeyByValue = function( value ) {
                     for( var prop in this ) {
@@ -222,14 +221,14 @@ module.exports = {
                         }
                     }
                 }
-                for (var i = 0; i < res.length; i++) {
-                    if (res[i] == '\t\t' || res[i] == '\t') {
-                        res[i] = ' ';
+                for (var i = 0; i < args.length; i++) {
+                    if (args[i] == '' && args[i+1] == '' && args[i+2] == '' && args[i+3] == '' && args[i+4] == '') {
+                        args[i] = ' ';
                     } else {
-                        res[i] = morse.getKeyByValue(res[i]);
+                        args[i] = morse.getKeyByValue(args[i]);
                     }
                 }
-                bot.sendMessage({ to: channelID, message: res.join('')});
+                bot.sendMessage({ to: channelID, message: args.join('')});
                 break;
 
             case 'roblox':
@@ -263,11 +262,15 @@ module.exports = {
                 tekst += '\n\nLyder:';
                 tekst += '\n\t\tBruk "+" for \u00e5 spille av lyder eller se hvilke som er tilgjengelige';
                 tekst += '\n\nNumerisk:';
-                tekst += '\n\t\tGjør om tekst til numeriske verdier. For unicode-verdier på alle tegn bruk: "?Numerisk Unicode [melding]"'
+                tekst += '\n\t\tGjør om tekst til numeriske verdier. For unicode-verdier på alle tegn bruk: "?Numerisk Unicode [melding]"';
                 tekst += '\n\nBrøk:';
-                tekst += '\n\t\tGir deg en forkortet brøk: "?Brøk [heltall 1] [heltall 2]"'
-                tekst += '\n\nFaktoriser'
-                tekst += '\n\t\tReturnerer primtallsfaktorene til et gitt tall: "?Faktoriser [heltall større enn 0]"'
+                tekst += '\n\t\tGir deg en forkortet brøk: "?Brøk [heltall 1] [heltall 2]"';
+                tekst += '\n\nFaktoriser';
+                tekst += '\n\t\tReturnerer primtallsfaktorene til et gitt tall: "?Faktoriser [heltall større enn 0]"';
+                tekst += '\n\ntilMorse';
+                tekst += '\n\t\t?tilMorse [tekst og tall som skal oversettes]';
+                tekst += '\n\nfraMorse';
+                tekst += '\n\t\tSkill tegn med mellomrom, og ord med fem mellomrom (Ikke nødvendig å endre fra kommando ?tilMorse)';
                 tekst += '```'
                 bot.sendMessage({ to: channelID, message: tekst });
         }
