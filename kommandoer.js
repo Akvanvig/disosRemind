@@ -163,7 +163,7 @@ module.exports = {
             case 'brok':
             case 'brøk':
                 var respons = '';
-                if (funk.isInteger(args[0]) && funk.isInteger(args[1]) && args[0] > 0 && args[1] > 0) {
+                if (funk.isInteger(args[0]) && funk.isInteger(args[1]) && args[0] > 0 && args[0] < 100000 && args[1] > 0 && args[1] < 100000) {
                     var faktorer1 = funk.factorize(args[0]);
                     var faktorer2 = funk.factorize(args[1]);
                     var f = funk.removeCommon(faktorer1, faktorer2);
