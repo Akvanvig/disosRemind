@@ -12,7 +12,7 @@ småjobber:
   Aktiv-meldinger i logg må endres til å bruke gjeldende bot sitt navn, og ikke bare "Mr.Roboto"
   Legg til +muhDream så spilles tell me why (https://www.youtube.com/watch?v=I2rV8oKWSdM)
   Optimaliser ?brøk, så primtall bare hentes en gang for begge tallene (henter største)
-  Vurder å legge inn ferdig kalkulerte primtall (f.eks. 0-100 000)
+  
 
 Store oppgaver:
   Legg inn så boten ikke forlater voice-chat med en gang ( https://github.com/izy521/discord.io-music-plugin/blob/master/Player.js )
@@ -24,3 +24,7 @@ Store oppgaver:
   straff kan innebære temp-ban, ban, kick eller en eller annen midletidlig utestengelse fra chat.
   Kan gi advarsel første gang, og registrere personen som fare-moment.
   Føre statistikk over @everyone-bruk.
+
+Endringssaker (0-10):
+  Vurder å legge inn ferdig kalkulerte primtall (f.eks. 0-100 000) (4)
+  Endre +Anthem fra boten anna til Mr. Roboto? (1)
