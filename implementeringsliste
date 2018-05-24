@@ -8,6 +8,7 @@ Konverteringer:
   Standard:
     fl oz til ml
     pints til liter
+    ounze til gram
   Freedomunits: 
     Meter til Yards
     Km til Miles
@@ -15,6 +16,7 @@ Konverteringer:
     Liter til Gallons
     Liter til Pints
     ml til US Fluid Ounze
+    gram til Ounze
 
 småjobber:
   Legg inn +server (This is a christian server, no swearing)
