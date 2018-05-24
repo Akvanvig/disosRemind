@@ -12,6 +12,7 @@ småjobber:
   Legg til så botten gir beskjed ved hver femtiende melding i rolox-mode, bygger borg (se pm mr. Oktopus)
   Aktiv-meldinger i logg må endres til å bruke gjeldende bot sitt navn, og ikke bare "Mr.Roboto"
   Legg til +muhDream så spilles tell me why (https://www.youtube.com/watch?v=I2rV8oKWSdM)
+  Optimaliser ?brøk, så primtall bare hentes en gang for begge tallene (henter største)
 
 Store oppgaver:
   Legg inn så boten ikke forlater voice-chat med en gang ( https://github.com/izy521/discord.io-music-plugin/blob/master/Player.js )
