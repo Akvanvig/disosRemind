@@ -70,7 +70,7 @@ module.exports = {
 
             case 'fl':
             case 'fluid':
-                if (args[i+2].toLowerCase() == 'oz' || args[i+2].toLowerCase() == 'ounze') {
+                if (args.length > 2 && (args[i+2].toLowerCase() == 'oz' || args[i+2].toLowerCase() == 'ounze')) {
                     respons = funk.convert(args[i], 0, 29.5735295625, 'fl oz', 'ml');
                     c = true;
                 }
