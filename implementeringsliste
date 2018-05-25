@@ -9,7 +9,7 @@ Konverteringer:
     fl oz til ml
     pints til liter
     ounze til gram
-  Freedomunits: 
+  Freedomunits:
     Meter til Yards
     Km til Miles
     Kg til Pounds
@@ -25,7 +25,8 @@ småjobber:
   Aktiv-meldinger i logg må endres til å bruke gjeldende bot sitt navn, og ikke bare "Mr.Roboto"
   Legg til +muhDream så spilles tell me why (https://www.youtube.com/watch?v=I2rV8oKWSdM)
   Optimaliser ?brøk, så primtall bare hentes en gang for begge tallene (henter største)
-  
+  Legg freedomunits til egen funksjon (ut av case)
+
 
 Store oppgaver:
   Legg inn så boten ikke forlater voice-chat med en gang ( https://github.com/izy521/discord.io-music-plugin/blob/master/Player.js )
