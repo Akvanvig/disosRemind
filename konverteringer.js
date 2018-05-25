@@ -14,8 +14,14 @@ module.exports = {
                 c = true;
                 break;
 
-            case 'miles':
+            case 'oz':
+            case 'ounze':
+                respons = funk.convert(args[i], 0, 28.349523125, 'oz', 'gram');
+                c = true;
+                break;
+
             case 'mi':
+            case 'miles':
                 respons = funk.convert(args[i], 0, 1.609344, 'miles', 'km');
                 c = true;
                 break;
@@ -43,8 +49,8 @@ module.exports = {
                 c = true;
                 break;
 
-            case 'kelvin':
             case 'k':
+            case 'kelvin':
                 respons = funk.convert(args[i], -272.15, 1, 'K', '\u00b0C');
                 c = true;
                 break;
@@ -60,6 +66,21 @@ module.exports = {
             case 'millisecond':
                 respons = args[i] + ' ms er ' + funk.calcTime(args[i]);
                 c = true;
+                break;
+
+            case 'fl':
+            case 'fluid':
+                if (args[i+2].toLowerCase() == 'oz' || args[i+2].toLowerCase() == 'ounze') {
+                    respons = funk.convert(args[i], 0, 29.5735295625, 'fl oz', 'ml');
+                    c = true;
+                }
+                break;
+
+            case 'pt':
+            case 'pints':
+                respons = funk.convert(args[i], 0, 0.473176473, 'pints', 'liter');
+                c = true;
+                break;
         }
 
         if (c) {

@@ -94,12 +94,15 @@ module.exports = {
 
             case 'konverteringer':
                 var tekst = 'Pounds / lbs';
+                tekst += '\nOunze / oz';
                 tekst += '\nMiles / mi';
                 tekst += '\nFeet';
                 tekst += '\nMPH';
                 tekst += '\nFahrenheit / �F';
                 tekst += '\nKelvin / K';
-                tekst += '\nBHP / HK'
+                tekst += '\nBHP / HK';
+                tekst += '\nFluid Ounze / fl oz';
+                tekst += '\nPints / pt';
                 bot.sendMessage({ to: channelID, message: tekst });
                 break;
 
