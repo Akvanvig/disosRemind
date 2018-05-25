@@ -26,12 +26,14 @@ module.exports = {
                 c = true;
                 break;
 
+            case 'ft':
             case 'foot':
             case 'feet':
                 respons = funk.convert(args[i], 0, 0.3048, 'feet', 'meters');
                 c = true;
                 break;
 
+            case 'in':
             case 'inch':
             case 'inches':
                 respons = funk.convert(args[i], 0, 2.54, 'inches', 'centimeter');
@@ -71,7 +73,7 @@ module.exports = {
             case 'fl':
             case 'fluid':
                 if (args.length > 2 && (args[i+2].toLowerCase() == 'oz' || args[i+2].toLowerCase() == 'ounze')) {
-                    respons = funk.convert(args[i], 0, 29.5735295625, 'fl oz', 'ml');
+                    respons = funk.convert(args[i], 0, 29.5735296, 'fl oz', 'ml');
                     c = true;
                 }
                 break;
