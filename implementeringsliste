@@ -24,11 +24,12 @@ småjobber:
   Legg til +muhDream så spilles tell me why (https://www.youtube.com/watch?v=I2rV8oKWSdM)
   Optimaliser ?brøk, så primtall bare hentes en gang for begge tallene (henter største)
   Legg freedomunits til egen funksjon (ut av case)
+  Opprett bubblesort funksjon, sorterer gitt tekst med et halvt sekund (e.l.) mellom hver gjennomførte oppgave (gjennomfør en runde, sjekk tekst, oppdater discord-melding)
 
 
 Store oppgaver:
   Legg inn så boten ikke forlater voice-chat med en gang ( https://github.com/izy521/discord.io-music-plugin/blob/master/Player.js )
-  Legg til Youtube streaming (Så lenger sanger kan spilles av, > 2h)
+  Legg til Youtube streaming (Så lengre sanger kan spilles av, > 2h)
   Demp lyd ved musikkavspilling noe
 
 @everyone-problem:
