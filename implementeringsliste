@@ -25,7 +25,7 @@ småjobber:
   Optimaliser ?brøk, så primtall bare hentes en gang for begge tallene (henter største)
   Legg freedomunits til egen funksjon (ut av case)
   Opprett bubblesort funksjon, sorterer gitt tekst med et halvt sekund (e.l.) mellom hver gjennomførte oppgave (gjennomfør en runde, sjekk tekst, oppdater discord-melding)
-
+  "?Bursdag @Person", Sender en bursdagsgratulasjon til bruker som er @-et
 
 Store oppgaver:
   Legg inn så boten ikke forlater voice-chat med en gang ( https://github.com/izy521/discord.io-music-plugin/blob/master/Player.js )
