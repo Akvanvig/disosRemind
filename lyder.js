@@ -65,6 +65,10 @@ module.exports = {
             case 'anthem':
                 funk.playAudio(vcID, './media/Boten-Anna.mp3', bot);
                 break;
+
+            case 'traps':
+                funk.playAudio(vcID, './media/traps.mp3', bot);
+                break;
             /*case 'skottland':
                 var tall = parseInt(Math.random() * 23);
                 switch (tall) {
@@ -172,6 +176,7 @@ module.exports = {
                 tekst += '\nKjeften';
                 tekst += '\nRonaldo\t||\tcr7';
                 tekst += '\nAnthem';
+                tekst += '\nTraps';
                 //tekst += '\nSkottland';
                 tekst += '\nMusikk\t||\tm';
                 tekst += '\nInitialD\t||\tid';
