@@ -69,6 +69,10 @@ module.exports = {
             case 'traps':
                 funk.playAudio(vcID, './media/traps.mp3', bot);
                 break;
+
+            case 'skjerpings':
+                funk.playAudio(vcID, './media/skjerpings.mp3', bot);
+                break;
             /*case 'skottland':
                 var tall = parseInt(Math.random() * 23);
                 switch (tall) {
