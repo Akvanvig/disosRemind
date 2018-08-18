@@ -182,6 +182,7 @@ module.exports = {
                 tekst += '\nRonaldo\t||\tcr7';
                 tekst += '\nAnthem';
                 tekst += '\nTraps';
+                tekst += '\nSkjerpings';
                 //tekst += '\nSkottland';
                 tekst += '\nMusikk\t||\tm';
                 tekst += '\nInitialD\t||\tid';
