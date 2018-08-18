@@ -17,6 +17,7 @@ Konverteringer:
     gram til Ounze
 
 småjobber:
+  Dadjoke, hvis noen skriver "Jeg er x", svarer bot med "Hei x, Jeg er Mr. Roboto" eller lignende for Neonorgesk/englansk
   Legg inn +server (This is a christian server, no swearing)
   Legg til python-script som skriver feilmeldinger til fil
   Legg til så botten gir beskjed ved hver femtiende melding i rolox-mode, bygger borg (se pm mr. Oktopus)
