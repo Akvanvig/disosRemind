@@ -73,6 +73,7 @@ module.exports = {
             case 'skjerpings':
                 funk.playAudio(vcID, './media/skjerpings.mp3', bot);
                 break;
+            //Feil ved en del skottland lyder, filer vil ikke spilles av
             /*case 'skottland':
                 var tall = parseInt(Math.random() * 23);
                 switch (tall) {
