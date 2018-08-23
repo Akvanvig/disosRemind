@@ -238,21 +238,51 @@ module.exports = {
         return list;
     },
 
-    //Følgende funksjoner er importert fra python
-    //https://stackoverflow.com/questions/23450534/how-to-call-a-python-function-from-node-js
-
     noterEveryone: function(discordUserID, discordName, serverID) {
-        const spawn = require("child_process").spawn;
-        const pythonProcess = spawn('python',["./pythonScript/noterEveryone.py", discordUserID, discordName, serverID]);
+        //Reads the current registers from file
+        fs.readFile('./filer/everyone.json', 'utf8', function readFileCallback(err, data){
+            if (err){
+                console.log(err);
+            } else {
+                obj = JSON.parse(data);
+
+                //Searches for given user on given channel in register
+                found = false;
+                for (var i = 0; i < obj.table.length; i++) {
+                    //If found increses count by one on correct user, and updates name if changed
+                    if (obj.table[i]['userID'] == discordUserID && obj.table[i]['serverID'] == serverID) {
+                        found = true;
+                        obj.table[i]['count'] += 1;
+                        obj.table[i]['name'] = discordName;
+                        break;
+                    }
+                }
+                //If not found, will register a new occurence
+                if (!found) {
+                    obj.table.push({userID: discordUserID, name: discordName, server: serverID});
+                }
+
+                //Converts back to Json, and stores in file
+                json = JSON.stringify(obj);
+                fs.writeFile('./filer/everyone.json', json, 'utf8', callback);
+            }
+        });
     }
 
     lesEveryone: function(serverID, channelID, bot) {
-        const spawn = require("child_process").spawn;
-        const pythonProcess = spawn('python',["./pythonScript/LesEveryone.py", serverID]);
-
-        pythonProcess.stdout.on('data', (data) => {
-            bot.sendMessage({to: chID, message: data});
-            break;
+        fs.readFile('./filer/everyone.json', 'utf8', function readFileCallback(err, data){
+            if (err){
+                console.log(err);
+            } else {
+                obj = JSON.parse(data);
+                text = 'Følgende brukere har brukt everyone på denne kanalen (Navn - antall)';
+                for (var i = 0; i < obj.table.length; i++) {
+                    if (obj.table[i]['serverID'] == serverID) {
+                        text += obj.table[i]['name'] + '\t\t-\t' + obj.table[i]['count'];
+                    }
+                }
+                bot.sendMessage({to: chID, message: text});
+            }
         });
     }
 }

@@ -106,10 +106,14 @@ bot.on('message', function (user, userID, chID, message, evt) {
                 case 'kvenleis':
                     nynorsk += '\n' + args[i].toLowerCase().replace(/[-,._'^*"()[\]{}]/g, '') + ' = hva / hvem / når / hvor / hvorfor / hvordan';
                     break;
-                /*case '@everyone':
+                case '@everyone':
                     nynorsk = '';
-                    var msgID = evt.d.id;
-                    bot.deleteMessage({channelID: chID, messageID: msgID});*/
+                    try {
+                        var navn = bot.servers[bot.channels[channelID].guild_id].members[userID].nick
+                        funk.noterEveryone(userID, navn, serverID);
+                    } catch (e) {
+                        bot.sendMessage({ to: 406104320745013259, message: 'Feil ?noterEveryone' + e });
+                    }
             }
         }
     if (nynorsk.length > 50) {

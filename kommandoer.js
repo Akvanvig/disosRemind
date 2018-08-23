@@ -247,6 +247,14 @@ module.exports = {
                 }
                 break;
 
+            case 'leseveryone':
+                try {
+                    funk.lesEveryone(serverID, channelID, bot);
+                } catch (e) {
+                    bot.sendMessage({ to: 406104320745013259, message: 'Feil ?lesEveryone' + e });
+                }
+                break;
+
             default:
                 var tekst = '```Commands: ';
                 tekst += '\n\nPing:';
@@ -275,7 +283,8 @@ module.exports = {
                 tekst += '\n\t\t?tilMorse [tekst og tall som skal oversettes]';
                 tekst += '\n\nfraMorse';
                 tekst += '\n\t\tSkill tegn med mellomrom, og ord med fem mellomrom (Ikke nødvendig å endre fra kommando ?tilMorse)';
-                tekst += '```'
+                tekst += '\n\t\tlesEveryone';
+                tekst += '```';
                 bot.sendMessage({ to: channelID, message: tekst });
         }
         return [reminders, roblxActive];
