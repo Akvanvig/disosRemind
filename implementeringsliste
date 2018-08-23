@@ -32,6 +32,7 @@ Store oppgaver:
   Legg inn så boten ikke forlater voice-chat med en gang ( https://github.com/izy521/discord.io-music-plugin/blob/master/Player.js )
   Legg til Youtube streaming (Så lengre sanger kan spilles av, > 2h)
   Demp lyd ved musikkavspilling noe
+  Integrer Google assistant på boten (Lettere med Linux https://unix.stackexchange.com/questions/82259/how-to-pipe-audio-output-to-mic-input) 
 
 @everyone-problem:
   oppdag når noen skriver @everyone i chat, og gi ut advarsel/straff.
