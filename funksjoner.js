@@ -281,7 +281,7 @@ module.exports = {
                         text += obj.table[i]['name'] + '\t\t-\t' + obj.table[i]['count'];
                     }
                 }
-                bot.sendMessage({to: chID, message: text});
+                bot.sendMessage({to: channelID, message: text});
             }
         });
     }
