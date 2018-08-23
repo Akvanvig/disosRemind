@@ -267,7 +267,7 @@ module.exports = {
                 fs.writeFile('./filer/everyone.json', json, 'utf8', callback);
             }
         });
-    }
+    },
 
     lesEveryone: function(serverID, channelID, bot) {
         fs.readFile('./filer/everyone.json', 'utf8', function readFileCallback(err, data){
