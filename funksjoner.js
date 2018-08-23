@@ -236,5 +236,23 @@ module.exports = {
             }
         }
         return list;
+    },
+
+    //Følgende funksjoner er importert fra python
+    //https://stackoverflow.com/questions/23450534/how-to-call-a-python-function-from-node-js
+
+    noterEveryone: function(discordUserID, discordName, serverID) {
+        const spawn = require("child_process").spawn;
+        const pythonProcess = spawn('python',["./pythonScript/noterEveryone.py", discordUserID, discordName, serverID]);
+    }
+
+    lesEveryone: function(serverID, channelID, bot) {
+        const spawn = require("child_process").spawn;
+        const pythonProcess = spawn('python',["./pythonScript/LesEveryone.py", serverID]);
+
+        pythonProcess.stdout.on('data', (data) => {
+            bot.sendMessage({to: chID, message: data});
+            break;
+        });
     }
 }
