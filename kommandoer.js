@@ -283,7 +283,7 @@ module.exports = {
                 tekst += '\n\t\t?tilMorse [tekst og tall som skal oversettes]';
                 tekst += '\n\nfraMorse';
                 tekst += '\n\t\tSkill tegn med mellomrom, og ord med fem mellomrom (Ikke nødvendig å endre fra kommando ?tilMorse)';
-                tekst += '\n\t\tlesEveryone';
+                tekst += '\n\nlesEveryone';
                 tekst += '```';
                 bot.sendMessage({ to: channelID, message: tekst });
         }
