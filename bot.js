@@ -109,7 +109,7 @@ bot.on('message', function (user, userID, chID, message, evt) {
                 case '@everyone':
                     nynorsk = '';
                     try {
-                        var navn = bot.servers[bot.channels[chID].guild_id].members[userID].nick
+                        var navn = bot.users[userID].username
                         funk.noterEveryone(userID, navn, serverID);
                     } catch (e) {
                         bot.sendMessage({ to: 406104320745013259, message: 'Feil ?noterEveryone' + e });
