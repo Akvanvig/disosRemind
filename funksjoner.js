@@ -250,7 +250,7 @@ module.exports = {
                 found = false;
                 for (var i = 0; i < obj.table.length; i++) {
                     //If found increses count by one on correct user, and updates name if changed
-                    if (obj.table[i].userID == discordUserID && obj.table[i].serverID == serverID) {
+                    if (obj.table[i].userID == discordUserID && obj.table[i].server == serverID) {
                         found = true;
                         obj.table[i].count += 1;
                         obj.table[i].name = discordName;
@@ -259,7 +259,7 @@ module.exports = {
                 }
                 //If not found, will register a new occurence
                 if (!found) {
-                    obj.table.push({userID: discordUserID, name: discordName, server: serverID, count: 0});
+                    obj.table.push({userID: discordUserID, name: discordName, server: serverID, count: 1});
                 }
 
                 //Converts back to Json, and stores in file
