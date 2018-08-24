@@ -278,7 +278,7 @@ module.exports = {
                 text = 'Følgende brukere har brukt everyone på denne kanalen (Navn - antall)';
                 for (var i = 0; i < obj.table.length; i++) {
                     if (obj.table[i].server == serverID) {
-                        text += obj.table[i].name + '\t\t-\t' + obj.table[i].count;
+                        text += '\n' + obj.table[i].name + '\t\t-\t' + obj.table[i].count;
                     }
                 }
                 bot.sendMessage({to: channelID, message: text});
