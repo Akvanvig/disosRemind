@@ -259,7 +259,7 @@ module.exports = {
                 }
                 //If not found, will register a new occurence
                 if (!found) {
-                    obj.table.push({userID: discordUserID, name: discordName, server: serverID});
+                    obj.table.push({userID: discordUserID, name: discordName, server: serverID, count: 0});
                 }
 
                 //Converts back to Json, and stores in file
