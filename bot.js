@@ -114,6 +114,7 @@ bot.on('message', function (user, userID, chID, message, evt) {
                     } catch (e) {
                         bot.sendMessage({ to: 406104320745013259, message: 'Feil ?noterEveryone' + e });
                     }
+                    break;
             }
         }
     if (nynorsk.length > 50) {

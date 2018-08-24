@@ -250,10 +250,10 @@ module.exports = {
                 found = false;
                 for (var i = 0; i < obj.table.length; i++) {
                     //If found increses count by one on correct user, and updates name if changed
-                    if (obj.table[i]['userID'] == discordUserID && obj.table[i]['serverID'] == serverID) {
+                    if (obj.table[i].userID == discordUserID && obj.table[i].serverID == serverID) {
                         found = true;
-                        obj.table[i]['count'] += 1;
-                        obj.table[i]['name'] = discordName;
+                        obj.table[i].count += 1;
+                        obj.table[i].name = discordName;
                         break;
                     }
                 }
@@ -277,8 +277,8 @@ module.exports = {
                 obj = JSON.parse(data);
                 text = 'Følgende brukere har brukt everyone på denne kanalen (Navn - antall)';
                 for (var i = 0; i < obj.table.length; i++) {
-                    if (obj.table[i]['serverID'] == serverID) {
-                        text += obj.table[i]['name'] + '\t\t-\t' + obj.table[i]['count'];
+                    if (obj.table[i].server == serverID) {
+                        text += obj.table[i].name + '\t\t-\t' + obj.table[i].count;
                     }
                 }
                 bot.sendMessage({to: channelID, message: text});
