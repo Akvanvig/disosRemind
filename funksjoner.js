@@ -264,7 +264,7 @@ module.exports = {
 
                 //Converts back to Json, and stores in file
                 json = JSON.stringify(obj);
-                fs.writeFile('./filer/everyone.json', json, 'utf8', callback);
+                fs.writeFile('./filer/everyone.json', json, 'utf8', function writeCallback(err) {if (err) { console.log(err)}});
             }
         });
     },
