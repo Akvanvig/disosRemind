@@ -1,5 +1,5 @@
 var fs = require('fs');
-const Reminder = require('./Reminder.js');
+import Reminder from './Reminder.js';
 
 module.exports = {
     isInteger: function(num) {
@@ -306,20 +306,20 @@ module.exports = {
 
     readReminders: function(logger) {
         //Reads the reminders from file
-        reminders = [];
+        result = [];
         fs.readFile('./filer/reminders.json', 'utf8', function readFileCallback(err, data){
             if (err){
                 console.log(err);
             } else {
                 liste = JSON.parse(data);
                 logger.info(liste);
-                for (var i = 0; i + 3 < liste.length; i += 4) {
+                for (var i = 0; i < liste.length; i += 4) {
                     variabler = [liste[i], liste[i+1], liste[i+2], liste[i+3]];
                     temp = new Reminder(false, variabler);
-                    reminders.push(temp));
+                    result.push(temp);
                 }
             }
         });
-        return reminders;
+        return result;
     }
 }
