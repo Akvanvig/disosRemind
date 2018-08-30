@@ -298,8 +298,7 @@ module.exports = {
 
     saveReminders: function(reminders) {
         //Writes the reminders to file
-        var obj = reminders;
-        json = JSON.stringify(obj);
+        json = JSON.stringify(reminders);
         fs.writeFile('./filer/reminders.json', json, 'utf8', function writeCallback(err)
             {if (err) { console.log(err)}
         });
@@ -307,7 +306,7 @@ module.exports = {
 
     readReminders: function(logger) {
         //Reads the reminders from file
-        result = [];
+        var result = [];
         fs.readFile('./filer/reminders.json', 'utf8', function readFileCallback(err, data){
             if (err){
                 console.log(err);
@@ -320,6 +319,7 @@ module.exports = {
                     logger.info(temp);
                     result.push(temp);
                 }
+                return result;
             }
         });
         return result;
