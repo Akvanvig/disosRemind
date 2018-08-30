@@ -1,5 +1,5 @@
 var funk = require('./funksjoner.js');
-import Reminder from './Reminder.js';
+var Reminder = require('./Reminder.js');
 
 var morse = {
             'A': '.-', 'B': '-...','C': '-.-.', 'D': '-..','E': '.','F': '..-.','G': '--.','H': '....',

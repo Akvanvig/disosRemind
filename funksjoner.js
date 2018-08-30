@@ -1,5 +1,5 @@
 var fs = require('fs');
-import Reminder from './Reminder.js';
+var Reminder = require('./Reminder.js');
 
 module.exports = {
     isInteger: function(num) {
