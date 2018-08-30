@@ -1,5 +1,5 @@
 var funk = require('./funksjoner.js');
-var rem = require('./Reminder.js');
+var Reminder = require('./Reminder.js');
 
 var morse = {
             'A': '.-', 'B': '-...','C': '-.-.', 'D': '-..','E': '.','F': '..-.','G': '--.','H': '....',
@@ -41,7 +41,7 @@ module.exports = {
                     if (args[0] > 0 && args[0] % 1 == 0) {
                         bot.sendMessage({ to: channelID, message: 'Du vil f\u00e5 en p\u00e5minnelse om ' + args[0] + ' minutt(er)' });
                         argumenter = [args[0], userID, channelID, text, logger];
-                        reminders.push(new rem.Reminder(true, argumenter));
+                        reminders.push(new Reminder(true, argumenter));
                         //Sorterer foh�pentligvis arrayen
                         reminders.sort(function compareNumbers(a, b) { return b.finishTime - a.finishTime; });
                         //Lagrer reminders til JSON
@@ -60,7 +60,7 @@ module.exports = {
 
             case 'grandis':
                 argumenter = [10, userID, channelID, 'Grandis', logger];
-                reminders.push(new rem.Reminder(true, argumenter));
+                reminders.push(new Reminder(true, argumenter));
                 bot.sendMessage({ to: channelID, message: 'du vil bli varslet om 10 min' })
                 break;
 
