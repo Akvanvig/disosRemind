@@ -1,4 +1,5 @@
 var fs = require('fs');
+const Reminder = require('./Reminder.js');
 
 module.exports = {
     isInteger: function(num) {
@@ -310,7 +311,11 @@ module.exports = {
             if (err){
                 console.log(err);
             } else {
-                reminders.push(JSON.parse(data));
+                liste = JSON.parse(data);
+                for (var i = 0; i + 3 < liste.length; i += 4) {
+                    variabler = {liste[i], liste[i+1], liste[i+2], liste[i+3]};
+                    reminders.push(new Reminder(false, variabler));
+                }
             }
         });
         return reminders;

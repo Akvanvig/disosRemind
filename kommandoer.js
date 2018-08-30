@@ -1,4 +1,5 @@
 var funk = require('./funksjoner.js');
+const Reminder = require('./Reminder.js');
 var morse = {
             'A': '.-', 'B': '-...','C': '-.-.', 'D': '-..','E': '.','F': '..-.','G': '--.','H': '....',
             'I': '..', 'J': '.---','K': '-.-', 'L': '.-..','M': '--','N': '-.','O': '---','P': '.--.',
@@ -38,7 +39,8 @@ module.exports = {
                 if (funk.isInteger(args[0])) {
                     if (args[0] > 0 && args[0] % 1 == 0) {
                         bot.sendMessage({ to: channelID, message: 'Du vil f\u00e5 en p\u00e5minnelse om ' + args[0] + ' minutt(er)' });
-                        reminders.push(new Reminder(args[0], userID, channelID, text, logger));
+                        argumenter = {args[0], userID, channelID, text, logger}
+                        reminders.push(new Reminder(true, argumenter));
                         //Sorterer foh�pentligvis arrayen
                         reminders.sort(function compareNumbers(a, b) { return b.finishTime - a.finishTime; });
                         //Lagrer reminders til JSON
@@ -56,7 +58,8 @@ module.exports = {
                 break;
 
             case 'grandis':
-                reminders.push(new Reminder(10, userID, channelID, 'Grandis', logger));
+                argumenter = {10, userID, channelID, 'Grandis', logger}
+                reminders.push(new Reminder(true, argumenter));
                 bot.sendMessage({ to: channelID, message: 'du vil bli varslet om 10 min' })
                 break;
 
@@ -292,36 +295,3 @@ module.exports = {
         return [reminders, roblxActive];
     }
 }
-
-class Reminder {
-    //Takes in time for alarm, userID that requested reminder, channelID it was requested in and text requested
-    constructor(time, uid, chid, text, logger) {
-        var d = new Date();
-        this.time = ((time * 60 * 1000) + (d.getTime()));
-        this.uid = uid;
-        this.chid = chid;
-        this.text = text;
-        logger.info('P\u00e5minnelse opprettet');
-    }
-
-    get finishTime() {
-        return this.time;
-    }
-
-    get remainingTime() {
-        var result = this.time - new Date().getTime();
-        return funk.calcTime(result);
-    }
-
-    get channelID() {
-        return this.chid;
-    }
-
-    get userID() {
-        return this.uid;
-    }
-
-    get reqText() {
-        return this.text;
-    }
-};
