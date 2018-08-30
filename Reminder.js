@@ -1,4 +1,4 @@
-var funk = require('./funksjoner.js');
+//var funk = require('./funksjoner.js');
 
 module.exports = class Reminder {
     //Takes in time for alarm, userID that requested reminder, channelID it was requested in and text requested
@@ -25,7 +25,36 @@ module.exports = class Reminder {
 
     get remainingTime() {
         var result = this.time - new Date().getTime();
-        return funk.calcTime(result);
+
+        var respons = '';
+        var s = 0, m = 0, h = 0, d = 0, y = 0;
+        if (result >= 1000) {
+            s = (result - (result % 1000)) / 1000;
+            if (s >= 60) {
+                m = (s - (s % 60)) / 60;
+                s = s - (60 * m);
+                if (m >= 60) {
+                    h = (m - (m % 60)) / 60;
+                    m = m - (60 * h);
+                    if (h >= 24) {
+                        d = (h - (h % 24)) / 24;
+                        h = h - (24 * d);
+                        if (y >= 365) {
+                            y = (d - (d % 365)) / 365;
+                            d = d - (365 * y);
+                        }
+                    }
+                }
+            }
+        }
+        if (y > 0) { respons += y + ' år, '; }
+        if (d > 0) { respons += d + ' dager, '; }
+        if (h > 0) { respons += h + ' timer, '; }
+        if (m > 0) { respons += m + ' min, '; }
+        respons += s + ' sek.';
+        return respons;
+
+        return respons;
     }
 
     get channelID() {
