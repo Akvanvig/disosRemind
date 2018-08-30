@@ -298,7 +298,8 @@ module.exports = {
 
     saveReminders: function(reminders) {
         //Writes the reminders to file
-        json = JSON.stringify(reminders);
+        var obj = [reminders];
+        json = JSON.stringify();
         fs.writeFile('./filer/reminders.json', json, 'utf8', function writeCallback(err)
             {if (err) { console.log(err)}
         });
@@ -311,11 +312,11 @@ module.exports = {
             if (err){
                 console.log(err);
             } else {
-                obj = JSON.parse(data);
+                var obj = JSON.parse(data);
                 logger.info(obj);
-                for (var i = 0; i < obj.length; i += 4) {
-                    variabler = [obj[i].time, obj[i].uid, obj[i].chid, obj[i].text];
-                    temp = new Reminder(false, variabler);
+                for (var i = 0; i < obj.length; i++) {
+                    var variabler = [obj[i].time, obj[i].uid, obj[i].chid, obj[i].text];
+                    var temp = new Reminder(false, variabler);
                     logger.info(temp);
                     result.push(temp);
                 }
