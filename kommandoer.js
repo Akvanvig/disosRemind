@@ -61,6 +61,7 @@ module.exports = {
             case 'grandis':
                 argumenter = [10, userID, channelID, 'Grandis', logger];
                 reminders.push(new Reminder(true, argumenter));
+                funk.saveReminders(reminders);
                 bot.sendMessage({ to: channelID, message: 'du vil bli varslet om 10 min' })
                 break;
 
