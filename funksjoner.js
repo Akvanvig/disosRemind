@@ -44,9 +44,9 @@ module.exports = {
         var lengde = reminders.length;
         if (lengde > 0 && reminders[lengde - 1].finishTime <= new Date().getTime()) {
             if (reminders[lengde - 1].finishTime <= new Date().getTime() + 60000) {
-                var tid = new Date(reminders[lengde - 1]).finishTime.toISOString();
-                tid.replace(/T/, ' ');
-                tid.replace(/\..+/, '');
+                var tid = new Date(reminders[lengde - 1].finishTime).toISOString();
+                tid = tid.replace(/T/, ' ');
+                tid = tid.replace(/\..+/, '');
                 bot.sendMessage({ to: reminders[lengde - 1].channelID, message: '<@!' + reminders[lengde - 1].userID + '> ' + reminders[lengde - 1].reqText + '[ ' + tid + ' ]' });
             } else {
                 bot.sendMessage({ to: reminders[lengde - 1].channelID, message: '<@!' + reminders[lengde - 1].userID + '> ' + reminders[lengde - 1].reqText });
