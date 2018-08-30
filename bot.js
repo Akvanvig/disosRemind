@@ -30,8 +30,9 @@ bot.on('ready', function (evt) {
     logger.info('Connected');
     try {
         funk.readReminders();
-    } catch {
+    } catch (e) {
         logger.info('Kunne ikke hente reminders');
+        logger.info(e);
     }
     logger.info('Logged in as: ');
     logger.info(bot.username + ' - (' + bot.id + ')');
