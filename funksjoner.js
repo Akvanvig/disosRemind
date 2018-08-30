@@ -320,6 +320,6 @@ module.exports = {
                 }
             }
         });
-        return callbackReminder(result);
+        callbackReminder(result);
     }
 }
