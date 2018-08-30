@@ -304,7 +304,7 @@ module.exports = {
         });
     },
 
-    readReminders: function() {
+    readReminders: function(logger) {
         //Reads the reminders from file
         reminders = [];
         fs.readFile('./filer/reminders.json', 'utf8', function readFileCallback(err, data){
@@ -312,9 +312,11 @@ module.exports = {
                 console.log(err);
             } else {
                 liste = JSON.parse(data);
+                logger.info(liste);
                 for (var i = 0; i + 3 < liste.length; i += 4) {
                     variabler = [liste[i], liste[i+1], liste[i+2], liste[i+3]];
-                    reminders.push(new Reminder(false, variabler));
+                    temp = new Reminder(false, variabler);
+                    reminders.push(temp));
                 }
             }
         });
