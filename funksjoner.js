@@ -313,7 +313,7 @@ module.exports = {
             } else {
                 liste = JSON.parse(data);
                 for (var i = 0; i + 3 < liste.length; i += 4) {
-                    variabler = {liste[i], liste[i+1], liste[i+2], liste[i+3]};
+                    variabler = [liste[i], liste[i+1], liste[i+2], liste[i+3]];
                     reminders.push(new Reminder(false, variabler));
                 }
             }

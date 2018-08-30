@@ -34,12 +34,12 @@ module.exports = {
                 }
 
                 //Forhindrer misbruk av tagging p� discord
-                text = text.replace('@', '#')
+                text = text.replace('@', '#');
 
                 if (funk.isInteger(args[0])) {
                     if (args[0] > 0 && args[0] % 1 == 0) {
                         bot.sendMessage({ to: channelID, message: 'Du vil f\u00e5 en p\u00e5minnelse om ' + args[0] + ' minutt(er)' });
-                        argumenter = {args[0], userID, channelID, text, logger}
+                        argumenter = [args[0], userID, channelID, text, logger];
                         reminders.push(new Reminder(true, argumenter));
                         //Sorterer foh�pentligvis arrayen
                         reminders.sort(function compareNumbers(a, b) { return b.finishTime - a.finishTime; });
@@ -58,7 +58,7 @@ module.exports = {
                 break;
 
             case 'grandis':
-                argumenter = {10, userID, channelID, 'Grandis', logger}
+                argumenter = [10, userID, channelID, 'Grandis', logger];
                 reminders.push(new Reminder(true, argumenter));
                 bot.sendMessage({ to: channelID, message: 'du vil bli varslet om 10 min' })
                 break;
