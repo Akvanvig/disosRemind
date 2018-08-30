@@ -305,7 +305,7 @@ module.exports = {
 
     readReminders: function() {
         //Reads the reminders from file
-        fs.readFile('./filer/everyone.json', 'utf8', function readFileCallback(err, data){
+        fs.readFile('./filer/reminders.json', 'utf8', function readFileCallback(err, data){
             if (err){
                 console.log(err);
             } else {
