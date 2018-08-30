@@ -1,5 +1,6 @@
+var funk = require('./funksjoner.js');
+
 class Reminder {
-    var funk = require('./funksjoner.js');
     //Takes in time for alarm, userID that requested reminder, channelID it was requested in and text requested
     //constructor(time, uid, chid, text, logger) {
     constructor(type, variabler) { //Type er boolean, variabler er en array av variabler
