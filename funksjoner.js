@@ -305,13 +305,14 @@ module.exports = {
 
     readReminders: function() {
         //Reads the reminders from file
+        reminders = [];
         fs.readFile('./filer/reminders.json', 'utf8', function readFileCallback(err, data){
             if (err){
                 console.log(err);
             } else {
-                reminders = JSON.parse(data)
-                return reminders
+                reminders.push(JSON.parse(data));
             }
         });
+        return reminders;
     }
 }
