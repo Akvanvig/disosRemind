@@ -45,6 +45,7 @@ module.exports = {
             bot.sendMessage({ to: reminders[lengde - 1].channelID, message: '<@!' + reminders[lengde - 1].userID + '> ' + reminders[lengde - 1].reqText });
             //fjerner reminder
             reminders.pop();
+            this.saveReminders(reminders);
             logger.info('Påminnelse sendt');
         }
         return reminders
@@ -282,6 +283,26 @@ module.exports = {
                     }
                 }
                 bot.sendMessage({to: channelID, message: text});
+            }
+        });
+    },
+
+    saveReminders: function(reminders) {
+        //Writes the reminders to file
+        json = JSON.stringify(reminders);
+        fs.writeFile('./filer/reminders.json', json, 'utf8', function writeCallback(err)
+            {if (err) { console.log(err)}
+        });
+    },
+
+    readReminders: function() {
+        //Reads the reminders from file
+        fs.readFile('./filer/everyone.json', 'utf8', function readFileCallback(err, data){
+            if (err){
+                console.log(err);
+            } else {
+                reminders = JSON.parse(data)
+                return reminders
             }
         });
     }

@@ -28,7 +28,12 @@ var bot = new Discord.Client({ token: auth.token, autorun: true });
 
 bot.on('ready', function (evt) {
     logger.info('Connected');
-    logger.info('Logged in as: ')
+    try {
+        funk.readReminders();
+    } catch {
+        logger.info('Kunne ikke hente reminders');
+    }
+    logger.info('Logged in as: ');
     logger.info(bot.username + ' - (' + bot.id + ')');
 });
 bot.on('message', function (user, userID, chID, message, evt) {

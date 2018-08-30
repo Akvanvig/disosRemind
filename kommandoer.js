@@ -33,7 +33,7 @@ module.exports = {
                 }
 
                 //Forhindrer misbruk av tagging p� discord
-                text = text.replace('@', 'Alfakr\u00f8ll')
+                text = text.replace('@', '#')
 
                 if (funk.isInteger(args[0])) {
                     if (args[0] > 0 && args[0] % 1 == 0) {
@@ -41,6 +41,8 @@ module.exports = {
                         reminders.push(new Reminder(args[0], userID, channelID, text, logger));
                         //Sorterer foh�pentligvis arrayen
                         reminders.sort(function compareNumbers(a, b) { return b.finishTime - a.finishTime; });
+                        //Lagrer reminders til JSON
+                        funk.saveReminders(reminders);
                     }
                     //Hvis tallet er mindre enn 0, eller ikke delbart med 1
                     else {
