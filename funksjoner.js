@@ -311,11 +311,12 @@ module.exports = {
             if (err){
                 console.log(err);
             } else {
-                liste = JSON.parse(data);
-                logger.info(liste);
-                for (var i = 0; i < liste.length; i += 4) {
-                    variabler = [liste[i], liste[i+1], liste[i+2], liste[i+3]];
-                    temp = new rem.Reminder(false, variabler);
+                obj = JSON.parse(data);
+                logger.info(obj);
+                for (var i = 0; i < obj.length; i += 4) {
+                    variabler = [obj[i].time, obj[i].uid, obj[i].chid, obj[i].text];
+                    temp = new Reminder(false, variabler);
+                    logger.info(temp);
                     result.push(temp);
                 }
             }
