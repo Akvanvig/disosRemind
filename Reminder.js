@@ -1,5 +1,5 @@
 var funk = require('./funksjoner.js');
-export default class Reminder {
+class Reminder {
     //Takes in time for alarm, userID that requested reminder, channelID it was requested in and text requested
     //constructor(time, uid, chid, text, logger) {
     constructor(type, variabler) { //Type er boolean, variabler er en array av variabler
@@ -39,3 +39,5 @@ export default class Reminder {
         return this.text;
     }
 };
+
+module.exports.Reminder
