@@ -8,7 +8,7 @@ class Reminder {
             this.uid = variabler[1];
             this.chid = variabler[2];
             this.text = variabler[3];
-            logger.info('P\u00e5minnelse opprettet');
+            variabler[4].info('P\u00e5minnelse opprettet');
         } else {
             this.time = variabler[0];
             this.uid = variabler[1];
