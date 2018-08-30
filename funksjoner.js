@@ -298,7 +298,7 @@ module.exports = {
 
     saveReminders: function(reminders) {
         //Writes the reminders to file
-        var obj = [reminders];
+        var obj = reminders;
         json = JSON.stringify(obj);
         fs.writeFile('./filer/reminders.json', json, 'utf8', function writeCallback(err)
             {if (err) { console.log(err)}

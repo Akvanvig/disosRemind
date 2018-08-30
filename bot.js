@@ -29,7 +29,10 @@ var bot = new Discord.Client({ token: auth.token, autorun: true });
 bot.on('ready', function (evt) {
     logger.info('Connected');
     try {
-        reminders.push(funk.readReminders(logger));
+        var remindere = funk.readReminders(logger);
+        for (var i = 0; i < remindere.length; i++) {
+            reminders.push(remindere[i]);
+        }
     } catch (e) {
         logger.info('Kunne ikke hente reminders');
         logger.info(e);
