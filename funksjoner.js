@@ -1,5 +1,5 @@
 var fs = require('fs');
-var Reminder = require('./Reminder.js');
+var Rem = require('./Reminder.js');
 
 module.exports = {
     isInteger: function(num) {
@@ -315,7 +315,7 @@ module.exports = {
                 logger.info(liste);
                 for (var i = 0; i < liste.length; i += 4) {
                     variabler = [liste[i], liste[i+1], liste[i+2], liste[i+3]];
-                    temp = new Reminder(false, variabler);
+                    temp = new rem.Reminder(false, variabler);
                     result.push(temp);
                 }
             }
