@@ -187,6 +187,7 @@ module.exports = {
                 tekst += '\nTraps';
                 tekst += '\nSkjerpings';
                 //tekst += '\nSkottland';
+                tekst += '\nRepost';
                 tekst += '\nMusikk\t||\tm';
                 tekst += '\nInitialD\t||\tid';
                 tekst += '\n\t\tSpiller av tilfeldige InitialD sanger, kan flyttes til annen samtale ved å gjenta kommandoen.\n\t\tFor full ID-sangliste, bruk: +InitialD liste eller +id l'
