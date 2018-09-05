@@ -151,6 +151,9 @@ module.exports = {
                 }
                 break;
                 */
+            case 'repost':
+                funk.playAudio(vcID, './media/repost.mp3', bot);
+                break;
             //Spiller av tilfeldige sanger fra InitialD-lista
             case 'id':
             case 'initiald':
