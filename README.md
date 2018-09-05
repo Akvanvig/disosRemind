@@ -1,6 +1,6 @@
 # disosRemind
 
-Installasjonskrav:
-  Internett
-  Nodejs
+Installasjonskrav:\n
+  Internett\n
+  Nodejs\n
   ffmpeg (Lydavspilling)
