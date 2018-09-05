@@ -28,6 +28,7 @@ småjobber:
   "?Bursdag @Person", Sender en bursdagsgratulasjon til bruker som er @-et
   La hver enkelt server velge kalletegn selv (bare admin?) for musikk (+), og generelle kommandoer (?), lagre disse til JSON-fil
   Gjenkjenne rollenavn
+  Endre så lyder lagt inn hentes ut fra filnavn, ikke fra en liste skrevet på forhånd ('+'-kommandoen)
 
 Store oppgaver:
   Legg inn så boten ikke forlater voice-chat med en gang ( https://github.com/izy521/discord.io-music-plugin/blob/master/Player.js )
