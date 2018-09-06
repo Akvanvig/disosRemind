@@ -19,7 +19,6 @@ Konverteringer:
 småjobber:
   Dadjoke, hvis noen skriver "Jeg er x", svarer bot med "Hei x, Jeg er Mr. Roboto" eller lignende for Neonorgesk/englansk
   Legg inn +server (This is a christian server, no swearing)
-  Legg til python-script som skriver feilmeldinger til fil
   Legg til så botten gir beskjed ved hver femtiende melding i rolox-mode, bygger borg (se pm mr. Oktopus)
   Aktiv-meldinger i logg må endres til å bruke gjeldende bot sitt navn, og ikke bare "Mr.Roboto"
   Legg til +muhDream så spilles tell me why (https://www.youtube.com/watch?v=I2rV8oKWSdM)
@@ -27,18 +26,15 @@ småjobber:
   Legg freedomunits til egen funksjon (ut av case)
   Opprett bubblesort funksjon, sorterer gitt tekst med et halvt sekund (e.l.) mellom hver gjennomførte oppgave (gjennomfør en runde, sjekk tekst, oppdater discord-melding)
   "?Bursdag @Person", Sender en bursdagsgratulasjon til bruker som er @-et
+  La hver enkelt server velge kalletegn selv (bare admin?) for musikk (+), og generelle kommandoer (?), lagre disse til JSON-fil
+  Gjenkjenne rollenavn
+  Endre så lyder lagt inn hentes ut fra filnavn, ikke fra en liste skrevet på forhånd ('+'-kommandoen)
 
 Store oppgaver:
   Legg inn så boten ikke forlater voice-chat med en gang ( https://github.com/izy521/discord.io-music-plugin/blob/master/Player.js )
   Legg til Youtube streaming (Så lengre sanger kan spilles av, > 2h)
   Demp lyd ved musikkavspilling noe
   Integrer Google assistant på boten (Lettere med Linux https://unix.stackexchange.com/questions/82259/how-to-pipe-audio-output-to-mic-input) 
-
-@everyone-problem:
-  oppdag når noen skriver @everyone i chat, og gi ut advarsel/straff.
-  straff kan innebære temp-ban, ban, kick eller en eller annen midletidlig utestengelse fra chat.
-  Kan gi advarsel første gang, og registrere personen som fare-moment.
-  Føre statistikk over @everyone-bruk.
 
 Endringssaker (0-10):
   Vurder å legge inn ferdig kalkulerte primtall (f.eks. 0-100 000) (4)
