@@ -10,6 +10,7 @@ var funk = require('./funksjoner.js');
 var kommando = require('./kommandoer.js');
 var lyder = require('./lyder.js');
 var konvert = require('./konverteringer.js');
+var Role = require('./Role.js');
 var reminders = [];
 var roblxActive = [];
 var checkReminders = setInterval(function() { reminders = funk.checkLastReminder(reminders, bot, logger); }, 1000); //Sjekker hvert sekund om noen påminnelser må gjennomføres
@@ -32,6 +33,7 @@ bot.on('ready', function (evt) {
         funk.readReminders(logger, function(remindere) {
             for (var i = 0; i < remindere.length; i++) {
                 reminders.push(remindere[i]);
+                logger.info('Antall lagrede påminnelser: ' + remindere.length);
             }
         });
 
@@ -50,6 +52,13 @@ bot.on('message', function (user, userID, chID, message, evt) {
           bot.sendMessage({to: chID, message: '...'});
         }
     }
+    //Testfelt
+    var serverName = bot.servers[serverID].name;
+    var roles = new Role(bot.servers[serverID].roles);
+    var memberRoles = bot.servers[serverID].members[userID].roles;
+    logger.info(roles);
+
+
     //Diverse kommandoer
     if (message.substring(0, 1) == '?' && userID != bot.id) {
         try {

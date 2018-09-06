@@ -43,7 +43,7 @@ module.exports = {
     checkLastReminder: function(reminders, bot, logger) {
         var lengde = reminders.length;
         if (lengde > 0 && reminders[lengde - 1].finishTime <= new Date().getTime()) {
-            if (reminders[lengde - 1].finishTime <= new Date().getTime() + 60000) {
+            if (reminders[lengde - 1].finishTime >= new Date().getTime() + 60000) {
                 var tid = new Date(reminders[lengde - 1].finishTime).toISOString();
                 tid = tid.replace(/T/, ' ');
                 tid = tid.replace(/\..+/, '');
