@@ -54,9 +54,8 @@ bot.on('message', function (user, userID, chID, message, evt) {
     }
     //Testfelt
     var serverName = bot.servers[serverID].name;
-    var roles = new Role(bot.servers[serverID].roles);
+    var roles = bot.servers[serverID].roles;
     var memberRoles = bot.servers[serverID].members[userID].roles;
-    logger.info(roles);
 
 
     //Diverse kommandoer

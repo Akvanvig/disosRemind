@@ -315,7 +315,6 @@ module.exports = {
                 for (var i = 0; i < obj.length; i++) {
                     var variabler = [obj[i].time, obj[i].uid, obj[i].chid, obj[i].text];
                     var temp = new Reminder(false, variabler);
-                    logger.info(temp);
                     result.push(temp);
                 }
             }
