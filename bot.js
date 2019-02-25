@@ -1,6 +1,4 @@
 //Discord.io: https://izy521.gitbooks.io/discord-io/content/
-//Test Python Script i kombinasjon med js/nJode
-//https://stackoverflow.com/questions/23450534/how-to-call-python-function-from-nodejs
 
 var Discord = require('discord.io');
 var logger = require('winston');
@@ -52,11 +50,6 @@ bot.on('message', function (user, userID, chID, message, evt) {
           bot.sendMessage({to: chID, message: '...'});
         }
     }
-    //Testfelt
-    var serverName = bot.servers[serverID].name;
-    var roles = bot.servers[serverID].roles;
-    var memberRoles = bot.servers[serverID].members[userID].roles;
-
 
     //Diverse kommandoer
     if (message.substring(0, 1) == '?' && userID != bot.id) {
