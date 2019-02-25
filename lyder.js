@@ -1,11 +1,14 @@
 var funk = require('./funksjoner.js');
 var Player = require('./Player.js');
 var sid = './media/InitialD/';  //Sti Initial D
+var smr = './media/mumbleRap/';
 var sh = './media/heismusikk/'; //Sti Heismusikk
 var stiID = [sid+'A-Perfect-Hero.mp3', sid+'Chemical-Love.mp3', sid+'Deja-Vu.mp3', sid+'Fly-Me-To-The-Moon-And-Back.mp3',
 sid+'Forever-Young.mp3', sid+'Full-Metal-Cars.mp3', sid+'Gas-Gas-Gas.mp3', sid+'Running-in-The-90s.mp3', sid+'The-Top.mp3',
 sid+'Dancing.mp3', sid+'Goodbye-Yellow-Brick-Road.mp3', sid+'Love-Is-In-Danger.mp3', sid+'Night-of-Fire.mp3', sid+'No-One-Sleep-In-Tokyo.mp3',
 sid+'Space-Boy.mp3', sid+'Max-Power.mp3'];
+var stiMR = [smr + 'Fuck-The-Police.mp3', smr + 'Glattoy16.mp3', smr + 'Hit-Me.mp3', smr + 'I-Love-It.mp3', smr + 'Kooda.mp3', smr + 'Mo-Bamba.mp3',
+smr + 'Sicko-Mode.mp3', smr + 'X-Gon-Give-It-To-Ya.mp3']
 var stiH = [sh+'Costa-Del-Sol.mp3', sh+'Mii-Channel-Theme.mp3'];
 
 module.exports = {
@@ -73,84 +76,7 @@ module.exports = {
             case 'skjerpings':
                 funk.playAudio(vcID, './media/skjerpings.mp3', bot);
                 break;
-            //Feil ved en del skottland lyder, filer vil ikke spilles av
-            /*case 'skottland':
-                var tall = parseInt(Math.random() * 23);
-                switch (tall) {
-                    case 0:
-                        funk.playAudio(vcID, './media/skott/tooHard.mp3', bot);
-                        break;
-                    case 1:
-                        funk.playAudio(vcID, './media/skott/keepWankingMeOffImStaringToGetSoft.mp3', bot);
-                        break;
-                    case 2:
-                        funk.playAudio(vcID, './media/skott/imStartingToGetSoft.mp3', bot);
-                        break;
-                    case 3:
-                        funk.playAudio(vcID, './media/skott/navaTuuHard.mp3', bot);
-                        break;
-                    case 4:
-                        funk.playAudio(vcID, './media/skott/keepWankingMe.mp3', bot);
-                        break;
-                    case 5:
-                        funk.playAudio(vcID, './media/skott/sockMeOff.mp3', bot);
-                        break;
-                    case 6:
-                        funk.playAudio(vcID, './media/skott/howDoesThatCockInUrMouthTaste.mp3', bot);
-                        break;
-                    case 7:
-                        funk.playAudio(vcID, './media/skott/tasteEt.mp3', bot);
-                        break;
-                    case 8:
-                        funk.playAudio(vcID, './media/skott/ohOohYee.mp3', bot);
-                        break;
-                    case 9:
-                        funk.playAudio(vcID, './media/skott/oooohhh.mp3', bot);
-                        break;
-                    case 10:
-                        funk.playAudio(vcID, './media/skott/suckMyBalls.mp3', bot);
-                        break;
-                    case 11:
-                        funk.playAudio(vcID, './media/skott/takeEt.mp3', bot);
-                        break;
-                    case 12:
-                        funk.playAudio(vcID, './media/skott/lickMyBalls.mp3', bot);
-                        break;
-                    case 13:
-                        funk.playAudio(vcID, './media/skott/waaaatTakiDaDaDa.mp3', bot);
-                        break;
-                    case 14:
-                        funk.playAudio(vcID, './media/skott/lickMyBallz.mp3', bot);
-                        break;
-                    case 15:
-                        //funk.playAudio(vcID, './media/skott/you_got_a_big_ass_and_i_love_shaging_et.mp3', bot);
-                        //break;
-                    case 16:
-                        funk.playAudio(vcID, './media/skott/iLoveShaginEt.mp3', bot);
-                        break;
-                    case 17:
-                        //funk.playAudio(vcID, './media/skott/you_darty_fakin_slut.mp3', bot);
-                        //break;
-                    case 18:
-                        funk.playAudio(vcID, './media/skott/suckMyCockQuick.mp3', bot);
-                        break;
-                    case 19:
-                        funk.playAudio(vcID, './media/skott/grabEt.mp3', bot);
-                        break;
-                    case 20:
-                        funk.playAudio(vcID, './media/skott/getMyCock.mp3', bot);
-                        break;
-                    case 21:
-                        funk.playAudio(vcID, './media/skott/nooohShe.mp3', bot);
-                        break;
-                    case 22:
-                        funk.playAudio(vcID, './media/skott/uaaaah.mp3', bot);
-                        break;
-                    default:
-                        funk.playAudio(vcID, './media/t2-short.mp3', bot);
-                }
-                break;
-                */
+
             case 'repost':
                 funk.playAudio(vcID, './media/repost.mp3', bot);
                 break;
@@ -166,8 +92,14 @@ module.exports = {
             case 'musikk':
                 //Funksjon ligger nederst i denne fila
                 musikkListeAvspillingCmd(args, vcID, serverID, stiH, 'musikk', channelID, bot, logger);
-
                 break;
+
+            //Spiller av tilfeldige sanger fra Mumble Rap lista
+            case: 'mr':
+            case: 'mumblerap':
+                musikkListeAvspillingCmd(args, vcID, serverID, stiMR, 'Mumble Rap', channelID, bot, logger);
+                break;
+                
             default:
                 var tekst = 'Leave:';
                 tekst += '\n\t\tTvinger bot-en til \u00e5 forlate kanalen';
@@ -186,11 +118,11 @@ module.exports = {
                 tekst += '\nAnthem';
                 tekst += '\nTraps';
                 tekst += '\nSkjerpings';
-                //tekst += '\nSkottland';
                 tekst += '\nRepost';
+                tekst += '\n\nSpillelister: (For full ID-sangliste, legg til l eller liste f.eks. "+InitialD l". For å velge antall, legg til a, ant eller antall pluss antall sanger f.eks. "+id a 4")'
                 tekst += '\nMusikk\t||\tm';
                 tekst += '\nInitialD\t||\tid';
-                tekst += '\n\t\tSpiller av tilfeldige InitialD sanger, kan flyttes til annen samtale ved å gjenta kommandoen.\n\t\tFor full ID-sangliste, bruk: +InitialD liste eller +id l'
+                tekst += '\nMumbleRap\t||\tmr';
                 tekst += '```';
                 bot.sendMessage({ to: channelID, message: tekst });
         }
