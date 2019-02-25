@@ -29,6 +29,7 @@ småjobber:
   La hver enkelt server velge kalletegn selv (bare admin?) for musikk (+), og generelle kommandoer (?), lagre disse til JSON-fil
   Gjenkjenne rollenavn
   Endre så lyder lagt inn hentes ut fra filnavn, ikke fra en liste skrevet på forhånd ('+'-kommandoen)
+  Legg inn +mumblerap/+mr, kan inneholde sanger som Sicko mode, mobamba, 6ix9nine-sanger?, 30Tentacion - moonlight?, I love it av Ye og lil pump, Juice WRLD - Lucid Dreams, Glattøy 16 - Glattøy ft VALO, DMX - x gon give it to you, HIT ME - Malchezzar, Fuck da police - nwa
 
 Store oppgaver:
   Legg inn så boten ikke forlater voice-chat med en gang ( https://github.com/izy521/discord.io-music-plugin/blob/master/Player.js )
