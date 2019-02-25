@@ -95,11 +95,11 @@ module.exports = {
                 break;
 
             //Spiller av tilfeldige sanger fra Mumble Rap lista
-            case: 'mr':
-            case: 'mumblerap':
+            case 'mr':
+            case 'mumblerap':
                 musikkListeAvspillingCmd(args, vcID, serverID, stiMR, 'Mumble Rap', channelID, bot, logger);
                 break;
-                
+
             default:
                 var tekst = 'Leave:';
                 tekst += '\n\t\tTvinger bot-en til \u00e5 forlate kanalen';
