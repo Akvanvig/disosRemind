@@ -76,6 +76,10 @@ module.exports = {
             case 'skjerpings':
                 funk.playAudio(vcID, './media/skjerpings.mp3', bot);
                 break;
+                
+            case 'classical':
+                funk.playAudio(vcID, './media/classical.mp3', bot);
+                break;
 
             case 'repost':
                 funk.playAudio(vcID, './media/repost.mp3', bot);
