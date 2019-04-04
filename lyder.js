@@ -118,6 +118,7 @@ module.exports = {
                 tekst += '\nVibrator';
                 tekst += '\nRedneck';
                 tekst += '\nKjeften';
+                tekst += '\nclassical';
                 tekst += '\nRonaldo\t||\tcr7';
                 tekst += '\nAnthem';
                 tekst += '\nTraps';
