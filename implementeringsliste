@@ -36,7 +36,8 @@ Store oppgaver:
   Legg til Youtube streaming (Så lengre sanger kan spilles av, > 2h)
   Demp lyd ved musikkavspilling noe
   Integrer Google assistant på boten (Lettere med Linux https://unix.stackexchange.com/questions/82259/how-to-pipe-audio-output-to-mic-input) 
-
+  Værapi (api.met.no)
+  
 Endringssaker (0-10):
   Vurder å legge inn ferdig kalkulerte primtall (f.eks. 0-100 000) (4)
   Endre +Anthem fra boten anna til Mr. Roboto? (1)
