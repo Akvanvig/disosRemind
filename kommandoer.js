@@ -1,5 +1,6 @@
 var funk = require('./funksjoner.js');
 var Reminder = require('./Reminder.js');
+var PythonShell = require('python-shell');
 
 var morse = {
             'A': '.-', 'B': '-...','C': '-.-.', 'D': '-..','E': '.','F': '..-.','G': '--.','H': '....',
@@ -260,6 +261,15 @@ module.exports = {
                 } catch (e) {
                     bot.sendMessage({ to: 406104320745013259, message: 'Feil ?lesEveryone' + e });
                 }
+                break;
+
+            case 'vær':
+            case 'vaer':
+            case 'var':
+            case 'weather':
+                var options = {args: args}
+                PythonShell.run('vaermelding.py', options, function(err, results))
+                bot.sendMessage({to: channelID, message: results})
                 break;
 
             default:
