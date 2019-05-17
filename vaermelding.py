@@ -121,11 +121,9 @@ def formaterTekst(liste, navn, type):
                 a == '\U0001F327'
             punkt['symbol'] = a
             str += "{} \t{} {}\u00b0C \t{}mm\n".format(punkt['tid'].strftime("%d/%m %H:%M"), punkt['symbol'] , punkt['grader'], punkt['nedbør'])
-
-    print(str)
-    print(len(str))
-    return ''
+    return str
 
 resXCor, resYCor, navn, type = hentKoordinater(Sted)
 vaermelding = hentVaer(resXCor, resYCor)
 res = formaterTekst(vaermelding, navn, type)
+print(res)
