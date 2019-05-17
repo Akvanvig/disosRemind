@@ -1,15 +1,23 @@
+# -*- coding: utf-8 -*-
 import sys
+import requests
+import json
+import xml.etree.ElementTree as ET
+import datetime
+
+
+
 #Parametre sendt til scriptet
-Sted = 'Trondheim'
+Sted = ''
 for i in range(1, len(sys.argv)):
     Sted += str(sys.argv[i])
     if len(sys.argv) > (i + 1):
         Sted += '%20'
 
+#Standard sted om annet ikke er oppgitt
+if Sted == '':
+    Sted = 'Trondheim'
 
-import requests
-import json
-import xml.etree.ElementTree as ET
 
 def hentKoordinater(sokSted):
     #https://developer.here.com/api-explorer/rest/places/places-search-by-query
@@ -22,24 +30,27 @@ def hentKoordinater(sokSted):
     sokHeader = "q={}".format(sokSted)
 
     #app_id
-    appId = 'DemoAppId01082013GAL'
+    appId = 'tYq0oRvbhpZNTjGb7reT'
     appIdHeader = "app_id={}".format(appId)
 
     #app_code
-    appCode = 'AJKnXv84fjrb0KIHawS0Tg'
+    appCode = 'gnoO_QP7q5PnKnmQSHzmjw'
     appCodeHeader = "app_code={}".format(appCode)
 
     #Lager tilkoblingsurl
-    url = "https://places.demo.api.here.com/places/v1/discover/search?{}&{}&{}&{}".format(stedHeader, sokHeader, appIdHeader, appCodeHeader)
+    url = "https://places.api.here.com/places/v1/discover/search?{}&{}&{}&{}".format(stedHeader, sokHeader, appIdHeader, appCodeHeader)
 
     #Henter info
     respons = requests.get(url)
     resJSON = json.loads(respons.text)
     xCorMaal = resJSON['results']['items'][0]['position'][0]
     yCorMaal = resJSON['results']['items'][0]['position'][1]
+    navn = resJSON['results']['items'][0]['title']
+    type = resJSON['results']['items'][0]['category']['title']
 
     #Returnerer koordinater
-    return xCorMaal, yCorMaal
+    return xCorMaal, yCorMaal, navn, type
+
 
 def hentVaer(posXCor, posYCor):
     #https://api.met.no/weatherapi/locationforecastlts/1.3/documentation
@@ -55,36 +66,66 @@ def hentVaer(posXCor, posYCor):
     #Finner nyttige meldinger
     tempTid = ''
     tempNedbørTid = ''
+    tempSymbolTid = ''
     meldinger = []
     for item in resXML[1]:
         try:
             if item.attrib['to'] != tempTid:
                 tempTid = item.attrib['to']
                 tempNedbørTid = ''
-                try:
-                    dict = {
-                        "tid": item.attrib['to'],
-                        "grader": item[0][0].attrib['value'],
-                        "vindretning": item[0][1].attrib['name'],
-                        "vind": item[0][2].attrib['name'],
-                        "høyde": item[0].attrib['altitude'],
-                        "xCor": item[0].attrib['latitude'],
-                        "yCor": item[0].attrib['longitude']
-                    }
-                    #print(dict['tid'], dict['grader'])
-                    meldinger.append(dict)
-                except Exception as e:
-                    break;
-            elif item[0][0].tag == 'precipitation' and item.attrib['from'] >= tempNedbørTid:
-                try:
-                    meldinger[-1]['nedbør'] = item[0][0].attrib['value']
-                except Exception as e:
-                    break;
+                tempSymbolTid = ''
+                dict = {
+                    "tid": item.attrib['to'],
+                    "grader": item[0][0].attrib['value'],
+                    "vindretning": item[0][1].attrib['name'],
+                    "vind": item[0][2].attrib['name'],
+                    "høyde": item[0].attrib['altitude'],
+                    "xCor": item[0].attrib['latitude'],
+                    "yCor": item[0].attrib['longitude'],
+                    "symbol": "-"
+                }
+                #print(dict['tid'], dict['grader'])
+                meldinger.append(dict)
+            if item[0][0].tag == 'precipitation' and item.attrib['from'] > tempNedbørTid:
+                meldinger[-1]['nedbør'] = item[0][0].attrib['value']
+                tempNedbørTid = item.attrib['from']
+            if item[0][1].tag == 'symbol' and item.attrib['from'] > tempSymbolTid:
+                print(item[0][1].attrib['id'])
+                meldinger[-1]['symbol'] = item[0][1].attrib['id']
+                tempNedbørTid = item.attrib['from']
         except Exception as e:
-            break;
+            continue
     return meldinger
 
 
-resXCor, resYCor = hentKoordinater(Sted)
+def formaterTekst(liste, navn, type):
+    str = "{} - {}\n".format(navn, type)
+    for punkt in liste:
+        punkt['tid'] = datetime.datetime.strptime(punkt['tid'], "%Y-%m-%dT%H:%M:%Sz")
+        if punkt['tid'].hour % 6 == 0:
+            #print(punkt)
+            a = punkt['symbol']
+            if a == 'Sun':
+                a = '\uE04A'
+            elif a == 'Cloud':
+                a = '\uE049'
+            elif a == 'PartlyCloud':
+                a = '\u26c5'
+            elif a == 'LightCloud':
+                a = '\U0001F324'
+            elif a == 'LightRain':
+                a = '\U0001F4A7'
+            elif a == 'Drizzle':
+                a = '\U0001F4A7'
+            elif a == 'Rain':
+                a == '\U0001F327'
+            punkt['symbol'] = a
+            str += "{} \t{} {}\u00b0C \t{}mm\n".format(punkt['tid'].strftime("%d/%m %H:%M"), punkt['symbol'] , punkt['grader'], punkt['nedbør'])
+
+    print(str)
+    print(len(str))
+    return ''
+
+resXCor, resYCor, navn, type = hentKoordinater(Sted)
 vaermelding = hentVaer(resXCor, resYCor)
-print(vaermelding)
+res = formaterTekst(vaermelding, navn, type)
