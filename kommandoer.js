@@ -272,6 +272,7 @@ module.exports = {
                     ps.PythonShell.run('./vaermelding.py', options, function (err, results) {
                         if (err) {
                             logger.info(err)
+                            bot.sendMessage({to: channelID, message: 'Kunne ikke finne etterspurt sted \ud83e\udd14'})
                         }
                         else {
                                 bot.sendMessage({to: channelID, message: results.length});
