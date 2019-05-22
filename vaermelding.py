@@ -82,7 +82,7 @@ def hentVaer(posXCor, posYCor):
                     "høyde": item[0].attrib['altitude'],
                     "xCor": item[0].attrib['latitude'],
                     "yCor": item[0].attrib['longitude'],
-                    "symbol": "-"
+                    "symbol": "*"
                 }
                 #print(dict['tid'], dict['grader'])
                 meldinger.append(dict)
@@ -119,8 +119,10 @@ def formaterTekst(liste, navn, type):
                 a = '\U0001F4A7'
             elif a == 'Rain':
                 a == '\U0001F327'
+            elif a == 'LightRainSun':
+                a = '\U0001F326'
             punkt['symbol'] = a
-            str += "{} \t{} {}\u00b0C \t{}mm\n".format(punkt['tid'].strftime("%d/%m %H:%M"), punkt['symbol'] , punkt['grader'], punkt['nedbør'])
+            str += "{} \t{} {}\u00b0C \t{}mm \n".format(punkt['tid'].strftime("%d/%m %H:%M"), punkt['symbol'] , punkt['grader'], punkt['nedbør'])
     return str
 
 resXCor, resYCor, navn, type = hentKoordinater(Sted)

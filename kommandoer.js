@@ -268,11 +268,19 @@ module.exports = {
             case 'var':
             case 'weather':
                 var options = {args: args};
-                ps.PythonShell.run('./vaermelding.py', options, function (err, results) {
+                try {
+                    ps.PythonShell.run('./vaermelding.py', options, function (err, results) {
                         if (err) { logger.info(err)}
                         bot.sendMessage({to: channelID, message: results.length});
-                        bot.sendMessage({to: channelID, message: results});
-                });
+                        var str = '';
+                        for (var i = 0; i < results.length; i++) {
+                            str += results[i] + '\n';
+                        }
+                        bot.sendMessage({to: channelID, message: str})
+                    });
+                } catch (e) {
+                        logger.info(e)
+                }
                 break;
 
             default:
