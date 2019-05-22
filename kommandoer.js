@@ -270,13 +270,20 @@ module.exports = {
                 var options = {args: args};
                 try {
                     ps.PythonShell.run('./vaermelding.py', options, function (err, results) {
-                        if (err) { logger.info(err)}
-                        bot.sendMessage({to: channelID, message: results.length});
-                        var str = '';
-                        for (var i = 0; i < results.length; i++) {
-                            str += results[i] + '\n';
+                        if (err) {
+                            logger.info(err)
                         }
-                        bot.sendMessage({to: channelID, message: str})
+                        else {
+                                bot.sendMessage({to: channelID, message: results.length});
+                                var str = '';
+                                for (var i = 0; i < results.length; i++) {
+                                    str += results[i] + '\n';
+                                }
+                                if (str.length > 996) {
+                                    str = str.substring(0,996);
+                                }
+                                bot.sendMessage({to: channelID, message: str})
+                        }
                     });
                 } catch (e) {
                         logger.info(e)

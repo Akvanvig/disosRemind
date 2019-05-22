@@ -90,7 +90,6 @@ def hentVaer(posXCor, posYCor):
                 meldinger[-1]['nedbør'] = item[0][0].attrib['value']
                 tempNedbørTid = item.attrib['from']
             if item[0][1].tag == 'symbol' and item.attrib['from'] > tempSymbolTid:
-                print(item[0][1].attrib['id'])
                 meldinger[-1]['symbol'] = item[0][1].attrib['id']
                 tempNedbørTid = item.attrib['from']
         except Exception as e:
