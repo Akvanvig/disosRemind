@@ -18,6 +18,17 @@ for i in range(1, len(sys.argv)):
 if Sted == '':
     Sted = 'Trondheim'
 
+#Variabler
+værEmoji = {
+    "Sun":"\u2600",
+    "Cloud":"\u2601",
+    "PartlyCloud":"\u26c5",
+    "LightCloud":"\U0001F324",
+    "LightRain":"\U0001F4A7",
+    "Drizzle":"\U0001F4A7",
+    "Rain":"\u26c6",#\U0001F327
+    "LightRainSun":"\U0001F326"
+}
 
 def hentKoordinater(sokSted):
     #https://developer.here.com/api-explorer/rest/places/places-search-by-query
@@ -104,23 +115,7 @@ def formaterTekst(liste, navn, type):
         if punkt['tid'].hour % 6 == 0:
             #print(punkt)
             a = punkt['symbol']
-            if a == 'Sun':
-                a = '\uE04A'
-            elif a == 'Cloud':
-                a = '\uE049'
-            elif a == 'PartlyCloud':
-                a = '\u26c5'
-            elif a == 'LightCloud':
-                a = '\U0001F324'
-            elif a == 'LightRain':
-                a = '\U0001F4A7'
-            elif a == 'Drizzle':
-                a = '\U0001F4A7'
-            elif a == 'Rain':
-                a == '\U0001F327'
-            elif a == 'LightRainSun':
-                a = '\U0001F326'
-            punkt['symbol'] = a
+            punkt['symbol'] = værEmoji.get(a, "*")
             str += "{0} \t{3}mm \t{1} {2}\u00b0C\n".format(punkt['tid'].strftime("%d/%m %H:%M"), punkt['symbol'] , punkt['grader'], punkt['nedbør'])
     return str
 
