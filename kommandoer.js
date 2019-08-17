@@ -297,6 +297,7 @@ module.exports = {
                 var intSign = (Math.sin(seed) * 6) + 6;
                 var sign = ["Vannmannen", "Fiskene", "Væren", "Tyren", "Tvillingene", "Krepsen", "Løven", "Jomfruen", "Vekten", "Skorpionen", "Skytten", "Steinbukken"];
                 var resStr = "Ditt stjernetegn er \"" + sign[Math.floor(intSign)] + "\"";
+                bot.sendMessage({to: channelID, message: resStr})
                 break;
 
             default:
