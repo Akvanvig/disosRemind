@@ -290,6 +290,14 @@ module.exports = {
                         logger.info(e)
                 }
                 break;
+            case 'stjernetegn':
+            case 'zodiac':
+                //(user, userID, channelID, message, serverID, bot, logger, reminders, roblxActive, startupTime, evt)
+                var seed = userID;
+                var intSign = (Math.sin(seed) * 6) + 6;
+                var sign = ["Vannmannen", "Fiskene", "Væren", "Tyren", "Tvillingene", "Krepsen", "Løven", "Jomfruen", "Vekten", "Skorpionen", "Skytten", "Steinbukken"];
+                var resStr = "Ditt stjernetegn er \"" + sign[Math.floor(intSign)] + "\"";
+                break;
 
             default:
                 var tekst = '```Commands: ';
