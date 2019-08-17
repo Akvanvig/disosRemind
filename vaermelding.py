@@ -116,7 +116,7 @@ def formaterTekst(liste, navn, type):
             #print(punkt)
             a = punkt['symbol']
             punkt['symbol'] = værEmoji.get(a, "*")
-            str += "{0} \t{3}mm \t{1} {2}\u00b0C\n".format(punkt['tid'].strftime("%d/%m %H:%M"), punkt['symbol'] , punkt['grader'], punkt['nedbør'])
+            str += "{0:<15} {3:<10}mm \t{1:<5} {2}\u00b0C\n".format(punkt['tid'].strftime("%d/%m %H:%M"), punkt['symbol'] , punkt['grader'], punkt['nedbør'])
     return str
 
 resXCor, resYCor, navn, type = hentKoordinater(Sted)
