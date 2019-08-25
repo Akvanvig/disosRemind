@@ -16,7 +16,7 @@ for i in range(1, len(sys.argv)):
 
 #Standard sted om annet ikke er oppgitt
 if Sted == '':
-    Sted = 'Trondheim'
+    Sted = 'Oslo'
 
 #Variabler
 værEmoji = {
