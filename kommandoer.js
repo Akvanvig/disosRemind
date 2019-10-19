@@ -300,8 +300,8 @@ module.exports = {
                 bot.sendMessage({to: channelID, message: resStr});
                 break;
             case 'howdy':
-                bot.sendMessage({to: channelID, message: howdy});
-
+                bot.sendMessage({to: channelID, message: 'howdy'});
+                break;
             default:
                 var tekst = '```Commands: ';
                 tekst += '\n\nPing:';

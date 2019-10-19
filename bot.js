@@ -72,11 +72,14 @@ bot.on('message', function (user, userID, chID, message, evt) {
 
     }
     //Hvis botten har sendt en melding og skal oppdatere den:
-    else if (message.substring(0,5) == 'howdy' && userID == bot.id) {
+    else if (message.startsWith('howdy') && userID == bot.id) {
         msgID = evt.d.id;
         howdyMsgs = [":thumbsup:          :cowboy:\n   :eggplant::zzz::necktie::eggplant:\n               :oil:    :eggplant:\n               :zap:8==:punch:D:sweat_drops:\n           :carrot:  :eggplant:\n           :boot:     :boot:",":thumbsup:          :cowboy:\n   :eggplant::zzz::necktie::eggplant:\n               :oil:    :nose:\n               :zap:8=:punch:=D:sweat_drops:\n           :carrot:  :eggplant:                  :sweat_drops:\n           :boot:     :boot:",":thumbsup:          :cowboy:\n   :eggplant::zzz::necktie::nose:\n               :oil:  :nose:\n               :zap:8:punch:==D:sweat_drops:\n           :carrot:  :eggplant:                  :sweat_drops:\n           :boot:     :boot:                   :sweat_drops:"]
         for (var i = 0; i < 100; i++) {
-          bot.editMessage({channelID: chID, messageID: msgID, message:howdyMsgs[i%3]})
+            setTimeout(function() {
+                msgNo = i % 3;
+                bot.editMessage({channelID: chID, messageID: msgID, message:howdyMsgs[msgNo]});
+            }, i * 200);
         }
     }
 
