@@ -73,13 +73,27 @@ bot.on('message', function (user, userID, chID, message, evt) {
     }
     //Hvis botten har sendt en melding og skal oppdatere den:
     else if (message.startsWith('howdy') && userID == bot.id) {
-        msgID = evt.d.id;
-        howdyMsgs = [":thumbsup:          :cowboy:\n   :eggplant::zzz::necktie::eggplant:\n               :oil:    :eggplant:\n               :zap:8==:punch:D:sweat_drops:\n           :carrot:  :eggplant:\n           :boot:     :boot:",":thumbsup:          :cowboy:\n   :eggplant::zzz::necktie::eggplant:\n               :oil:    :nose:\n               :zap:8=:punch:=D:sweat_drops:\n           :carrot:  :eggplant:                  :sweat_drops:\n           :boot:     :boot:",":thumbsup:          :cowboy:\n   :eggplant::zzz::necktie::nose:\n               :oil:  :nose:\n               :zap:8:punch:==D:sweat_drops:\n           :carrot:  :eggplant:                  :sweat_drops:\n           :boot:     :boot:                   :sweat_drops:"]
+        var msgID = evt.d.id;
+        var howdyArgs = [bot, chID, msgID]
         for (var i = 0; i < 100; i++) {
             setTimeout(function() {
-                msgNo = i % 3;
-                bot.editMessage({channelID: chID, messageID: msgID, message:howdyMsgs[msgNo]});
-            }, i * 200);
+                var howdyMsgs = [':thumbsup:          :cowboy:\n   :eggplant::zzz::necktie::eggplant:\n               :oil:    :eggplant:\n               :zap:8==:punch:D:sweat_drops:\n           :carrot:  :eggplant:\n           :boot:     :boot:',':thumbsup:          :cowboy:\n   :eggplant::zzz::necktie::eggplant:\n               :oil:    :nose:\n               :zap:8=:punch:=D:sweat_drops:\n           :carrot:  :eggplant:                  :sweat_drops:\n           :boot:     :boot:',':thumbsup:          :cowboy:\n   :eggplant::zzz::necktie::nose:\n               :oil:  :nose:\n               :zap:8:punch:==D:sweat_drops:\n           :carrot:  :eggplant:                  :sweat_drops:\n           :boot:     :boot:                   :sweat_drops:',':thumbsup:          :cowboy:\n   :eggplant::zzz::necktie::eggplant:\n               :oil:    :nose:\n               :zap:8=:punch:=D:sweat_drops:\n           :carrot:  :eggplant:                  :sweat_drops:\n           :boot:     :boot:'];
+                var msgNo = i % 4;
+                var msg = howdyMsgs[msgNo];
+                howdyArgs[0].editMessage({channelID: howdyArgs[1], messageID: howdyArgs[2], message:msg});
+            }, i * 500, howdyArgs);
+        }
+    }
+    //Hvis botten har sendt en melding og skal oppdatere den:
+    else if (message.startsWith('howdy') && userID == bot.id) {
+        var msgID = evt.d.id;
+        var howdyMsgs = [':thumbsup:          :cowboy:\n   :eggplant::zzz::necktie::eggplant:\n               :oil:    :eggplant:\n               :zap:8==:punch:D:sweat_drops:\n           :carrot:  :eggplant:\n           :boot:     :boot:',':thumbsup:          :cowboy:\n   :eggplant::zzz::necktie::eggplant:\n               :oil:    :nose:\n               :zap:8=:punch:=D:sweat_drops:\n           :carrot:  :eggplant:                  :sweat_drops:\n           :boot:     :boot:',':thumbsup:          :cowboy:\n   :eggplant::zzz::necktie::nose:\n               :oil:  :nose:\n               :zap:8:punch:==D:sweat_drops:\n           :carrot:  :eggplant:                  :sweat_drops:\n           :boot:     :boot:                   :sweat_drops:',':thumbsup:          :cowboy:\n   :eggplant::zzz::necktie::eggplant:\n               :oil:    :nose:\n               :zap:8=:punch:=D:sweat_drops:\n           :carrot:  :eggplant:                  :sweat_drops:\n           :boot:     :boot:'];
+        for (var i = 0; i < 50; i++) {
+            var msgNo = i % 4;
+            var msg = howdyMsgs[msgNo];
+            setTimeout(function(bot, chID, msgID, msg) {
+                bot.editMessage({channelID: chID, messageID: msgID, message: msg});
+            }, i * 500, bot, chID, msgID, msg);
         }
     }
 
@@ -101,7 +115,7 @@ bot.on('message', function (user, userID, chID, message, evt) {
         }
         var nynorsk = '# Offentleg Samferdselsbodskap frå Språkrådet #';
         for (var i = 0; i < args.length; i++) {
-            switch (args[i].toLowerCase().replace(/[-,._'^*"()[\]{}]/g, '')) {
+            switch (args[i].toLowerCase().replace(/[-,._'^*'()[\]{}]/g, '')) {
                 case 'korkje':
                     nynorsk += '\nkorkje = hverken';
                     break;
@@ -128,7 +142,7 @@ bot.on('message', function (user, userID, chID, message, evt) {
                     break;
                 case 'kvensleis':
                 case 'kvenleis':
-                    nynorsk += '\n' + args[i].toLowerCase().replace(/[-,._'^*"()[\]{}]/g, '') + ' = hva / hvem / når / hvor / hvorfor / hvordan';
+                    nynorsk += '\n' + args[i].toLowerCase().replace(/[-,._'^*'()[\]{}]/g, '') + ' = hva / hvem / når / hvor / hvorfor / hvordan';
                     break;
                 case '@everyone':
                     nynorsk = '';
