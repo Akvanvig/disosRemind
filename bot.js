@@ -42,6 +42,7 @@ bot.on('ready', function (evt) {
     logger.info('Logged in as: ');
     logger.info(bot.username + ' - (' + bot.id + ')');
 });
+
 bot.on('message', function (user, userID, chID, message, evt) {
     try {
         var serverID = bot.channels[chID].guild_id;
@@ -69,6 +70,14 @@ bot.on('message', function (user, userID, chID, message, evt) {
             bot.sendMessage({ to: chID, message: 'error.exe launched - failed to execute order 66' });
         }
 
+    }
+    //Hvis botten har sendt en melding og skal oppdatere den:
+    else if (message.substring(0,5) == 'howdy' && userID == bot.id) {
+        msgID = evt.d.id;
+        howdyMsgs = [":thumbsup:          :cowboy:\n   :eggplant::zzz::necktie::eggplant:\n               :oil:    :eggplant:\n               :zap:8==:punch:D:sweat_drops:\n           :carrot:  :eggplant:\n           :boot:     :boot:",":thumbsup:          :cowboy:\n   :eggplant::zzz::necktie::eggplant:\n               :oil:    :nose:\n               :zap:8=:punch:=D:sweat_drops:\n           :carrot:  :eggplant:                  :sweat_drops:\n           :boot:     :boot:",":thumbsup:          :cowboy:\n   :eggplant::zzz::necktie::nose:\n               :oil:  :nose:\n               :zap:8:punch:==D:sweat_drops:\n           :carrot:  :eggplant:                  :sweat_drops:\n           :boot:     :boot:                   :sweat_drops:"]
+        for (var i = 0; i < 100; i++) {
+          bot.editMessage({channelID: chID, messageID: msgID, message:howdyMsgs[i%3]})
+        }
     }
 
     for (var i = 0; i < roblxActive.length; i++) {
