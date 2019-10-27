@@ -74,6 +74,7 @@ bot.on('message', function (user, userID, chID, message, evt) {
     }
     //Hvis botten har sendt en melding og skal oppdatere den:
     else if (message.substring(0,1) == "^") {
+        var messageID = evt.d.id;
         meldingsAnimasjon.handleAnimation(bot, messageID, chID, message, funk.animateMessage)
     }
     /*
