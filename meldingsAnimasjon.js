@@ -2,12 +2,12 @@
 
 module.exports = {
     handleAnimation: function(bot, messageID, channelID, message, animateMessage) {
-        var args = message.substring(1).split
+        var args = message.substring(1).split(' ');
         switch (args[0].toLowerCase()) {
             case 'howdy':
                 module.exports.howdy(bot, messageID, channelID, animateMessage);
                 break;
-            case 'howdysplurt'
+            case 'howdysplurt':
                 module.exports.howdySplurt(bot, messageID, channelID, animateMessage);
                 break;
         }
