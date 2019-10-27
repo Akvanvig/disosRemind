@@ -8,7 +8,8 @@ var funk = require('./funksjoner.js');
 var kommando = require('./kommandoer.js');
 var lyder = require('./lyder.js');
 var konvert = require('./konverteringer.js');
-var Role = require('./Role.js');
+//var Role = require('./Role.js');
+var meldingsAnimasjon = require('./meldingsAnimasjon.js');
 var reminders = [];
 var roblxActive = [];
 var checkReminders = setInterval(function() { reminders = funk.checkLastReminder(reminders, bot, logger); }, 1000); //Sjekker hvert sekund om noen påminnelser må gjennomføres
@@ -72,19 +73,10 @@ bot.on('message', function (user, userID, chID, message, evt) {
 
     }
     //Hvis botten har sendt en melding og skal oppdatere den:
-    else if (message.startsWith('howdy') && userID == bot.id) {
-        var msgID = evt.d.id;
-        var howdyArgs = [bot, chID, msgID]
-        for (var i = 0; i < 100; i++) {
-            setTimeout(function() {
-                var howdyMsgs = [':thumbsup:          :cowboy:\n   :eggplant::zzz::necktie::eggplant:\n               :oil:    :eggplant:\n               :zap:8==:punch:D:sweat_drops:\n           :carrot:  :eggplant:\n           :boot:     :boot:',':thumbsup:          :cowboy:\n   :eggplant::zzz::necktie::eggplant:\n               :oil:    :nose:\n               :zap:8=:punch:=D:sweat_drops:\n           :carrot:  :eggplant:                  :sweat_drops:\n           :boot:     :boot:',':thumbsup:          :cowboy:\n   :eggplant::zzz::necktie::nose:\n               :oil:  :nose:\n               :zap:8:punch:==D:sweat_drops:\n           :carrot:  :eggplant:                  :sweat_drops:\n           :boot:     :boot:                   :sweat_drops:',':thumbsup:          :cowboy:\n   :eggplant::zzz::necktie::eggplant:\n               :oil:    :nose:\n               :zap:8=:punch:=D:sweat_drops:\n           :carrot:  :eggplant:                  :sweat_drops:\n           :boot:     :boot:'];
-                var msgNo = i % 4;
-                var msg = howdyMsgs[msgNo];
-                howdyArgs[0].editMessage({channelID: howdyArgs[1], messageID: howdyArgs[2], message:msg});
-            }, i * 500, howdyArgs);
-        }
+    else if (message.substring(0,1) == "^" {
+        meldingsAnimasjon.handleAnimation(bot, messageID, chID, message, funk.animateMessage)
     }
-    //Hvis botten har sendt en melding og skal oppdatere den:
+    /*
     else if (message.startsWith('howdy') && userID == bot.id) {
         var msgID = evt.d.id;
         var howdyMsgs = [':thumbsup:          :cowboy:\n   :eggplant::zzz::necktie::eggplant:\n               :oil:    :eggplant:\n               :zap:8==:punch:D:sweat_drops:\n           :carrot:  :eggplant:\n           :boot:     :boot:',':thumbsup:          :cowboy:\n   :eggplant::zzz::necktie::eggplant:\n               :oil:    :nose:\n               :zap:8=:punch:=D:sweat_drops:\n           :carrot:  :eggplant:                  :sweat_drops:\n           :boot:     :boot:',':thumbsup:          :cowboy:\n   :eggplant::zzz::necktie::nose:\n               :oil:  :nose:\n               :zap:8:punch:==D:sweat_drops:\n           :carrot:  :eggplant:                  :sweat_drops:\n           :boot:     :boot:                   :sweat_drops:',':thumbsup:          :cowboy:\n   :eggplant::zzz::necktie::eggplant:\n               :oil:    :nose:\n               :zap:8=:punch:=D:sweat_drops:\n           :carrot:  :eggplant:                  :sweat_drops:\n           :boot:     :boot:'];
@@ -95,7 +87,7 @@ bot.on('message', function (user, userID, chID, message, evt) {
                 bot.editMessage({channelID: chID, messageID: msgID, message: msg});
             }, i * 500, bot, chID, msgID, msg);
         }
-    }
+    }*/
 
     for (var i = 0; i < roblxActive.length; i++) {
         if (roblxActive[0][i] == chID && userID != bot.id) {

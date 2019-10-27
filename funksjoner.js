@@ -320,6 +320,17 @@ module.exports = {
             }
             callbackReminder(result);
         });
+    },
+
+    animateMessage: function(bot, messages, messageID, channelID, numLoops, updateTime) {
+      for (var i = 0; i < numLoops; i++) {
+          for (var j = 0; j < messages.length; j++) {
+              var message = messages[j];
+              setTimeout(function(bot, channelID, messageID, message) {
+                  bot.editMessage({channelID: channelID, messageID: messageID, message: message});
+              }, ((i*messages.length)+j)*updateTime, bot, channelID, messageID, message)
+          }
+      }
     }
 }
 //Veldig nra Anders! :)
