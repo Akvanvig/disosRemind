@@ -24,7 +24,7 @@ module.exports = {
                     if (h >= 24) {
                         d = (h - (h % 24)) / 24;
                         h = h - (24 * d);
-                        if (y >= 365) {
+                        if (d >= 365) {
                             y = (d - (d % 365)) / 365;
                             d = d - (365 * y);
                         }
@@ -318,8 +318,8 @@ module.exports = {
                     result.push(temp);
                 }
             }
-            callbackReminder(result);
         });
+        callbackReminder(result);
     },
 
     animateMessage: function(bot, messages, messageID, channelID, numLoops, updateTime) {

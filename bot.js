@@ -3,12 +3,10 @@
 var Discord = require('discord.io');
 var logger = require('winston');
 var auth = require('./auth.json');
-//var authYT = require('./auth-yt.json');
 var funk = require('./funksjoner.js');
 var kommando = require('./kommandoer.js');
 var lyder = require('./lyder.js');
 var konvert = require('./konverteringer.js');
-//var Role = require('./Role.js');
 var meldingsAnimasjon = require('./meldingsAnimasjon.js');
 var reminders = [];
 var roblxActive = [];
@@ -30,10 +28,8 @@ bot.on('ready', function (evt) {
     logger.info('Connected');
     try {
         funk.readReminders(logger, function(remindere) {
-            for (var i = 0; i < remindere.length; i++) {
-                reminders.push(remindere[i]);
-                logger.info('Antall lagrede påminnelser: ' + remindere.length);
-            }
+            logger.info('Antall lagrede påminnelser: ' + remindere.length);
+            reminders = remindere;
         });
 
     } catch (e) {
@@ -77,18 +73,6 @@ bot.on('message', function (user, userID, chID, message, evt) {
         var messageID = evt.d.id;
         meldingsAnimasjon.handleAnimation(bot, messageID, chID, message, funk.animateMessage)
     }
-    /*
-    else if (message.startsWith('howdy') && userID == bot.id) {
-        var msgID = evt.d.id;
-        var howdyMsgs = [':thumbsup:          :cowboy:\n   :eggplant::zzz::necktie::eggplant:\n               :oil:    :eggplant:\n               :zap:8==:punch:D:sweat_drops:\n           :carrot:  :eggplant:\n           :boot:     :boot:',':thumbsup:          :cowboy:\n   :eggplant::zzz::necktie::eggplant:\n               :oil:    :nose:\n               :zap:8=:punch:=D:sweat_drops:\n           :carrot:  :eggplant:                  :sweat_drops:\n           :boot:     :boot:',':thumbsup:          :cowboy:\n   :eggplant::zzz::necktie::nose:\n               :oil:  :nose:\n               :zap:8:punch:==D:sweat_drops:\n           :carrot:  :eggplant:                  :sweat_drops:\n           :boot:     :boot:                   :sweat_drops:',':thumbsup:          :cowboy:\n   :eggplant::zzz::necktie::eggplant:\n               :oil:    :nose:\n               :zap:8=:punch:=D:sweat_drops:\n           :carrot:  :eggplant:                  :sweat_drops:\n           :boot:     :boot:'];
-        for (var i = 0; i < 50; i++) {
-            var msgNo = i % 4;
-            var msg = howdyMsgs[msgNo];
-            setTimeout(function(bot, chID, msgID, msg) {
-                bot.editMessage({channelID: chID, messageID: msgID, message: msg});
-            }, i * 500, bot, chID, msgID, msg);
-        }
-    }*/
 
     for (var i = 0; i < roblxActive.length; i++) {
         if (roblxActive[0][i] == chID && userID != bot.id) {

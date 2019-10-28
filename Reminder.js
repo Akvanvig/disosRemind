@@ -1,4 +1,3 @@
-//var funk = require('./funksjoner.js');
 
 module.exports = class Reminder {
     //Takes in time for alarm, userID that requested reminder, channelID it was requested in and text requested
@@ -39,7 +38,7 @@ module.exports = class Reminder {
                     if (h >= 24) {
                         d = (h - (h % 24)) / 24;
                         h = h - (24 * d);
-                        if (y >= 365) {
+                        if (d >= 365) {
                             y = (d - (d % 365)) / 365;
                             d = d - (365 * y);
                         }
