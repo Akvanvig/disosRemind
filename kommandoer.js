@@ -67,23 +67,23 @@ module.exports = {
                 break;
 
             case 'reminders':
-                var tekst = '\t User ID: \t\t\t\t\t\t\t\t Remaining time:\n';
+                var tekst = '\t User ID: \t\t\t\t\t\t\t\t\t\t\t Remaining time:\n';
                 tekst += '```\n'
                 var numNotPrinted = 0;
                 for (var i = reminders.length-1; i >= 0 ; i--) {
                     if (tekst.length < 1800) {
-                        tekst += ' ' + reminders[i].userID + ' \t ' + reminders[i].remainingTime + ' \t ' + reminders[i].reqText + '\n';
+                        tekst += `${reminders[i].userID} \t${(reminders[i].remainingTime).padEnd(45, ' ')} \t ${reminders[i].reqText} \n`;
                     } else {
                         numNotPrinted += 1;
                     }
                 }
-                tekst += '```\n';
+                tekst += '```';
                 if (numNotPrinted != 0) {
-                    tekst += "And {0} more!".format(numNotPrinted);
+                    tekst += `And ${numNotPrinted} more!`;
                 }
                 bot.sendMessage({ to: channelID, message: tekst })
                 break;
-
+7800 år, 17 dager, 18 timer, 46 min, 39 sek.
             case 'tag':
                 bot.sendMessage({ to: channelID, message: '<@!' + userID + '>' });
                 break;
