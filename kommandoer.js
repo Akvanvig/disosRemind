@@ -67,14 +67,16 @@ module.exports = {
                 break;
 
             case 'reminders':
-                var tekst = '\t User ID: \t\t\t\t\t\t\t\t\t\t\t Remaining time:\n';
-                tekst += '```\n'
+                var tekst = '\t User ID:                                          Remaining time:\n';
+                tekst += '```\n';
                 var numNotPrinted = 0;
                 for (var i = reminders.length-1; i >= 0 ; i--) {
-                    if (tekst.length < 1800) {
-                        tekst += `${reminders[i].userID} \t${(reminders[i].remainingTime).padEnd(45, ' ')} \t ${reminders[i].reqText} \n`;
-                    } else {
-                        numNotPrinted += 1;
+                    if (reminders[i].channelID == channelID) {
+                        if (tekst.length < 1800) {
+                            tekst += `${reminders[i].userID}          ${(reminders[i].remainingTime).padEnd(45, ' ')} ${reminders[i].reqText} \n`;
+                        } else {
+                            numNotPrinted += 1;
+                        }
                     }
                 }
                 tekst += '```';
@@ -83,7 +85,24 @@ module.exports = {
                 }
                 bot.sendMessage({ to: channelID, message: tekst })
                 break;
-7800 år, 17 dager, 18 timer, 46 min, 39 sek.
+
+            case 'allreminders':
+                var tekst = '\t User ID:                                          Remaining time:\n';
+                tekst += '```';
+                textList = [];
+                for (var i = reminders.length-1; i >= 0 ; i--) {
+                    if (tekst.length < 1800) {
+                        tekst += `\n${reminders[i].userID}          ${(reminders[i].remainingTime).padEnd(45, ' ')} ${reminders[i].reqText} `;
+                    } else {
+                        textList.push(tekst);
+                        tekst = `${reminders[i].userID}          ${(reminders[i].remainingTime).padEnd(45, ' ')} ${reminders[i].reqText} `;
+                    }
+                }
+                for (var i = 0; i < textList.length; i++) {
+                    setTimeout(function(bot, channelID, messageID, message) {
+                        bot.sendMessage({ to: channelID, message: tekst });
+                    }, (250*i, bot, channelID, messageID, message))
+                }
             case 'tag':
                 bot.sendMessage({ to: channelID, message: '<@!' + userID + '>' });
                 break;
