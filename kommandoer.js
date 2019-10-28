@@ -98,11 +98,13 @@ module.exports = {
                         tekst = `${reminders[i].userID}          ${(reminders[i].remainingTime).padEnd(45, ' ')} ${reminders[i].reqText} `;
                     }
                 }
+                tekst += '\n```';
+                textList.push(tekst);
                 for (var i = 0; i < textList.length; i++) {
-                    setTimeout(function(bot, channelID, messageID, message) {
-                        bot.sendMessage({ to: channelID, message: tekst });
-                    }, (250*i, bot, channelID, messageID, message))
+                    bot.sendMessage({ to: channelID, message: textList[i] });
                 }
+                break;
+
             case 'tag':
                 bot.sendMessage({ to: channelID, message: '<@!' + userID + '>' });
                 break;
