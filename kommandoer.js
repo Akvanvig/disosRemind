@@ -72,8 +72,9 @@ module.exports = {
                 var numNotPrinted = 0;
                 for (var i = reminders.length-1; i >= 0 ; i--) {
                     if (reminders[i].channelID == channelID) {
-                        if (tekst.length < 1800) {
-                            tekst += `${reminders[i].userID}          ${(reminders[i].remainingTime).padEnd(45, ' ')} ${reminders[i].reqText} \n`;
+                        var tempStr = `${reminders[i].userID}          ${(reminders[i].remainingTime).padEnd(45, ' ')} ${reminders[i].reqText} \n`
+                        if (tekst.length + tempStr.length < 1950) {
+                            tekst += tempStr;
                         } else {
                             numNotPrinted += 1;
                         }
@@ -87,18 +88,19 @@ module.exports = {
                 break;
 
             case 'allreminders':
-                var tekst = '\t User ID:                                          Remaining time:\n';
+                var tekst = '\t User ID:                                              Remaining time:\n';
                 tekst += '```';
                 textList = [];
                 for (var i = reminders.length-1; i >= 0 ; i--) {
                     if (reminders[i].channelID == channelID) {
-                        if (tekst.length < 1800) {
-                            tekst += `\n${reminders[i].userID}          ${(reminders[i].remainingTime).padEnd(45, ' ')} ${reminders[i].reqText} `;
+                        var tempStr = `${reminders[i].userID}          ${(reminders[i].remainingTime).padEnd(45, ' ')} ${reminders[i].reqText} \n`
+                        if (tekst.length + tempStr.length < 1950) {
+                            tekst += tempStr;
                         } else {
                             tekst += '```';
                             textList.push(tekst);
                             tekst = '```';
-                            tekst += `\n${reminders[i].userID}          ${(reminders[i].remainingTime).padEnd(45, ' ')} ${reminders[i].reqText} `;
+                            tekst += `\n${tempStr}`;
                         }
                     }
                 }
