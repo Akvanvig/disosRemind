@@ -69,7 +69,7 @@ module.exports = {
             case 'reminders':
                 //var tekst = '\t User ID:                                          Remaining time:\n';
                 //tekst += '```\n';
-                var tekst = `\`\`\`\n${'User ID:'.padEnd(25, ' ')}${'Remaining Time:'.padEnd(45, ' ')}${'Message:'}`;
+                var tekst = `\`\`\`\n${'User ID:'.padEnd(25, ' ')}${'Remaining Time:'.padEnd(45, ' ')}${'Message:'}\n`;
                 var numNotPrinted = 0;
                 for (var i = reminders.length-1; i >= 0 ; i--) {
                     if (reminders[i].channelID == channelID) {
@@ -89,7 +89,7 @@ module.exports = {
                 break;
 
             case 'allreminders':
-                var tekst = `\`\`\`\t${'User ID:'.padEnd(25, ' ')}${'Remaining Time:'.padEnd(45, ' ')}${'Message:'}`;
+                var tekst = `\`\`\`\t${'User ID:'.padEnd(25, ' ')}${'Remaining Time:'.padEnd(45, ' ')}${'Message:'}\n`;
                 textList = [];
                 for (var i = reminders.length-1; i >= 0 ; i--) {
                     if (reminders[i].channelID == channelID) {
