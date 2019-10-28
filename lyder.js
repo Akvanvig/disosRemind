@@ -1,5 +1,5 @@
 var funk = require('./funksjoner.js');
-var Player = require('./Player.js');
+//var Player = require('./Player.js');
 var sid = './media/InitialD/';  //Sti Initial D
 var smr = './media/mumbleRap/';
 var sh = './media/heismusikk/'; //Sti Heismusikk
@@ -76,7 +76,7 @@ module.exports = {
             case 'skjerpings':
                 funk.playAudio(vcID, './media/skjerpings.mp3', bot);
                 break;
-                
+
             case 'classical':
                 funk.playAudio(vcID, './media/classical.mp3', bot);
                 break;

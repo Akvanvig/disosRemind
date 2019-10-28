@@ -310,6 +310,7 @@ module.exports = {
         fs.readFile('./filer/reminders.json', 'utf8', function readFileCallback(err, data){
             if (err){
                 console.log(err);
+                callbackReminder(result);
             } else {
                 var obj = JSON.parse(data);
                 for (var i = 0; i < obj.length; i++) {
@@ -318,8 +319,9 @@ module.exports = {
                     result.push(temp);
                 }
             }
+            callbackReminder(result);
         });
-        callbackReminder(result);
+
     },
 
     animateMessage: function(bot, messages, messageID, channelID, numLoops, updateTime) {
