@@ -91,13 +91,15 @@ module.exports = {
                 tekst += '```';
                 textList = [];
                 for (var i = reminders.length-1; i >= 0 ; i--) {
-                    if (tekst.length < 1800) {
-                        tekst += `\n${reminders[i].userID}          ${(reminders[i].remainingTime).padEnd(45, ' ')} ${reminders[i].reqText} `;
-                    } else {
-                        tekst += '```';
-                        textList.push(tekst);
-                        tekst = '```';
-                        tekst += `\n${reminders[i].userID}          ${(reminders[i].remainingTime).padEnd(45, ' ')} ${reminders[i].reqText} `;
+                    if (reminders[i].channelID == channelID) {
+                        if (tekst.length < 1800) {
+                            tekst += `\n${reminders[i].userID}          ${(reminders[i].remainingTime).padEnd(45, ' ')} ${reminders[i].reqText} `;
+                        } else {
+                            tekst += '```';
+                            textList.push(tekst);
+                            tekst = '```';
+                            tekst += `\n${reminders[i].userID}          ${(reminders[i].remainingTime).padEnd(45, ' ')} ${reminders[i].reqText} `;
+                        }
                     }
                 }
                 tekst += '\n```';
