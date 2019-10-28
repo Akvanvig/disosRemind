@@ -67,8 +67,9 @@ module.exports = {
                 break;
 
             case 'reminders':
-                var tekst = '\t User ID:                                          Remaining time:\n';
-                tekst += '```\n';
+                //var tekst = '\t User ID:                                          Remaining time:\n';
+                //tekst += '```\n';
+                var tekst = `\`\`\`\n${'User ID:'.padEnd(25, ' ')}${'Remaining Time:'.padEnd(45, ' ')}${'Message:'}`;
                 var numNotPrinted = 0;
                 for (var i = reminders.length-1; i >= 0 ; i--) {
                     if (reminders[i].channelID == channelID) {
@@ -88,12 +89,11 @@ module.exports = {
                 break;
 
             case 'allreminders':
-                var tekst = '\t User ID:                                              Remaining time:\n';
-                tekst += '```';
+                var tekst = `\`\`\`\t${'User ID:'.padEnd(25, ' ')}${'Remaining Time:'.padEnd(45, ' ')}${'Message:'}`;
                 textList = [];
                 for (var i = reminders.length-1; i >= 0 ; i--) {
                     if (reminders[i].channelID == channelID) {
-                        var tempStr = `${reminders[i].userID}          ${(reminders[i].remainingTime).padEnd(45, ' ')} ${reminders[i].reqText} \n`
+                        var tempStr = `${(reminders[i].userID).padEnd(25, ' ')}${(reminders[i].remainingTime).padEnd(45, ' ')} ${reminders[i].reqText} \n`
                         if (tekst.length + tempStr.length < 1950) {
                             tekst += tempStr;
                         } else {
@@ -111,7 +111,6 @@ module.exports = {
                         bot.sendMessage({ to: channelID, message: message });
                     }, (500*i), bot, channelID, textList[i]);
                 }
-
                 break;
 
             case 'tag':
