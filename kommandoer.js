@@ -103,8 +103,11 @@ module.exports = {
                 tekst += '\n```';
                 textList.push(tekst);
                 for (var i = 0; i < textList.length; i++) {
-                    bot.sendMessage({ to: channelID, message: textList[i] });
+                    setTimeout(function(bot, channelID, message){
+                        bot.sendMessage({ to: channelID, message: message });
+                    }, (500*i), bot, channelID, textList[i]);
                 }
+
                 break;
 
             case 'tag':
