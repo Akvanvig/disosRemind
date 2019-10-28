@@ -94,8 +94,10 @@ module.exports = {
                     if (tekst.length < 1800) {
                         tekst += `\n${reminders[i].userID}          ${(reminders[i].remainingTime).padEnd(45, ' ')} ${reminders[i].reqText} `;
                     } else {
+                        tekst += '```';
                         textList.push(tekst);
-                        tekst = `${reminders[i].userID}          ${(reminders[i].remainingTime).padEnd(45, ' ')} ${reminders[i].reqText} `;
+                        tekst = '```';
+                        tekst += `\n${reminders[i].userID}          ${(reminders[i].remainingTime).padEnd(45, ' ')} ${reminders[i].reqText} `;
                     }
                 }
                 tekst += '\n```';
