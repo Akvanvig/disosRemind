@@ -67,9 +67,19 @@ module.exports = {
                 break;
 
             case 'reminders':
-                var tekst = '\t User ID: \t\t\t\t\t\t\t\t Remaining time:\n'
-                for (var i = 0; i < reminders.length; i++) {
-                    tekst += ' ' + reminders[i].userID + ' \t ' + reminders[i].remainingTime + ' \t ' + reminders[i].reqText + '\n';
+                var tekst = '\t User ID: \t\t\t\t\t\t\t\t Remaining time:\n';
+                tekst += '```\n'
+                var numNotPrinted = 0;
+                for (var i = reminders.length-1; i >= 0 ; i--) {
+                    if (tekst.length < 1800) {
+                        tekst += ' ' + reminders[i].userID + ' \t ' + reminders[i].remainingTime + ' \t ' + reminders[i].reqText + '\n';
+                    } else {
+                        numNotPrinted += 1;
+                    }
+                }
+                tekst += '```\n';
+                if (numNotPrinted != 0) {
+                    tekst += "And {0} more!".format(numNotPrinted);
                 }
                 bot.sendMessage({ to: channelID, message: tekst })
                 break;
