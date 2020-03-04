@@ -14,18 +14,24 @@ var morse = {
         };
 
 module.exports = {
-    kommando: function (user, userID, channelID, message, serverID, bot, logger, reminders, roblxActive, startupTime, evt) {
+    kommando: function (user, userID, channelID, message, serverID, bot, logger, reminders, roblxActive, startupTime, messageCode, evt) {
         var args = message.substring(1).split(' ');
         var cmd = args[0];
         args = args.splice(1);
         switch (cmd.toLowerCase()) {
 
             case 'ping':
-                var msgID = evt.d.id;
-                var timeSent = (msgID / 4194304) + 1420070400000;
-                var timePassed = + (new Date()).getTime() - timeSent;
-                bot.sendMessage({ to: channelID, message: 'Pong? ping: ' + timePassed + ' ms' });
+                //var msgID = evt.d.id;
+                //var timeSent = (msgID / 4194304) + 1420070400000;
+                //var timePassed = + (new Date()).getTime() - timeSent;
+                //bot.sendMessage({ to: channelID, message: 'Pong? ping: ' + timePassed + ' ms' });
+                var code = Math.floor(Math.random() * 100000);
+                messageCode[code] = new Date()).getTime();
+                bot.sendMessage({ to: channelID, message: 'Pong? ' + code });
                 break;
+
+            case 'pong':
+                bot.sendMessage({ to: channelID, message: 'Ping?' });
 
             case 'remindme':
                 var text = '';
@@ -344,7 +350,8 @@ module.exports = {
             case 'howdysplurt':
                 bot.sendMessage({to: channelID, message: '^howdySplurt'});
                 break;
-            default:
+            case 'help':
+            case 'hjelp':
                 var tekst = '```Commands: ';
                 tekst += '\n\nPing:';
                 tekst += '\n\t\tPong?';
@@ -375,7 +382,11 @@ module.exports = {
                 tekst += '\n\nlesEveryone';
                 tekst += '```';
                 bot.sendMessage({ to: channelID, message: tekst });
+                break;
+            default:
+                var tekst = "For available commands, use \n\t ```?help```";
+                bot.sendMessage({ to: channelID, message: tekst });
         }
-        return [reminders, roblxActive];
+        return [reminders, roblxActive, messageCode];
     }
 }

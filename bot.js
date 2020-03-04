@@ -10,6 +10,7 @@ var konvert = require('./konverteringer.js');
 var meldingsAnimasjon = require('./meldingsAnimasjon.js');
 var reminders = [];
 var roblxActive = [];
+var messageCode = {};
 var checkReminders = setInterval(function() { reminders = funk.checkLastReminder(reminders, bot, logger); }, 1000); //Sjekker hvert sekund om noen påminnelser må gjennomføres
 var checkActive = setInterval(function() { funk.checkActive(bot, logger)}, 1800000); //Hver halvtime skrives det til logg om bot er aktiv
 var checkRoblx = setInterval(function() { roblxActive = funk.checkroblx(bot, roblxActive) }, 5000);
@@ -52,15 +53,16 @@ bot.on('message', function (user, userID, chID, message, evt) {
     //Diverse kommandoer
     if (message.substring(0, 1) == '?' && userID != bot.id) {
         try {
-            res = kommando.kommando(user, userID, chID, message, serverID, bot, logger, reminders, roblxActive, startupTime, evt);
+            res = kommando.kommando(user, userID, chID, message, serverID, bot, logger, reminders, roblxActive, startupTime, messageCode, evt);
             reminders = res[0];
             roblxActive = res[1];
+            messageCode = res[2];
         } catch (e) {
             bot.sendMessage({ to: chID, message: e });
         }
     }
     //Hvis lyder skal spilles av
-    else if (message.substring(0, 1) == '+') {
+    else if (message.substring(0, 1) == '+' && userID != bot.id) {
         try {
             lyder.lyder(user, userID, chID, message, serverID, bot, logger);
         } catch (e) {
@@ -69,9 +71,15 @@ bot.on('message', function (user, userID, chID, message, evt) {
 
     }
     //Hvis botten har sendt en melding og skal oppdatere den:
-    else if (message.substring(0,1) == "^") {
+    else if (message.substring(0,1) == "^" && userID == bot.id) {
         var messageID = evt.d.id;
         meldingsAnimasjon.handleAnimation(bot, messageID, chID, message, funk.animateMessage)
+    }
+
+    else if (message.substring(0,6) == "Pong? " && userID == bot.id) {
+      var code = message.substring(6);
+      var newTime = new Date()).getTime();
+      bot.editMessage({channelID: channelID, messageID: evt.d.id, message: "Pong? " + ((Math.ceil(messageCode[code] - newTime)) / 1000) + " sec"});
     }
 
     for (var i = 0; i < roblxActive.length; i++) {
