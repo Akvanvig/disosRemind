@@ -26,13 +26,14 @@ module.exports = {
                 //var timePassed = + (new Date()).getTime() - timeSent;
                 //bot.sendMessage({ to: channelID, message: 'Pong? ping: ' + timePassed + ' ms' });
                 var code = Math.floor(Math.random() * 100000);
-                messageCode[code] = new Date()).getTime();
+                messageCode[code] = (new Date()).getTime();
                 bot.sendMessage({ to: channelID, message: 'Pong? ' + code });
                 break;
 
             case 'pong':
                 bot.sendMessage({ to: channelID, message: 'Ping?' });
-
+                break;
+                
             case 'remindme':
                 var text = '';
                 if (args.length > 1) {
@@ -354,7 +355,7 @@ module.exports = {
             case 'hjelp':
                 var tekst = '```Commands: ';
                 tekst += '\n\nPing:';
-                tekst += '\n\t\tPong?';
+                tekst += '\n\t\tSjekker tiden fra boten sender en melding til den mottar den fra Discord';
                 tekst += '\n\nRemindMe:';
                 tekst += '\n\t\t?RemindMe [positiv integer antall minutt] [Eventuell tekst du \u00f8nsker \u00e5 motta]';
                 tekst += '\n\nGrandis:';

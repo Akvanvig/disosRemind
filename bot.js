@@ -78,8 +78,8 @@ bot.on('message', function (user, userID, chID, message, evt) {
 
     else if (message.substring(0,6) == "Pong? " && userID == bot.id) {
       var code = message.substring(6);
-      var newTime = new Date()).getTime();
-      bot.editMessage({channelID: channelID, messageID: evt.d.id, message: "Pong? " + ((Math.ceil(messageCode[code] - newTime)) / 1000) + " sec"});
+      var newTime = (new Date()).getTime();
+      bot.editMessage({channelID: chID, messageID: evt.d.id, message: "Pong? " + ((Math.ceil(newTime - messageCode[code])) / 1000) + " sec"});
     }
 
     for (var i = 0; i < roblxActive.length; i++) {
