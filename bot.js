@@ -101,6 +101,9 @@ bot.on('message', function (user, userID, chID, message, evt) {
         var nynorsk = '# Offentleg Samferdselsbodskap frå Språkrådet #';
         for (var i = 0; i < args.length; i++) {
             switch (args[i].toLowerCase().replace(/[-,._'^*'()[\]{}]/g, '')) {
+				case 'vekje':
+					nynorsk += '\nvekje = veit ikkje';
+					break;
                 case 'korkje':
                     nynorsk += '\nkorkje = hverken';
                     break;
