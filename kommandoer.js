@@ -2,6 +2,8 @@ var funk = require('./funksjoner.js');
 var Reminder = require('./Reminder.js');
 var ps = require('python-shell');
 
+// TODO: ADD ADMIN COMMANDO FOR GIVING ADMIN ROLE
+
 var morse = {
             'A': '.-', 'B': '-...','C': '-.-.', 'D': '-..','E': '.','F': '..-.','G': '--.','H': '....',
             'I': '..', 'J': '.---','K': '-.-', 'L': '.-..','M': '--','N': '-.','O': '---','P': '.--.',
