@@ -19,7 +19,7 @@ if Sted == '':
     Sted = 'Oslo'
 
 #Variabler
-værEmoji = {
+vær🍆 = {
     "Sun":"\u2600",
     "Cloud":"\u2601",
     "PartlyCloud":"\u26c5",
@@ -115,7 +115,7 @@ def formaterTekst(liste, navn, type):
         if punkt['tid'].hour % 6 == 0:
             #print(punkt)
             a = punkt['symbol']
-            punkt['symbol'] = værEmoji.get(a, "*")
+            punkt['symbol'] = vær🍆.get(a, "*")
             str += "{0:<15} {3:>8}mm \t{1:<5} {2}\u00b0C\n".format(punkt['tid'].strftime("%d/%m %H:%M"), punkt['symbol'] , punkt['grader'], punkt['nedbør'])
     return str
 
